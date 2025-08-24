@@ -6,6 +6,8 @@
 #include <QAudioOutput>
 #include <QLayout>
 
+#include <QWindow>
+
 #include "VideoWidget.h"
 #include "StillPictureWidget.h"
 #include "Fader.h"
@@ -56,8 +58,8 @@ MediaEngineImp::MediaEngineImp( Fader & fader,
 
    QAudioOutput * audioOut = new QAudioOutput( this);
    m_player.setAudioOutput( audioOut);
-   m_player.setVideoOutput( m_videoWidget);
 
+   m_player.setVideoOutput( m_videoWidget);
    m_videoWidget->setFullScreen( true);
 
    connect( & m_player, & QMediaPlayer::errorOccurred, this, & MediaEngineImp::onErrorOccurred );
@@ -83,14 +85,6 @@ MediaEngineImp::~MediaEngineImp()
 {
    delete m_videoWidget;
    delete m_pictureWidget;
-}
-
-
-void MediaEngineImp::checkPlatform()
-{
-#if defined(Q_OS_WIN)
-#elif defined(Q_OS_UNIX)
-#endif
 }
 
 

@@ -46,9 +46,6 @@ public:
    virtual ~IF_MediaEngineInterface() override {}
 
 public slots:
-   /** to be called on startup; check availability of any resource
-    * needed for media capability on local machine (codecs, DLLs, HW, ...) */
-   virtual void checkPlatform() = 0;
    /** select media to be played back */
    virtual void setCurrentSource( const AbstractMediaSource *source, bool dontStopFlag = false ) = 0;
    /** for audio/video: start playback; for images: show */

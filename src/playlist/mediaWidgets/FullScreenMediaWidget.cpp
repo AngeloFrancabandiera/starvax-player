@@ -26,6 +26,13 @@ void FullScreenMediaWidget::attachWidgets(QVideoWidget *videoWidget, StillPictur
    m_pictureWidget = pictureWidget;
    m_videoWidget = videoWidget;
 
+   // _TBD these lines should not be required but, if they are removed,
+   // video in line B does not appare on screen. This is under investigation.
+   m_videoWidget->setParent( m_owner);
+   m_pictureWidget->setParent( m_owner);
+   m_videoWidget->setParent( nullptr);
+   m_pictureWidget->setParent( nullptr);
+
    hideAll();
 }
 

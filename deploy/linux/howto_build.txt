@@ -1,7 +1,7 @@
 
 sudo apt install build-essential
-sudo apt install qt5-default
-sudo apt install libvlc-dev
+sudo apt install qt6-default
+sudo apt install qt6-multimedia-dev
 sudo apt install libusb-1.0-0-dev
 
 qmake CONFIG+=RELEASE ../starvaxplayer-code/MeteorPlayer2.pro

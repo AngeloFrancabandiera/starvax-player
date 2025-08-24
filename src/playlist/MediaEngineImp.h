@@ -32,7 +32,6 @@ public:
    ~MediaEngineImp() override;
 
 public slots:
-   void checkPlatform() override;
    void setCurrentSource( const AbstractMediaSource *source, bool dontStopFlag = false ) override;
    void play() override;
    void pause() override;

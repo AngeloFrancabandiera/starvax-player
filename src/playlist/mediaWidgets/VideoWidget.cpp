@@ -4,6 +4,7 @@
 VideoWidget::VideoWidget(QWidget *parent) :
    QVideoWidget(parent)
 {
+   show();
 }
 
 

@@ -152,9 +152,6 @@ ApplicationFactory::ApplicationFactory()
                                                                                 applicationSettings);
    mediaEngine_B->setVolume( applicationSettings->defaultVolumeLineB());
 
-   /* This is enough for one media engine */
-   mediaEngine_A->checkPlatform();
-
    ActionListController * mediaActionController_A = new ActionListController( *playlistModel_A, this);
 
    MediaAutomation *audioVideoAutomation_A =

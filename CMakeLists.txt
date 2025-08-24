@@ -1,6 +1,6 @@
 # Startvax MeTeOr player
 
-cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
 project(starvax_player VERSION 2.5.0 LANGUAGES C CXX)
 
@@ -13,12 +13,15 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
+if (UNIX)
+   set(CMAKE_PREFIX_PATH "/media/angelo/Windows7_OS/ANGELO/bin/Qt_6.9/6.9.1/gcc_64")
+endif()
 
 add_compile_definitions(
 VERSION_MAJOR="2"
 VERSION_MINOR="5"
 VERSION_BUILD="0"
-VERSION_STAGE="alpha2"
+VERSION_STAGE="alpha3"
 )
 
 add_compile_definitions(
@@ -51,7 +54,7 @@ set(QT_LIBRARIES
 
 
 # Link Qt
-find_package(QT NAMES Qt6 Qt5 COMPONENTS
+find_package(QT NAMES Qt6 COMPONENTS
    Core
    Gui
    Widgets
@@ -73,16 +76,8 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
 
 find_package(usb REQUIRED)
 
+qt_standard_project_setup(REQUIRES 6.9)
 
-list(APPEND OLIVE_LIBRARIES
-  Qt${QT_VERSION_MAJOR}::Core
-  Qt${QT_VERSION_MAJOR}::Gui
-  Qt${QT_VERSION_MAJOR}::Widgets
-  Qt${QT_VERSION_MAJOR}::OpenGL
-  Qt${QT_VERSION_MAJOR}::Network
-  Qt${QT_VERSION_MAJOR}::Multimedia
-  Qt${QT_VERSION_MAJOR}::MultimediaWidgets
-)
 
 set(STARVAX_SOURCES
   ${STARVAX_SOURCES}

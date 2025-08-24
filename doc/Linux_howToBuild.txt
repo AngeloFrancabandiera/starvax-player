@@ -13,4 +13,6 @@ sudo apt-get install libusb-1.0-0-dev
 * Install required libraries for multimedia
 sudo apt-get install libpulse-dev
 
-
+Could not load the Qt platform plugin:
+run the application after setting:  export QT_DEBUG_PLUGINS=1
+This will show what library must be installed to fix the problem; for example: sudo apt install libxcb-cursor-dev
