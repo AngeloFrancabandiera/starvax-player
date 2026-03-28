@@ -76,9 +76,9 @@ QString ShowLoader::selectTargetFile(const QString &filePath) const
 void ShowLoader::loadExistingFile(const QString &fileName)
 {
    QFile showFile(fileName);
-   showFile.open( QIODevice::ReadOnly );
+   bool res = showFile.open( QIODevice::ReadOnly );
 
-   T_ASSERT_REP( showFile.isOpen(),
+   T_ASSERT_REP( (res == true) && (showFile.isOpen()),
                  tr("Unable to open: %1").arg(fileName));
 
    QTextStream stream( &showFile);

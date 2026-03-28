@@ -593,9 +593,9 @@ void HighLightTextViewer::dropFileContent(const QString & filePath)
 {
    QFile file( filePath);
 
-   file.open( QIODevice::ReadOnly);
+   bool res = file.open( QIODevice::ReadOnly);
 
-   if (file.isOpen())
+   if ((res == true) && (file.isOpen()))
    {
       QString suffix = QFileInfo(file).suffix();
 

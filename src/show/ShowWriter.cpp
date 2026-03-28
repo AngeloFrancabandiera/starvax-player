@@ -49,9 +49,9 @@ void ShowWriter::writeShow( IF_ShowGuiInterface &guiInterafce, const QString &fi
 void ShowWriter::writeToFile(const QString &fileName, const QString &content)
 {
    QFile showFile( fileName);
-   showFile.open( QIODevice::WriteOnly );
+   bool res = showFile.open( QIODevice::WriteOnly );
 
-   T_ASSERT_REP (showFile.isOpen(),
+   T_ASSERT_REP ((res == true) && (showFile.isOpen()),
                  QString( tr("Unable to save to file: %1").arg(fileName)));
 
    QTextStream strShow( &showFile );

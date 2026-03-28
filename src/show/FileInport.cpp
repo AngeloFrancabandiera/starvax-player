@@ -75,10 +75,16 @@ bool FileInport::openFile( QString filename )
 QString FileInport::getFileContents(QString filename)
 {
    QFile scriptFile( filename);
-   scriptFile.open( QIODevice::ReadOnly);
-   QTextStream stream( &scriptFile);
-   QString content = stream.readAll();
-   scriptFile.close();
+   QString content;
+
+   bool res = scriptFile.open( QIODevice::ReadOnly);
+
+   if (res == true)
+   {
+      QTextStream stream( &scriptFile);
+      QString content = stream.readAll();
+      scriptFile.close();
+   }
 
    return content;
 }

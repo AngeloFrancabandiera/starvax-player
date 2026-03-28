@@ -429,9 +429,9 @@ void MainWindow::on_action_Dark_Mode_triggered()
 void MainWindow::loadStyleSheet(const QString & styleFullPath)
 {
    QFile fStyle( styleFullPath );
-   fStyle.open( QIODevice::ReadOnly );
+   bool res = fStyle.open( QIODevice::ReadOnly );
 
-   if (fStyle.isOpen())
+   if ((res == true) && (fStyle.isOpen()))
    {
       qApp->setStyleSheet( fStyle.readAll() );
       fStyle.close();
@@ -445,9 +445,9 @@ void MainWindow::loadStyleSheetSet(const QStringList & fileNames)
    foreach ( QString file, fileNames)
    {
       QFile styleFile( STYLE_SUBFOLDER + file);
+      bool res = styleFile.open( QIODevice::ReadOnly);
 
-      styleFile.open( QIODevice::ReadOnly);
-      if (styleFile.isOpen())
+      if ((res == true) && (styleFile.isOpen()))
       {
          styleSheet += QString::fromLatin1( styleFile.readAll());
       }

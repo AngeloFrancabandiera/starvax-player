@@ -14,14 +14,14 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
 if (UNIX)
-   set(CMAKE_PREFIX_PATH "/media/angelo/Windows7_OS/ANGELO/bin/Qt_6.9/6.9.1/gcc_64")
+   set(CMAKE_PREFIX_PATH "/media/angelo/Windows7_OS/ANGELO/bin/Qt_6.11/6.11.0/gcc_64")
 endif()
 
 add_compile_definitions(
 VERSION_MAJOR="2"
 VERSION_MINOR="5"
-VERSION_BUILD="0"
-VERSION_STAGE="alpha3"
+VERSION_BUILD="1"
+VERSION_STAGE="alpha1"
 )
 
 add_compile_definitions(
@@ -76,7 +76,7 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
 
 find_package(usb REQUIRED)
 
-qt_standard_project_setup(REQUIRES 6.9)
+qt_standard_project_setup(REQUIRES 6.11)
 
 
 set(STARVAX_SOURCES
