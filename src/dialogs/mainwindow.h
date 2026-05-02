@@ -81,7 +81,6 @@ protected:
 
 private:
    void setup_gui_elems();
-   void setup_drop_function();
    void setupPlaylistAreas();
    void createRecentShowActions();
    void connect_actions();
@@ -135,6 +134,8 @@ private slots:
    void on_action_view_light_preset_triggered(bool checked);
    void on_action_view_open_web_net_triggered(bool checked);
    void on_action_view_sequencer_triggered(bool checked);
+   void on_action_view_save_layout_triggered();
+   void on_action_view_restore_layout_triggered();
    void on_dockPlaylistContainer_A_visibilityChanged(bool visible);
    void on_dockLightContainer_visibilityChanged(bool visible);
    void on_dockSequencerContainer_visibilityChanged(bool visible);

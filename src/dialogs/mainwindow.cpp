@@ -592,6 +592,16 @@ void MainWindow::on_action_view_sequencer_triggered(bool checked)
    }
 }
 
+void MainWindow::on_action_view_save_layout_triggered()
+{
+   QMessageBox::information( this, tr("save layout"), tr("looks like you mean to save layout"));
+}
+
+void MainWindow::on_action_view_restore_layout_triggered()
+{
+   QMessageBox::information( this, tr("restore layout"), tr("looks like you mean to restore layout"));
+}
+
 
 void MainWindow::showEvent( QShowEvent *event)
 {

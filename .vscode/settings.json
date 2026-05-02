@@ -2,5 +2,9 @@
     "files.associations": {
         "ostream": "cpp"
     },
-    "sarif-viewer.connectToGithubCodeScanning": "off"
+    "sarif-viewer.connectToGithubCodeScanning": "off",
+
+    "cmake.configureSettings": {
+        "QT_DIR": "c:/Qt/6.11.0/msvc2022_64/lib/cmake/Qt6"
+   }
 }

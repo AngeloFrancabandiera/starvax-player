@@ -128,6 +128,9 @@
     <addaction name="action_view_light_preset"/>
     <addaction name="action_view_open_web_net"/>
     <addaction name="action_view_sequencer"/>
+    <addaction name="separator"/>
+    <addaction name="action_view_save_layout"/>
+    <addaction name="action_view_restore_layout"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menu_Script"/>
@@ -569,11 +572,20 @@
   </action>
   <action name="actionAbout_Qt">
    <property name="icon">
-    <iconset theme=":/qt-project.org/qmessagebox/images/qtlogo-64.png">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset theme=":/qt-project.org/qmessagebox/images/qtlogo-64.png"/>
    </property>
    <property name="text">
     <string>About Qt</string>
+   </property>
+  </action>
+  <action name="action_view_save_layout">
+   <property name="text">
+    <string>save layout</string>
+   </property>
+  </action>
+  <action name="action_view_restore_layout">
+   <property name="text">
+    <string>restore layout</string>
    </property>
   </action>
  </widget>
