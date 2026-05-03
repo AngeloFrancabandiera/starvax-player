@@ -592,14 +592,54 @@ void MainWindow::on_action_view_sequencer_triggered(bool checked)
    }
 }
 
+// _TODO remove!!!
+#include <QFileDialog>
+#include <QDataStream>
+#include <WindowLayout.h>
 void MainWindow::on_action_view_save_layout_triggered()
 {
-   QFileOp
+   QString path = QFileDialog::getSaveFileName( this, tr("save layout"),
+                        qApp->applicationDirPath() + QDir::separator() + "res" +
+                        QDir::separator() + "layout", "*.metlayout");
+
+   if (path != QString())
+   {
+      QFile outFile(path);
+      bool ok = outFile.open( QIODeviceBase::WriteOnly);
+
+      if (ok)
+      {
+         QDataStream stream( &outFile);
+         WindowLayout handler;
+
+         handler.save( stream, saveState(), saveGeometry());
+      }
+   }
 }
 
 void MainWindow::on_action_view_restore_layout_triggered()
 {
-   QMessageBox::information( this, tr("restore layout"), tr("looks like you mean to restore layout"));
+   QString path = QFileDialog::getOpenFileName( this, tr("save layout"),
+                     qApp->applicationDirPath() + QDir::separator() + "res" +
+                     QDir::separator() + "layout", "*.metlayout");
+
+   if (path != QString())
+   {
+      QFile outFile(path);
+      bool ok = outFile.open( QIODeviceBase::ReadOnly);
+
+      if (ok)
+      {
+         QDataStream stream( &outFile);
+         WindowLayout handler;
+         QByteArray saved_state, saved_geometry;
+
+         handler.load( stream, saved_state, saved_geometry);
+
+         restoreState( saved_state);
+         restoreGeometry( saved_geometry);
+      }
+   }
 }
 
 

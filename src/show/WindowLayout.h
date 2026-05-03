@@ -1,16 +1,24 @@
 #ifndef WINDOW_LAYOUT_H
 #define WINDOW_LAYOUT_H
 
-#include <QString>
+class QDataStream;
+class QByteArray;
+
 
 class WindowLayout
 {
 public:
-    WindowLayout();
+    WindowLayout()
+    {
+    }
 
-    void save(const QString &path);
+    void save( QDataStream &sink,
+               const QByteArray &windowState,
+               const QByteArray &windowGeometry );
 
-    void load(const QString &path);
+    void load( QDataStream &sink,
+               QByteArray &windowState,
+               QByteArray &windowGeometry);
 };
 
 #endif
