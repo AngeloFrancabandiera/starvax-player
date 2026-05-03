@@ -7,6 +7,8 @@ set(STARVAX_SOURCES
    src/show/ApplicationSettings.h
    src/show/FileInport.cpp
    src/show/FileInport.h
+   src/show/WindowLayout.h
+   src/show/WindowLayout.cpp
    src/show/HtmlOptimizer.cpp
    src/show/HtmlOptimizer.h
    src/show/IF_ShowGuiInterface.h

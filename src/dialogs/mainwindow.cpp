@@ -594,7 +594,7 @@ void MainWindow::on_action_view_sequencer_triggered(bool checked)
 
 void MainWindow::on_action_view_save_layout_triggered()
 {
-   QMessageBox::information( this, tr("save layout"), tr("looks like you mean to save layout"));
+   QFileOp
 }
 
 void MainWindow::on_action_view_restore_layout_triggered()
