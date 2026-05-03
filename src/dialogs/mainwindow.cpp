@@ -4,6 +4,9 @@
 #include <QMessageBox>
 #include <QVBoxLayout>
 #include <QFileInfo>
+#include <QFileDialog>
+#include <QDataStream>
+#include <WindowLayout.h>
 
 #include "testableAssert.h"
 #include "ApplicationIcon.h"
@@ -592,10 +595,7 @@ void MainWindow::on_action_view_sequencer_triggered(bool checked)
    }
 }
 
-// _TODO remove!!!
-#include <QFileDialog>
-#include <QDataStream>
-#include <WindowLayout.h>
+
 void MainWindow::on_action_view_save_layout_triggered()
 {
    QString path = QFileDialog::getSaveFileName( this, tr("save layout"),
@@ -613,6 +613,7 @@ void MainWindow::on_action_view_save_layout_triggered()
          WindowLayout handler;
 
          handler.save( stream, saveState(), saveGeometry());
+         outFile.close();
       }
    }
 }

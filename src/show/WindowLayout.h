@@ -16,7 +16,7 @@ public:
                const QByteArray &windowState,
                const QByteArray &windowGeometry );
 
-    void load( QDataStream &sink,
+    void load( QDataStream &source,
                QByteArray &windowState,
                QByteArray &windowGeometry);
 };

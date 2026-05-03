@@ -1,6 +1,9 @@
 #include "ApplicationSettings.h"
 #include <QSettings>
 #include <QApplication>
+#include <QDir>
+
+#include "WindowLayout.h"
 
 
 /** @class ApplicationSettings
@@ -119,6 +122,24 @@ QByteArray ApplicationSettings::getPreviousWindowSetting() const
    QSettings setting( QSettings::IniFormat, QSettings::UserScope, COMPANY_TAG, PRODUCT_TAG);
    QByteArray windowSetting = setting.value( "window state").toByteArray();
 
+   if (windowSetting.isEmpty())
+   {
+      WindowLayout wlayout;
+      QString defaultPath = qApp->applicationDirPath() + QDir::separator() + "res" +
+                  QDir::separator() + "layout" + QDir::separator() + "basic.metlayout";
+      QFile defaultFile( defaultPath);
+      bool ok = defaultFile.open( QIODeviceBase::ReadOnly);
+
+      if (ok)
+      {
+         QDataStream stream( &defaultFile);
+         QByteArray unused;
+         wlayout.load( stream,  windowSetting, unused);
+
+         defaultFile.close();
+      }
+   }
+
    return windowSetting;
 }
 
@@ -132,6 +153,24 @@ QByteArray ApplicationSettings::getPreviousWindowGeometry() const
 {
    QSettings setting( QSettings::IniFormat, QSettings::UserScope, COMPANY_TAG, PRODUCT_TAG);
    QByteArray windowGeometry = setting.value( "window geometry").toByteArray();
+
+   if (windowGeometry.isEmpty())
+   {
+      WindowLayout wlayout;
+      QString defaultPath = qApp->applicationDirPath() + QDir::separator() + "res" +
+                  QDir::separator() + "layout" + QDir::separator() + "basic.metlayout";
+      QFile defaultFile( defaultPath);
+      bool ok = defaultFile.open( QIODeviceBase::ReadOnly);
+
+      if (ok)
+      {
+         QDataStream stream( &defaultFile);
+         QByteArray unused;
+         wlayout.load( stream, unused, windowGeometry);
+
+         defaultFile.close();
+      }
+   }
 
    return windowGeometry;
 }

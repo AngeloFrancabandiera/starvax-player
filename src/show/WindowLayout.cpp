@@ -8,24 +8,15 @@ void WindowLayout::save( QDataStream &sink,
                          const QByteArray &windowState,
                          const QByteArray &windowGeometry )
 {
-    // sink << windowState.size();
-    // sink << windowGeometry.size();
-
     sink << windowState;
     sink << windowGeometry;
 }
 
-void WindowLayout::load( QDataStream &sink,
+void WindowLayout::load( QDataStream &source,
                          QByteArray &windowState,
                          QByteArray &windowGeometry)
 {
-    // qsizetype state_size = 0;
-    // qsizetype geometry_size = 0;
-
-    // sink >> state_size;
-    // sink >> geometry_size;
-
-    sink >> windowState;
-    sink >> windowGeometry;
+    source >> windowState;
+    source >> windowGeometry;
 }
 
