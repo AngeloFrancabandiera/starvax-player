@@ -48,7 +48,7 @@ void ActionHoverDetection::onMouseMoveFiltered(const QPoint &position)
    if (mouseIsStillInViewer && cursorIsOverEventIcon( cursor))
    {
       ScriptActionLauncher::ActionType type;
-      QStringList anchorData = cursor.charFormat().anchorHref().split("$$", STR_SPLIT::SkipEmptyParts);
+      QStringList anchorData = cursor.charFormat().anchorHref().split("$$", Qt::SkipEmptyParts);
 
       if (anchorData.length() >= 2)
       {

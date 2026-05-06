@@ -688,11 +688,12 @@ void MainWindow::on_actionAbout_MeTeOr_Player_triggered()
                        arg(VERSION_MAJOR).arg(VERSION_MINOR).arg(VERSION_BUILD).arg(VERSION_STAGE)
                        .arg(qApp->applicationVersion()) +
                        tr("<p>Custom script, music and light animation for Me.Te.Or Shows.<br/>") +
-                       QString("Powered by <b><a href=\"http://qt-project.org/\">QT5</b> and "
-                               "<b><a href=\"https://github.com/wang-bin/mdk-sdk\">MTK SDK by Wang Bin</a></b></p>"
+                       QString("Powered by <b><a href=\"http://qt-project.org/\">QT6</b> and "
+                               "<b><a href=\"https://www.ffmpeg.org\">FFMPEG</a></b></p>"
                                "<p><pre>&nbsp;"
                                "<img src=\":/qt-project.org/qmessagebox/images/qtlogo-64.png\" width=32 height=32/>"
-                               "&nbsp;&nbsp;"
+                               "&nbsp;&nbsp;      "
+                               "<img src=\":/images/HardCodedIcons/ffmpeg_logo.png\" width=32 height=32/>"
                                "&nbsp;</pre></p>") );
 }
 
@@ -704,6 +705,8 @@ void MainWindow::on_actionAbout_Qt_triggered()
 
 void MainWindow::on_actionAbout_mmedia_library_triggered()
 {
-
+   QMessageBox::about( this, tr("About Me.Te.Or. Player Multimedia library"),
+                        tr("Starvax player used <a href=\"https://www.ffmpeg.org\">FFMPEG</a>"
+                           " plugin as multimedia library."));
 }
 

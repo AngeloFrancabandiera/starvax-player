@@ -5,6 +5,7 @@
     "sarif-viewer.connectToGithubCodeScanning": "off",
 
     "cmake.configureSettings": {
-        "QT_DIR": "c:/Qt/6.11.0/msvc2022_64/lib/cmake/Qt6"
+        "QT_DIR": "C:/Users/necom007/Documents/tool/Qt/Qt6.11/6.11.0/msvc2022_64/lib/cmake/Qt6",
+        "Qt6_DIR": "C:/Users/necom007/Documents/tool/Qt/Qt6.11/6.11.0/msvc2022_64/lib/cmake/Qt6"
    }
 }

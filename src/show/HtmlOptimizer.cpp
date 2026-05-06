@@ -92,7 +92,7 @@ QString HtmlOptimizer::extract_style_per_line( const QString &line )
 {
    // every string of this list is the internal of
    // an html tag
-   QStringList split_by_tag = line.split( QChar('<'), STR_SPLIT::SkipEmptyParts );
+   QStringList split_by_tag = line.split( QChar('<'), Qt::SkipEmptyParts );
    QString extracted_line;
 
    foreach( QString tag, split_by_tag )

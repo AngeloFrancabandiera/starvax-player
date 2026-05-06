@@ -10,5 +10,6 @@
         <file>HardCodedIcons/repeat_on.png</file>
         <file>HardCodedIcons/onTop_off.png</file>
         <file>HardCodedIcons/onTop_on.png</file>
+        <file>HardCodedIcons/ffmpeg_logo.png</file>
     </qresource>
 </RCC>

@@ -266,7 +266,7 @@ LightPresetData * ShowFileParser::fillLightPresetFromLine( const QString &line )
    int fadeDuration;
 
    /* each line has: name (in double quotes), fade time, list of levels */
-   lineFields = line.split(QChar('"'), STR_SPLIT::SkipEmptyParts);
+   lineFields = line.split(QChar('"'), Qt::SkipEmptyParts);
 
    if (lineFields.length() < 2)
    {
@@ -275,7 +275,7 @@ LightPresetData * ShowFileParser::fillLightPresetFromLine( const QString &line )
 
    presetName = lineFields.at(0);
 
-   numberList = lineFields.at(1).split(QChar(' '), STR_SPLIT::SkipEmptyParts);
+   numberList = lineFields.at(1).split(QChar(' '), Qt::SkipEmptyParts);
 
    if (numberList.length() < 2)
    {

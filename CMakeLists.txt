@@ -13,31 +13,20 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
+set( REL_VERSION_MAJOR 2)
+set( REL_VERSION_MINOR 5)
+set( REL_VERSION_BUILD 1)
+
 if (UNIX)
    set(CMAKE_PREFIX_PATH "/media/angelo/Windows7_OS/ANGELO/bin/Qt_6.11/6.11.0/gcc_64")
 endif()
 
 add_compile_definitions(
-VERSION_MAJOR="2"
-VERSION_MINOR="5"
-VERSION_BUILD="1"
-VERSION_STAGE="alpha1"
+VERSION_MAJOR=${REL_VERSION_MAJOR}
+VERSION_MINOR=${REL_VERSION_MINOR}
+VERSION_BUILD=${REL_VERSION_BUILD}
+VERSION_STAGE="beta"
 )
-
-add_compile_definitions(
-#   ssize_t=size_t
-   STR_SPLIT=Qt
-   )
-
-
-IF(CMAKE_BUILD_TYPE MATCHES Debug)
-  message("Debug build.")
-ELSEIF(CMAKE_BUILD_TYPE MATCHES Release)
-  message("Release build.")
-  add_compile_definitions( QT_NO_DEBUG_OUTPUT)
-ELSE()
-  message("Unknown build type.")
-ENDIF()
 
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules")
@@ -120,13 +109,27 @@ target_link_libraries(starvax_player PRIVATE
 
 
 if(WIN32)
-  add_custom_target( copy_deps
-     COMMAND ${CMAKE_SOURCE_DIR}\\deploy\\win32_x64\\win32_post_build.bat ${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR}
+   file(TO_NATIVE_PATH "${CMAKE_SOURCE_DIR}" NATIVE_SOURCE_DIR)
+   file(TO_NATIVE_PATH "${CMAKE_BINARY_DIR}" NATIVE_BINARY_DIR)
+
+   set( RELEASE_PATH ${NATIVE_SOURCE_DIR}\\..\\Starvax_${REL_VERSION_MAJOR}.${REL_VERSION_MINOR}.${REL_VERSION_BUILD})
+   message (${RELEASE_PATH})
+
+   add_custom_target( copy_deps
+     COMMAND if not exist ${RELEASE_PATH} mkdir ${RELEASE_PATH}
+
+     COMMAND xcopy /Y ${NATIVE_BINARY_DIR}\\Release\\starvax_player.exe  ${RELEASE_PATH}
+     COMMAND xcopy /R /Y /E ${NATIVE_SOURCE_DIR}\\res  ${RELEASE_PATH}\\res\\
+     COMMAND xcopy /R /Y /E ${NATIVE_SOURCE_DIR}\\modules\\windows\\usb\\lib\\dll\\libusb-1.0.dll  ${RELEASE_PATH}
+     COMMAND ${QT_DIR}\\..\\..\\..\\bin\\windeployqt.exe --multimedia ${RELEASE_PATH}\\starvax_player.exe
+
+     COMMAND del /F /Q ${RELEASE_PATH}\\vc_redist.x64.exe
+     COMMAND rmdir /S /Q  ${RELEASE_PATH}\\translations
      )
 endif()
 
 if (UNIX)
-  add_custom_target( copy_deps
+   add_custom_target( copy_deps
      COMMAND cp -r ${CMAKE_SOURCE_DIR}/res ${CMAKE_BINARY_DIR}
      )
 endif()
