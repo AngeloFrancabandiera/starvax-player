@@ -121,7 +121,8 @@
     <message>
         <location filename="src/dialogs/AppSettingsGui.ui" line="128"/>
         <source>activate next track when playback finishes</source>
-        <translation>attiva traccia successiva dopo la riproduzione</translation>
+        <oldsource>activate the next track when playback finishes</oldsource>
+        <translation>attiva la traccia successiva dopo la riproduzione</translation>
     </message>
     <message>
         <location filename="src/dialogs/AppSettingsGui.ui" line="277"/>
@@ -311,32 +312,32 @@
         <translation>&amp;modalità di modifica</translation>
     </message>
     <message>
-        <location filename="src/application/ApplicationFactory.cpp" line="188"/>
+        <location filename="src/application/ApplicationFactory.cpp" line="175"/>
         <source>Playlist Line A</source>
         <translation>Lista media canale A</translation>
     </message>
     <message>
-        <location filename="src/application/ApplicationFactory.cpp" line="220"/>
+        <location filename="src/application/ApplicationFactory.cpp" line="207"/>
         <source>Playlist Line B</source>
         <translation>Lista media canale B</translation>
     </message>
     <message>
-        <location filename="src/application/ApplicationFactory.cpp" line="272"/>
+        <location filename="src/application/ApplicationFactory.cpp" line="252"/>
         <source>pause all</source>
         <translation>in pausa entrambe</translation>
     </message>
     <message>
-        <location filename="src/application/ApplicationFactory.cpp" line="278"/>
+        <location filename="src/application/ApplicationFactory.cpp" line="258"/>
         <source>play all</source>
         <translation>suona entrambe</translation>
     </message>
     <message>
-        <location filename="src/application/ApplicationFactory.cpp" line="285"/>
+        <location filename="src/application/ApplicationFactory.cpp" line="265"/>
         <source>rewind all</source>
         <translation>riavvolgi entrambe</translation>
     </message>
     <message>
-        <location filename="src/application/ApplicationFactory.cpp" line="291"/>
+        <location filename="src/application/ApplicationFactory.cpp" line="271"/>
         <source>stop all</source>
         <translation>spegni entrambe</translation>
     </message>
@@ -624,22 +625,22 @@ Load (uncomplete) show anyway?</source>
         <translation>Non è possibile aprirel file di tipo: %1</translation>
     </message>
     <message>
-        <location filename="src/show/FileInport.cpp" line="97"/>
+        <location filename="src/show/FileInport.cpp" line="103"/>
         <source>Open script source</source>
         <translation>Apri un copione</translation>
     </message>
     <message>
-        <location filename="src/show/FileInport.cpp" line="142"/>
+        <location filename="src/show/FileInport.cpp" line="148"/>
         <source>Open media - %1</source>
         <translation>Apri file multimedia - %1</translation>
     </message>
     <message>
-        <location filename="src/show/FileInport.cpp" line="143"/>
+        <location filename="src/show/FileInport.cpp" line="149"/>
         <source>LINE B</source>
         <translation>LINEA B</translation>
     </message>
     <message>
-        <location filename="src/show/FileInport.cpp" line="143"/>
+        <location filename="src/show/FileInport.cpp" line="149"/>
         <source>LINE A</source>
         <translation>LINEA A</translation>
     </message>
@@ -648,7 +649,7 @@ Load (uncomplete) show anyway?</source>
         <translation type="vanished">Apri le tracce audio</translation>
     </message>
     <message>
-        <location filename="src/show/FileInport.cpp" line="159"/>
+        <location filename="src/show/FileInport.cpp" line="165"/>
         <source>Open a style-sheet file</source>
         <translation>Apri un foglio di stile</translation>
     </message>
@@ -660,17 +661,17 @@ Load (uncomplete) show anyway?</source>
         <translation type="vanished">Soltanto i copioni ed i file di spettacolo possono essere trascinati sul riquadro del copione</translation>
     </message>
     <message>
-        <location filename="src/script/HighLightTextViewer.cpp" line="543"/>
+        <location filename="src/script/HighLightTextViewer.cpp" line="544"/>
         <source>Events can be added in &lt;b&gt;Edit Mode&lt;/b&gt; only.</source>
         <translation>Gli eventi possono essere aggiunti solo in &lt;b&gt;modalità di modifica&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="src/script/HighLightTextViewer.cpp" line="587"/>
+        <location filename="src/script/HighLightTextViewer.cpp" line="588"/>
         <source>Enter Edit mode to modify script</source>
         <translation>Passa alla modalità di modifica per modificare il copione</translation>
     </message>
     <message>
-        <location filename="src/script/HighLightTextViewer.cpp" line="613"/>
+        <location filename="src/script/HighLightTextViewer.cpp" line="614"/>
         <source>File &lt;i&gt;%1&lt;/i&gt; can&apos;t be open for reading.</source>
         <translation>Impossibile aprire il file &lt;i&gt;%1&lt;/i&gt; in lettura.</translation>
     </message>
@@ -1054,46 +1055,65 @@ Load (uncomplete) show anyway?</source>
         <translation>Visualizza</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="152"/>
+        <location filename="src/dialogs/mainwindow.ui" line="155"/>
         <source>script</source>
         <translation>Copione</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="173"/>
+        <location filename="src/dialogs/mainwindow.ui" line="176"/>
         <source>script_animation</source>
         <translation>animazione_copione</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="196"/>
+        <location filename="src/dialogs/mainwindow.ui" line="199"/>
         <source>show</source>
         <translation>spettacolo</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="227"/>
+        <location filename="src/dialogs/mainwindow.ui" line="230"/>
         <source>music</source>
         <translation>Musica</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="243"/>
+        <location filename="src/dialogs/mainwindow.ui" line="246"/>
         <source>Playlist LINE A</source>
         <translation>Lista tracce LINEA A</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="300"/>
+        <location filename="src/dialogs/mainwindow.ui" line="276"/>
+        <source>Playlist LINE B</source>
+        <translation>Lista tracce LINEA B</translation>
+    </message>
+    <message>
+        <location filename="src/dialogs/mainwindow.ui" line="303"/>
         <source>Light Control</source>
         <translation>Pannello Luci</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="567"/>
+        <location filename="src/dialogs/mainwindow.ui" line="570"/>
         <source>About multimedia library</source>
         <translation>Informazioni sulla libreria multimediale</translation>
+    </message>
+    <message>
+        <location filename="src/dialogs/mainwindow.ui" line="583"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="601"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="623"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="601"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="623"/>
+        <source>save layout</source>
+        <translation>salva disposizione finestre</translation>
+    </message>
+    <message>
+        <location filename="src/dialogs/mainwindow.ui" line="588"/>
+        <source>restore layout</source>
+        <translation>carica disposizione finestre</translation>
     </message>
     <message>
         <source>About VLC library</source>
         <translation type="vanished">Informazioni su VLC</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="576"/>
+        <location filename="src/dialogs/mainwindow.ui" line="578"/>
         <source>About Qt</source>
         <translation>Informazioni su Qt</translation>
     </message>
@@ -1102,7 +1122,7 @@ Load (uncomplete) show anyway?</source>
         <translation type="vanished">Pannello Sequenza</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="345"/>
+        <location filename="src/dialogs/mainwindow.ui" line="348"/>
         <source>toolBar</source>
         <translation>barra degli strumenti</translation>
     </message>
@@ -1115,68 +1135,67 @@ Load (uncomplete) show anyway?</source>
         <translation type="vanished">Informazioni su FFMPEG</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="273"/>
         <source>[TOP] Playlist LINE B</source>
         <oldsource>Playlist LINE B</oldsource>
-        <translation>[TOP] Lista tracce LINEA B</translation>
+        <translation type="vanished">[TOP] Lista tracce LINEA B</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="367"/>
+        <location filename="src/dialogs/mainwindow.ui" line="370"/>
         <source>Sequencer</source>
         <translation>Sequenze</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="376"/>
+        <location filename="src/dialogs/mainwindow.ui" line="379"/>
         <source>&amp;open script</source>
         <translation>&amp;Apri copione</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="379"/>
+        <location filename="src/dialogs/mainwindow.ui" line="382"/>
         <source>o</source>
         <translation>o</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="382"/>
+        <location filename="src/dialogs/mainwindow.ui" line="385"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="387"/>
+        <location filename="src/dialogs/mainwindow.ui" line="390"/>
         <source>open music line &amp;A</source>
         <translation>apri file multimedia linea &amp;A</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="501"/>
+        <location filename="src/dialogs/mainwindow.ui" line="504"/>
         <source>open music line &amp;B</source>
         <translation>apri file multimedia linea &amp;B</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="515"/>
+        <location filename="src/dialogs/mainwindow.ui" line="518"/>
         <source>playlist line A</source>
         <translation>lista tracce Linea A</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="518"/>
+        <location filename="src/dialogs/mainwindow.ui" line="521"/>
         <source>view playlist line A</source>
         <translation>visualizza lista traccie linea A</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="529"/>
+        <location filename="src/dialogs/mainwindow.ui" line="532"/>
         <source>playlist line B</source>
         <translation>lista tracce linea B</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="540"/>
+        <location filename="src/dialogs/mainwindow.ui" line="543"/>
         <source>light preset</source>
         <translation>luci spettacolo</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="551"/>
+        <location filename="src/dialogs/mainwindow.ui" line="554"/>
         <source>open web net</source>
         <translation>Open Web Net</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="562"/>
+        <location filename="src/dialogs/mainwindow.ui" line="565"/>
         <source>sequencer</source>
         <translation>sequenze</translation>
     </message>
@@ -1193,32 +1212,32 @@ Load (uncomplete) show anyway?</source>
         <translation type="vanished">apri &amp;musica</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="390"/>
+        <location filename="src/dialogs/mainwindow.ui" line="393"/>
         <source>Ctrl+M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="480"/>
+        <location filename="src/dialogs/mainwindow.ui" line="483"/>
         <source>&amp;play</source>
         <translation>&amp;attiva</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="483"/>
+        <location filename="src/dialogs/mainwindow.ui" line="486"/>
         <source>F5</source>
         <translation>F5</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="488"/>
+        <location filename="src/dialogs/mainwindow.ui" line="491"/>
         <source>p&amp;ause</source>
         <translation>&amp;pausa</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="491"/>
+        <location filename="src/dialogs/mainwindow.ui" line="494"/>
         <source>F6</source>
         <translation>F6</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="496"/>
+        <location filename="src/dialogs/mainwindow.ui" line="499"/>
         <source>&amp;Options ...</source>
         <translation>&amp;Opzioni ...</translation>
     </message>
@@ -1231,22 +1250,22 @@ Load (uncomplete) show anyway?</source>
         <translation type="obsolete">&amp;Pausa animazione</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="395"/>
+        <location filename="src/dialogs/mainwindow.ui" line="398"/>
         <source>&amp;Open Show</source>
         <translation>Apri &amp;spettacolo</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="398"/>
+        <location filename="src/dialogs/mainwindow.ui" line="401"/>
         <source>Ctrl+Shift+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="403"/>
+        <location filename="src/dialogs/mainwindow.ui" line="406"/>
         <source>&amp;Save Show</source>
         <translation>&amp;Salva spettacolo</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="406"/>
+        <location filename="src/dialogs/mainwindow.ui" line="409"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
@@ -1255,12 +1274,12 @@ Load (uncomplete) show anyway?</source>
         <translation type="obsolete">volDefault</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="435"/>
+        <location filename="src/dialogs/mainwindow.ui" line="438"/>
         <source>&amp;Dark Mode</source>
         <translation>&amp;Modalità buia</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="438"/>
+        <location filename="src/dialogs/mainwindow.ui" line="441"/>
         <source>Ctrl+D</source>
         <translation></translation>
     </message>
@@ -1273,42 +1292,42 @@ Load (uncomplete) show anyway?</source>
         <translation type="obsolete">nuovo evento &amp;luce</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="443"/>
+        <location filename="src/dialogs/mainwindow.ui" line="446"/>
         <source>Save Show &amp;As</source>
         <translation>Salva lo show &amp;con nome</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="448"/>
+        <location filename="src/dialogs/mainwindow.ui" line="451"/>
         <source>openCurtain</source>
         <translation>apri il sipario</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="451"/>
+        <location filename="src/dialogs/mainwindow.ui" line="454"/>
         <source>open curtain</source>
         <translation>apri il sipario</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="456"/>
+        <location filename="src/dialogs/mainwindow.ui" line="459"/>
         <source>closeCurtain</source>
         <translation>chiudi il sipario</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="459"/>
+        <location filename="src/dialogs/mainwindow.ui" line="462"/>
         <source>close the curtain</source>
         <translation>chiudi il siaprio</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="464"/>
+        <location filename="src/dialogs/mainwindow.ui" line="467"/>
         <source>&amp;load last show</source>
         <translation>&amp;Ricarica ultimo spettacolo</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="469"/>
+        <location filename="src/dialogs/mainwindow.ui" line="472"/>
         <source>&amp;Trigger transition</source>
         <translation>&amp;Avvia transizione</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="472"/>
+        <location filename="src/dialogs/mainwindow.ui" line="475"/>
         <source>Trigger light transition</source>
         <translation>Avvia transizione di luci</translation>
     </message>
@@ -1325,7 +1344,7 @@ Load (uncomplete) show anyway?</source>
         <translation type="obsolete">barra dello &amp;spettacolo</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="430"/>
+        <location filename="src/dialogs/mainwindow.ui" line="433"/>
         <source>locale</source>
         <translation>locale</translation>
     </message>
@@ -1334,12 +1353,12 @@ Load (uncomplete) show anyway?</source>
         <translation type="obsolete">&amp;rimuovi traccia</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="411"/>
+        <location filename="src/dialogs/mainwindow.ui" line="414"/>
         <source>Play/Pause</source>
         <translation>suona/interrompi</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="414"/>
+        <location filename="src/dialogs/mainwindow.ui" line="417"/>
         <source>Space</source>
         <translation></translation>
     </message>
@@ -1376,7 +1395,7 @@ Load (uncomplete) show anyway?</source>
         <translation type="obsolete">volume predefinito</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.ui" line="419"/>
+        <location filename="src/dialogs/mainwindow.ui" line="422"/>
         <source>&amp;About Me.Te.Or. Player</source>
         <translation>&amp;Informazioni su Me.Te.Or. Player</translation>
     </message>
@@ -1401,18 +1420,18 @@ Load (uncomplete) show anyway?</source>
         <translation type="vanished">Me.Te.Or player- senza titolo[*]</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="98"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="99"/>
         <source>save before exit</source>
         <translation>salva prima di uscire</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="99"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="100"/>
         <source>The show has changed. Do you want to save it?</source>
         <oldsource>The show has changed. Do you want to save it</oldsource>
         <translation>Lo spettacolo è stato modificato. Salvare i cambiamenti?</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="634"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="685"/>
         <source>About Starvax Me.Te.Or. Player</source>
         <oldsource>About Starvax media Player</oldsource>
         <translation>Informazioni su Starvax Me.Te.Or. player</translation>
@@ -1428,53 +1447,66 @@ Powered by QT4.</oldsource>
         <translation type="vanished">Gestione del copione, musiche ed effetti luce per gli spettacoli Me.Te.Or</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="40"/>
         <source>Me.te.or. Player %1.%2.%3 - untitled[*]</source>
-        <translation>Lettore Me.te.or. %1.%2.%3 - untitled[*]</translation>
+        <translation type="vanished">Lettore Me.te.or. %1.%2.%3 - untitled[*]</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="639"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="690"/>
         <source>&lt;p&gt;Custom script, music and light animation for Me.Te.Or Shows.&lt;br/&gt;</source>
         <translation>&lt;p&gt;Gestione copione, musiche, luci per spettacoli teatrali&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="456"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="459"/>
         <source>WARNING: can&apos;t open %1</source>
         <translation>ATTENZIONE: impossibile aprire %1</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="474"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="41"/>
+        <source>Me.te.or. Player %1.%2.%3 %4 - untitled[*]</source>
+        <translation>Me.te.or. Player %1.%2.%3 %4 - untitled[*]</translation>
+    </message>
+    <message>
+        <location filename="src/dialogs/mainwindow.cpp" line="477"/>
         <source>&amp;%1 %2</source>
         <translation>&amp;%1 %2</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="507"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="510"/>
         <source>OPEN CURTAIN - Not yet implemented</source>
         <translation>APRI IL SIPARIO - Non ancora disponibile</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="508"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="511"/>
         <source>In order to open the curtain a motor is needed.
 This action is not yet possible</source>
         <translation>Per aprire il sipario è necessario un motore.
 Questa azione non è ancora disponibile</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="517"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="520"/>
         <source>CLOSE CURTAIN - Not yet implemented</source>
         <translation>CHIUDI IL SIPARIO - Non ancora disponibile</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="518"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="521"/>
         <source>In order to close the curtain a motor is needed.
 This action is not yet possible</source>
         <translation>Per chiudere il sipario è necessario un motore.
 Questa azione non è ancora disponibile</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="656"/>
-        <source>About Multimedia engine</source>
+        <location filename="src/dialogs/mainwindow.cpp" line="708"/>
+        <source>About Me.Te.Or. Player Multimedia library</source>
         <translation>Informazioni sulla libreria multimediale</translation>
+    </message>
+    <message>
+        <location filename="src/dialogs/mainwindow.cpp" line="709"/>
+        <source>Starvax player used &lt;a href=&quot;https://www.ffmpeg.org&quot;&gt;FFMPEG&lt;/a&gt; plugin as multimedia library.</source>
+        <translation>Starvax player utilizza &lt;a href=&quot;https://www.ffmpeg.org&quot;&gt;FFMPEG&lt;/a&gt; per le funzionalità multimediali.</translation>
+    </message>
+    <message>
+        <source>About Multimedia engine</source>
+        <translation type="vanished">Informazioni sulla libreria multimediale</translation>
     </message>
     <message>
         <source>&lt;p&gt;Starvax player media capability is based 
@@ -1538,6 +1570,14 @@ sulla libreria VLC versione: %1.%2.%3</translation>
     <message>
         <source>&lt;p&gt;&lt;b&gt;Looks like you don&apos;t have VLC plugins installed.&lt;/b&gt;&lt;/p&gt;To use audio and video files, you need to download &lt;a href=&quot;https://sourceforge.net/projects/starvaxplayer/files/plugins_v3.0.8_win64.zip/download&quot;&gt;https://sourceforge.net/projects/starvaxplayer/files/plugins_v3.0.8_win64.zip/download&lt;/a&gt; and copy the contents in &apos;plugins&apos; folder (under application folder).</source>
         <translation type="vanished">&lt;p&gt;&lt;b&gt;Sembra che non siano installati i plugin di VLC.&lt;/b&gt;&lt;/p&gt;Per usare i file multimediali, occorre scaricare &lt;a href=&quot;https://sourceforge.net/projects/starvaxplayer/files/plugins_v3.0.8_win64.zip/download&quot;&gt;https://sourceforge.net/projects/starvaxplayer/files/plugins_v3.0.8_win64.zip/download&lt;/a&gt; e copiare tutti i file nella cartella &apos;plugins&apos; (dentro la cartella dell&apos;applicazione).</translation>
+    </message>
+</context>
+<context>
+    <name>MediaEngineImp</name>
+    <message>
+        <location filename="src/playlist/MediaEngineImp.cpp" line="359"/>
+        <source>Media Error: %1</source>
+        <translation>Media Error: %1</translation>
     </message>
 </context>
 <context>
@@ -1646,30 +1686,30 @@ sulla libreria VLC versione: %1.%2.%3</translation>
 <context>
     <name>OwnModel</name>
     <message>
-        <location filename="src/OpenWebNet/OwnModel.cpp" line="19"/>
+        <location filename="src/OpenWebNet/OwnModel.cpp" line="20"/>
         <source>Name</source>
         <oldsource>Name_</oldsource>
         <translation>Zona</translation>
     </message>
     <message>
-        <location filename="src/OpenWebNet/OwnModel.cpp" line="20"/>
+        <location filename="src/OpenWebNet/OwnModel.cpp" line="21"/>
         <source>Where</source>
         <oldsource>Where_</oldsource>
         <translation>Dove</translation>
     </message>
     <message>
-        <location filename="src/OpenWebNet/OwnModel.cpp" line="21"/>
+        <location filename="src/OpenWebNet/OwnModel.cpp" line="22"/>
         <source>Dimmer</source>
         <oldsource>Dimmer_</oldsource>
         <translation>Regolabile</translation>
     </message>
     <message>
-        <location filename="src/OpenWebNet/OwnModel.cpp" line="76"/>
+        <location filename="src/OpenWebNet/OwnModel.cpp" line="77"/>
         <source>YES</source>
         <translation>SI</translation>
     </message>
     <message>
-        <location filename="src/OpenWebNet/OwnModel.cpp" line="76"/>
+        <location filename="src/OpenWebNet/OwnModel.cpp" line="77"/>
         <source>NO</source>
         <translation>NO</translation>
     </message>
@@ -1712,6 +1752,7 @@ sulla libreria VLC versione: %1.%2.%3</translation>
 <context>
     <name>PlaylistFunctionFactory</name>
     <message>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="49"/>
         <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="50"/>
         <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="51"/>
         <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="52"/>
@@ -1721,11 +1762,20 @@ sulla libreria VLC versione: %1.%2.%3</translation>
         <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="56"/>
         <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="57"/>
         <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="58"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="59"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="50"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="51"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="52"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="53"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="54"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="55"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="56"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="57"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="58"/>
         <source> Line A</source>
         <translation> Linea A</translation>
     </message>
     <message>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="60"/>
         <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="61"/>
         <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="62"/>
         <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="63"/>
@@ -1735,65 +1785,73 @@ sulla libreria VLC versione: %1.%2.%3</translation>
         <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="67"/>
         <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="68"/>
         <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="69"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="70"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="61"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="62"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="63"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="64"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="65"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="66"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="67"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="68"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="69"/>
         <source> Line B</source>
         <translation> Linea B</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="122"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="121"/>
         <source>play media %1</source>
         <oldsource>play media</oldsource>
         <translation>riproduci %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="129"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="128"/>
         <source>pause media %1</source>
         <oldsource>pause media</oldsource>
         <translation>in pausa %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="136"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="135"/>
         <source>play/pause media %1</source>
         <oldsource>play/pause media</oldsource>
         <translation>riproduci/pausa %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="142"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="141"/>
         <source>toggle Mute %1</source>
         <oldsource>toggle Mute</oldsource>
         <translation>attiva/disattiva muto %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="151"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="150"/>
         <source>rewind %1</source>
         <oldsource>rewind</oldsource>
         <translation>torna all&apos;inizio %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="158"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="157"/>
         <source>stop %1</source>
         <oldsource>stop</oldsource>
         <translation>spegni %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="165"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="164"/>
         <source>run/stop fading %1</source>
         <oldsource>run/stop fading</oldsource>
         <translation>attiva/ferma dissolvenza audio %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="171"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="170"/>
         <source>apply default volume %1</source>
         <oldsource>apply default volume</oldsource>
         <translation>applica volume preferito %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="177"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="176"/>
         <source>move forward a step %1</source>
         <translation>avanti un passo %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="182"/>
+        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="181"/>
         <source>move backward a step %1</source>
         <translation>indietro un passo %1</translation>
     </message>
@@ -1821,32 +1879,32 @@ sulla libreria VLC versione: %1.%2.%3</translation>
         <translation>davanti alle altre tracce</translation>
     </message>
     <message>
-        <location filename="src/playlist/mediaWidgets/PlaylistGuiFactory.cpp" line="194"/>
+        <location filename="src/playlist/mediaWidgets/PlaylistGuiFactory.cpp" line="197"/>
         <source>open a dialog to load new media files</source>
         <translation>apre una finestra di dialogo per caricare file multimediali</translation>
     </message>
     <message>
-        <location filename="src/playlist/mediaWidgets/PlaylistGuiFactory.cpp" line="203"/>
+        <location filename="src/playlist/mediaWidgets/PlaylistGuiFactory.cpp" line="206"/>
         <source>bring focused element one position above</source>
         <translation>sposta in sù l&apos;elemento selezionato</translation>
     </message>
     <message>
-        <location filename="src/playlist/mediaWidgets/PlaylistGuiFactory.cpp" line="212"/>
+        <location filename="src/playlist/mediaWidgets/PlaylistGuiFactory.cpp" line="215"/>
         <source>bring focused element one position below</source>
         <translation>sposta in giù l&apos;elemento selezionato</translation>
     </message>
     <message>
-        <location filename="src/playlist/mediaWidgets/PlaylistGuiFactory.cpp" line="221"/>
+        <location filename="src/playlist/mediaWidgets/PlaylistGuiFactory.cpp" line="224"/>
         <source>delete selected items</source>
         <translation>cancella gli elementi selezionati</translation>
     </message>
     <message>
-        <location filename="src/playlist/mediaWidgets/PlaylistGuiFactory.cpp" line="229"/>
+        <location filename="src/playlist/mediaWidgets/PlaylistGuiFactory.cpp" line="232"/>
         <source>undo</source>
         <translation>annulla</translation>
     </message>
     <message>
-        <location filename="src/playlist/mediaWidgets/PlaylistGuiFactory.cpp" line="238"/>
+        <location filename="src/playlist/mediaWidgets/PlaylistGuiFactory.cpp" line="241"/>
         <source>redo</source>
         <translation>ripeti</translation>
     </message>
@@ -1902,17 +1960,17 @@ Attenzione: il file originale verrà sovrascritto</translation>
         <translation type="obsolete">nuovo evento &amp;suono</translation>
     </message>
     <message>
-        <location filename="src/show/showfileparser.cpp" line="275"/>
+        <location filename="src/show/showfileparser.cpp" line="273"/>
         <source>Name or numeric values missing</source>
         <translation>Manca il nome oppure i valori numerici</translation>
     </message>
     <message>
-        <location filename="src/show/showfileparser.cpp" line="284"/>
+        <location filename="src/show/showfileparser.cpp" line="282"/>
         <source>Not enough numbers</source>
         <translation>Non ci sono abbastanza valori numerici</translation>
     </message>
     <message>
-        <location filename="src/show/showfileparser.cpp" line="300"/>
+        <location filename="src/show/showfileparser.cpp" line="298"/>
         <source>There are bad numerics</source>
         <translation>Alcuni valori numerici non sono corretti</translation>
     </message>
@@ -1968,6 +2026,7 @@ Attenzione: il file originale verrà sovrascritto</translation>
     <message>
         <location filename="src/application/testableAssert.cpp" line="11"/>
         <location filename="src/application/testableAssert.cpp" line="25"/>
+        <location filename="src/application/testableAssert.cpp" line="25"/>
         <source>Fatal error</source>
         <translation>Errore fatale</translation>
     </message>
@@ -1982,7 +2041,9 @@ Attenzione: il file originale verrà sovrascritto</translation>
         <location filename="src/application/testableAssert.cpp" line="26"/>
         <source>The application will be terminated due to the following fatal error: 
 %1</source>
-        <translation>L&apos;applicazione verrà terminata a causa del seguente error:
+        <oldsource>The application will be terminated due to the following fatal error : 
+%1</oldsource>
+        <translation>L&apos;applicazione verrà terminata a causa del seguente errore:
 %1</translation>
     </message>
     <message>
@@ -2042,103 +2103,103 @@ Attenzione: il file originale verrà sovrascritto</translation>
         <translation>&amp;Ferma server</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="169"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="171"/>
         <source>&lt;b&gt;syntax error.&lt;/b&gt;. &lt;p&gt;Usage: &lt;b&gt;repeat &lt;i&gt;N&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt; &lt;i&gt;N&lt;/i&gt; is an integer number. It can be &lt;b&gt;forever&lt;/b&gt; to indicate an infinite loop&lt;/p&gt;</source>
         <translation>&lt;b&gt;errore di sintassi.&lt;/b&gt;. &lt;p&gt;Usa: &lt;b&gt;repeat &lt;i&gt;N&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt; &lt;i&gt;N&lt;/i&gt; è un numero intero. Può essere &lt;b&gt;forever&lt;/b&gt; per un ciclo infinito.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="192"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="194"/>
         <source>&lt;b&gt;syntax error.&lt;/b&gt;. Usage: &lt;b&gt;end&lt;/b&gt;</source>
         <translatorcomment>&lt;b&gt;errore di sintassi.&lt;/b&gt;. Usa: &lt;b&gt;end&lt;/b&gt;</translatorcomment>
         <translation></translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="259"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="261"/>
         <source>Command &lt;b&gt;play&lt;/b&gt; requires to specify media</source>
         <translation>Il comando &lt;b&gt;play&lt;/b&gt; richiede una traccia multimediale</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="230"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="232"/>
         <source>&lt;i&gt;Command&lt;/i&gt; is not: &lt;b&gt;play, pause, stop, rewind, fadeout, volume&lt;/b&gt;</source>
         <translation>il &lt;i&gt;comando&lt;/i&gt; deve essere: &lt;b&gt;play, pause, stop, rewind, fadeout, volume&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="237"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="239"/>
         <source>&lt;b&gt;syntax error.&lt;/b&gt; &lt;p&gt;Usage: &lt;b&gt;playlist LINE &lt;i&gt;command [&quot;track label&quot;]&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;i&gt;command is: &lt;/i&gt;&lt;b&gt;play, pause, stop, rewind, fadeout, volume&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Track label (within quotes) is required for &lt;i&gt;play&lt;/i&gt; and &lt;i&gt;show&lt;/i&gt; commands.&lt;/p&gt;</source>
         <oldsource>&lt;b&gt;syntax error.&lt;/b&gt; &lt;p&gt;Usage: &lt;b&gt;playlist LINE &lt;i&gt;command [&quot;track label&quot;]&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;i&gt;command is: &lt;/i&gt;&lt;b&gt;play, pause, stop, rewind, fadeout, volume&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Track label (within quotes) is required for &lt;i&gt;play&lt;/i&gt; command.&lt;/p&gt;</oldsource>
         <translation>&lt;b&gt;errore di sintassi.&lt;/b&gt; &lt;p&gt;Usa: &lt;b&gt;playlist LINEA &lt;i&gt;comando [&quot;traccia&quot;]&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;i&gt;comando&lt;/i&gt; può essere: &lt;b&gt;play, pause, stop, rewind, fadeout, volume&lt;/b&gt;&lt;/p&gt;&lt;p&gt;La traccia (tra doppi apici) è necessaria per i comandi &lt;i&gt;play&lt;/i&gt; e &lt;i&gt;show&lt;/i&gt; &lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="265"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="267"/>
         <source>Command &lt;b&gt;show&lt;/b&gt; requires to specify media</source>
         <translation>Il comando &lt;b&gt;show&lt;/b&gt; richiede un file multimediale</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="278"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="280"/>
         <source>Volume parameter, when present, must be in range 0-100.
 When missing, default volume is used</source>
         <translation>Il parametro volume, se presente, deve essere tra 0 e 100.
 Se non è presente, viene utilizzato il default</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="310"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="312"/>
         <source>&lt;i&gt;Command&lt;/i&gt; must be &lt;b&gt;trigger&lt;/b&gt; or &lt;b&gt;stop&lt;/b&gt;</source>
         <oldsource> &lt;i&gt;Command&lt;/i&gt; must be &lt;b&gt;trigger&lt;/b&gt; or &lt;b&gt;stop&lt;/b&gt;</oldsource>
         <translation>Il &lt;i&gt;comando&lt;/i&gt; deve essere &lt;b&gt;trigger&lt;/b&gt; oppure &lt;b&gt;stop&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="319"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="321"/>
         <source>Command &lt;b&gt;trigger&lt;/b&gt; requires a label</source>
         <translation>Il comando &lt;b&gt;trigger&lt;/b&gt; richiede una transizione di luce</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="331"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="333"/>
         <source>&lt;b&gt;syntax error.&lt;/b&gt;. &lt;p&gt;Usage: &lt;b&gt;light &lt;i&gt;command  [preset]&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;i&gt;command&lt;/i&gt; is &lt;b&gt;trigger&lt;/b&gt; or &lt;b&gt;stop&lt;/b&gt;&lt;/p&gt;</source>
         <translation>&lt;b&gt;errore di sinatssi.&lt;/b&gt;. &lt;p&gt;Usa: &lt;b&gt;light &lt;i&gt;comando  [preset]&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Il &lt;i&gt;comando&lt;/i&gt; può essere &lt;b&gt;trigger&lt;/b&gt; oppure &lt;b&gt;stop&lt;/b&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="360"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="362"/>
         <source>Command must be &lt;i&gt;pause&lt;/i&gt; or &lt;i&gt;stop&lt;/i&gt;</source>
         <translation>Il comando può essere &lt;i&gt;pause&lt;/i&gt; oppure &lt;i&gt;stop&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="372"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="374"/>
         <source>&lt;p&gt;Usage: &lt;b&gt;sequence &lt;i&gt;command  [time]&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;i&gt;command&lt;/i&gt; is &lt;b&gt;pause&lt;/b&gt; or &lt;b&gt;stop&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;i&gt;time&lt;/i&gt; is in seconds (minimum 0.001)&lt;/p&gt;</source>
         <translation>&lt;p&gt;Usa: &lt;b&gt;sequence &lt;i&gt;comando [tempo]&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Il &lt;i&gt;comando&lt;/i&gt; può essere &lt;b&gt;pause&lt;/b&gt; oppure &lt;b&gt;stop.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Il &lt;i&gt;tempo&lt;/i&gt; è in secondi (minimo 0.001)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="410"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="412"/>
         <source>&lt;i&gt;command&lt;/i&gt; must be: &lt;b&gt;on&lt;/b&gt; or &lt;b&gt;off&lt;/b&gt;</source>
         <translation>Il &lt;i&gt;comando&lt;/i&gt; deve essere: &lt;b&gt;on&lt;/b&gt; oppure &lt;b&gt;off&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="416"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="418"/>
         <source>missing parameters </source>
         <translation>mancano dei parametri </translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="450"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="452"/>
         <source>Command must be &lt;i&gt;entry &quot;label&quot;:&lt;/i&gt;</source>
         <translation>Il comando ha format &lt;i&gt;entry &quot;label&quot;:&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="460"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="462"/>
         <source>&lt;p&gt;Usage: &lt;i&gt;entry &quot;label&quot;:&lt;/i&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;Uso: &lt;i&gt;entry &quot;label&quot;:&lt;/i&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="476"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="478"/>
         <source>Command &lt;b&gt;pause&lt;/b&gt; requires a time (in seconds).&lt;/i&gt;</source>
         <translation>Il comando &lt;b&gt;pause&lt;/b&gt; richiede un tempo (in secondi).&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="483"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="485"/>
         <source>&lt;b&gt;syntax error.&lt;/b&gt;Command &lt;b&gt;stop&lt;/b&gt; does not require a time</source>
         <oldsource>&lt;b&gt;syntax error.&lt;/b&gt;. Command &lt;b&gt;stop&lt;/b&gt; does not require a time</oldsource>
         <translation>&lt;b&gt;errore di sintassi.&lt;/b&gt; Il comando &lt;b&gt;stop&lt;/b&gt; non richiede un tempo</translation>
     </message>
     <message>
-        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="500"/>
+        <location filename="src/sequencer/Sequencer_LineParser.cpp" line="502"/>
         <source>&lt;b&gt;syntax error.&lt;/b&gt; &lt;i&gt;zone&lt;/i&gt; not found.</source>
         <oldsource>&lt;b&gt;syntax error.&lt;/b&gt;. &lt;i&gt;zone&lt;/i&gt; not found.</oldsource>
         <translation>&lt;b&gt;errore di sintassi.&lt;/b&gt;. Manca la &lt;i&gt;zona&lt;/i&gt; .</translation>
@@ -2240,37 +2301,37 @@ Se non è presente, viene utilizzato il default</translation>
 <context>
     <name>ScriptEditToolbar</name>
     <message>
-        <location filename="src/dialogs/ScriptEditToolbar.cpp" line="53"/>
+        <location filename="src/dialogs/ScriptEditToolbar.cpp" line="54"/>
         <source>U</source>
         <translation>S</translation>
     </message>
     <message>
-        <location filename="src/dialogs/ScriptEditToolbar.cpp" line="52"/>
+        <location filename="src/dialogs/ScriptEditToolbar.cpp" line="53"/>
         <source>I</source>
         <translation>C</translation>
     </message>
     <message>
-        <location filename="src/dialogs/ScriptEditToolbar.cpp" line="51"/>
+        <location filename="src/dialogs/ScriptEditToolbar.cpp" line="52"/>
         <source>B</source>
         <translation>G</translation>
     </message>
     <message>
-        <location filename="src/dialogs/ScriptEditToolbar.cpp" line="54"/>
+        <location filename="src/dialogs/ScriptEditToolbar.cpp" line="55"/>
         <source>undo</source>
         <translation>annulla</translation>
     </message>
     <message>
-        <location filename="src/dialogs/ScriptEditToolbar.cpp" line="55"/>
+        <location filename="src/dialogs/ScriptEditToolbar.cpp" line="56"/>
         <source>redo</source>
         <translation>ripeti</translation>
     </message>
     <message>
-        <location filename="src/dialogs/ScriptEditToolbar.cpp" line="71"/>
+        <location filename="src/dialogs/ScriptEditToolbar.cpp" line="72"/>
         <source>copy format</source>
         <translation>copia formato</translation>
     </message>
     <message>
-        <location filename="src/dialogs/ScriptEditToolbar.cpp" line="72"/>
+        <location filename="src/dialogs/ScriptEditToolbar.cpp" line="73"/>
         <source>paste format</source>
         <translation>incolla formato</translation>
     </message>
@@ -2489,23 +2550,24 @@ ATTENZIONE: Dopo l&apos;operazione, controllare gli indici degli elementi succes
 <context>
     <name>Sequencer::CodeEditor</name>
     <message>
-        <location filename="src/sequencer/GUI/Sequencer_CodeEditor.cpp" line="277"/>
+        <location filename="src/sequencer/GUI/Sequencer_CodeEditor.cpp" line="283"/>
         <source>drop on left for &apos;play&apos;; drop on right for &apos;playAll&apos;</source>
         <translation>trascina a sinistra per &apos;play&apos;; a destra per &apos;playAll&apos;</translation>
     </message>
     <message>
-        <location filename="src/sequencer/GUI/Sequencer_CodeEditor.cpp" line="290"/>
-        <location filename="src/sequencer/GUI/Sequencer_CodeEditor.cpp" line="308"/>
+        <location filename="src/sequencer/GUI/Sequencer_CodeEditor.cpp" line="296"/>
+        <location filename="src/sequencer/GUI/Sequencer_CodeEditor.cpp" line="314"/>
+        <location filename="src/sequencer/GUI/Sequencer_CodeEditor.cpp" line="314"/>
         <source>Fatal: please add a sink to code editor.</source>
         <translation>Errore fatale: l&apos;editor di codice non ha un uscita di debug.</translation>
     </message>
     <message>
-        <location filename="src/sequencer/GUI/Sequencer_CodeEditor.cpp" line="291"/>
+        <location filename="src/sequencer/GUI/Sequencer_CodeEditor.cpp" line="297"/>
         <source>Drop not supported for this object</source>
         <translation>Operazione di rilascio non supportata per questo oggetto</translation>
     </message>
     <message>
-        <location filename="src/sequencer/GUI/Sequencer_CodeEditor.cpp" line="309"/>
+        <location filename="src/sequencer/GUI/Sequencer_CodeEditor.cpp" line="315"/>
         <source>Enter &lt;b&gt;edit mode&lt;/b&gt; to drop media.</source>
         <translation>Entra in modalità di &lt;b&gt;modifica&lt;/b&gt; per l&apos;operazione di drop.</translation>
     </message>
@@ -2537,29 +2599,29 @@ ATTENZIONE: Dopo l&apos;operazione, controllare gli indici degli elementi succes
         <translation type="vanished">Fine del blocco, ma</translation>
     </message>
     <message>
-        <location filename="src/show/showfileparser.cpp" line="140"/>
+        <location filename="src/show/showfileparser.cpp" line="138"/>
         <source>End of features but %1 not found</source>
         <translation>Fine del blocco, ma %1 non  è stato trovato</translation>
     </message>
     <message>
-        <location filename="src/show/showfileparser.cpp" line="232"/>
+        <location filename="src/show/showfileparser.cpp" line="230"/>
         <source>&lt;li&gt;Missing file &lt;span style=&quot;color:DarkRed&quot;&gt;&lt;i&gt;%1&lt;/i&gt;&lt;/span&gt;&lt;br&gt;has been replaced by &lt;span style=&quot;color:DarkGreen&quot;&gt;&lt;i&gt;%2&lt;/i&gt;&lt;/li&gt;</source>
         <translation>&lt;li&gt;Il file non trovato &lt;span style=&quot;color:DarkRed&quot;&gt;&lt;i&gt;%1&lt;/i&gt;&lt;/span&gt;&lt;br&gt;è stato sostituito da &lt;span style=&quot;color:DarkGreen&quot;&gt;&lt;i&gt;%2&lt;/i&gt;&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="src/show/showfileparser.cpp" line="239"/>
+        <location filename="src/show/showfileparser.cpp" line="237"/>
         <source>&lt;li&gt;File not found or unsupported: &lt;span style=&quot;color:DarkRed&quot;&gt;&lt;i&gt;%1&lt;/i&gt;&lt;/li&gt;</source>
         <translation>&lt;li&gt;File non trovato o non supportato: &lt;span style=&quot;color:DarkRed&quot;&gt;&lt;i&gt;%1&lt;/i&gt;&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="src/show/showfileparser.cpp" line="314"/>
+        <location filename="src/show/showfileparser.cpp" line="312"/>
         <source>Tag &lt;/b&gt;&amp;lt;%1&amp;gt;&lt;b&gt; is not supported anymore.
 Please convert to new sequencer functionality. </source>
         <translation>L&apos;elemento &lt;/b&gt;&amp;lt;%1&amp;gt;&lt;b&gt; non è più supportato.
 Utilizzare la funzionalità di script per la sequenza. </translation>
     </message>
     <message>
-        <location filename="src/show/showfileparser.cpp" line="214"/>
+        <location filename="src/show/showfileparser.cpp" line="212"/>
         <source>Select an alternative location for %1</source>
         <oldsource>Select alternative loction for %1</oldsource>
         <translation>Selezionare una cartella alternativa per %1</translation>

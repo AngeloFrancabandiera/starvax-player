@@ -51,6 +51,7 @@ find_package(QT NAMES Qt6 COMPONENTS
    Network
    Multimedia
    MultimediaWidgets
+   LinguistTools
    REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
    Core
@@ -60,6 +61,7 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
    Network
    Multimedia
    MultimediaWidgets
+   LinguistTools
    REQUIRED)
 
 
@@ -107,6 +109,12 @@ target_link_libraries(starvax_player PRIVATE
    ${USB_LIBRARY}
    )
 
+set( TRANSLATIONS player_it.ts)
+
+qt_add_translations(starvax_player
+    TS_FILES ${TRANSLATIONS}
+    SOURCES  ${STARVAX_SOURCES}
+)
 
 if(WIN32)
    file(TO_NATIVE_PATH "${CMAKE_SOURCE_DIR}" NATIVE_SOURCE_DIR)
