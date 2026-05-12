@@ -76,6 +76,8 @@ private slots:
    void onAddHallSwitchCommand();
    void onAddHallDimmerCommand();
 
+   void onEntryCommand();
+
 private:
    StatusDisplay * m_msgDisplay;
    QWidget * m_lineNumberArea;

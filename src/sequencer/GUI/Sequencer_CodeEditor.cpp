@@ -87,6 +87,9 @@ CodeEditor::CodeEditor(QWidget *parent) :
    addAction( sequencerMenu->menuAction());
    addAction( lightMenu->menuAction());
 
+   QAction * entryCommand = new QAction("entry");
+   addAction( entryCommand);
+
    connect( addRepeatCommand,   & QAction::triggered, this, & CodeEditor::onAddRepeatCommand);
    connect( addEndCommand,      & QAction::triggered, this, & CodeEditor::onAddEndCommand);
    connect( addPlaylistPlayCommand, & QAction::triggered, this, & CodeEditor::onAddPlaylistPlayCommand);
@@ -108,6 +111,8 @@ CodeEditor::CodeEditor(QWidget *parent) :
 
    connect( addHallSwitchCommand,    & QAction::triggered, this, & CodeEditor::onAddHallSwitchCommand);
    connect( addHallDimmerCommand,    & QAction::triggered, this, & CodeEditor::onAddHallDimmerCommand);
+
+   connect( entryCommand,  & QAction::triggered, this, & CodeEditor::onEntryCommand);
 }
 
 
@@ -541,6 +546,11 @@ void CodeEditor::onAddHallSwitchCommand()
 void CodeEditor::onAddHallDimmerCommand()
 {
    textCursor().insertText("hall on \"ZONE NAME\" 3 ");
+}
+
+void CodeEditor::onEntryCommand()
+{
+   textCursor().insertText("entry \"name\":\n");
 }
 
 
