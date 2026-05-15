@@ -290,25 +290,13 @@ MediaListModel::mediaKindForFileName(const QString & fileName) const
 
    if (PICTURE_SUPPORTED_FORMATS.contains( suffix))
    {
-      if (m_modelTag == "PB")
-      {
-         kind = AbstractMediaSource::PICTURE_LINE_B;
-      }
-      else  // "PA" and default
-      {
-         kind = AbstractMediaSource::PICTURE_LINE_A;
-      }
+      // _TODO fix deck number  (m_modelTag == "PB")
+      kind = AbstractMediaSource::PICTURE;
    }
    else if (MEDIA_TRACKS_SUPPORTED_FORMATS.contains( suffix))
    {
-      if (m_modelTag == "PB")
-      {
-         kind = AbstractMediaSource::AUDIO_VIDEO_LINE_B;
-      }
-      else  // "PA" and default
-      {
-         kind = AbstractMediaSource::AUDIO_VIDEO_LINE_A;
-      }
+      // _TODO fix deck number  (m_modelTag == "PB")
+      kind = AbstractMediaSource::AUDIO_VIDEO;
    }
 
    return kind;

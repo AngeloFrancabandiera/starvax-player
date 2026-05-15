@@ -6,6 +6,7 @@
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QDataStream>
+#include <QDockWidget>
 #include <WindowLayout.h>
 
 #include "testableAssert.h"
@@ -18,7 +19,7 @@
 #include "LightPresetModel.h"
 #include "LightEngine.h"
 #include "lightControlGuiFactory.h"
-
+#include "PlaylistDecks.h"
 
 
 MainWindow::MainWindow( FileInport &fileInport,
@@ -28,11 +29,7 @@ MainWindow::MainWindow( FileInport &fileInport,
    ui(new Ui::MainWindow),
    m_fileInport(fileInport),
    m_applicationSettings(applicationSettings),
-   m_appSettingsGui(nullptr),
-   m_volumeLayoutLineA( nullptr),
-   m_volumeLayoutLineB( nullptr),
-   m_playlistLayoutLineA( nullptr),
-   m_playlistLayoutLineB( nullptr)
+   m_appSettingsGui(nullptr)
 {
    ui->setupUi(this);
    setDockNestingEnabled( true);
@@ -136,16 +133,10 @@ void MainWindow::setEditMode( bool editMode)
    if (editMode)
    {
       loadStyleSheetSet( QStringList() << "MAIN_APP_COMM.qss" << "MAIN_APP_EDIT_MODE.qss");
-
-      ui->action_Open_music_line_A->setVisible( true);
-      ui->action_Open_music_line_B->setVisible( true);
    }
    else
    {
       loadStyleSheetSet( QStringList() << "MAIN_APP_COMM.qss" << "MAIN_APP_NORMAL_MODE.qss");
-
-      ui->action_Open_music_line_B->setVisible( false);
-      ui->action_Open_music_line_A->setVisible( false);
    }
 }
 
@@ -160,10 +151,7 @@ void MainWindow::loadApplicationLanguage()
    on_actionLocale_triggered( isLocaleSelected);
 }
 
-/************************************************/
-/* setup_gui_elems                              */
-/*  setup gui elements and utils                */
-/************************************************/
+
 void MainWindow::setup_gui_elems()
 {
    setAcceptDrops( false);
@@ -178,28 +166,38 @@ void MainWindow::setup_gui_elems()
    ui_music_toolbar->setIconSize(iconSize);
 }
 
+
 void MainWindow::setupPlaylistAreas()
 {
-   T_ASSERT( ui->dockPlaylist_A->layout());
+   for (int deck = 0; deck < NUMBER_OF_MEDIA_DECKS; deck++)
+   {
+      QDockWidget * dockPlaylistContainer = new QDockWidget(this);
+      QWidget * dockPlaylist = new QWidget( dockPlaylistContainer);
+      QString title = tr("Deck %1").arg(Playlist::toLetter(deck));
 
-   QWidget * volumeContainerA = new QWidget( ui->dockPlaylist_A);
-   QWidget * playlistContainerA = new QWidget( ui->dockPlaylist_A);
-   m_volumeLayoutLineA = new QVBoxLayout( volumeContainerA);
-   m_volumeLayoutLineA->setContentsMargins(2,2,2,2);
-   m_playlistLayoutLineA = new QVBoxLayout( playlistContainerA);
+      addDockWidget( Qt::RightDockWidgetArea, dockPlaylistContainer);
+      dockPlaylistContainer->setWidget( dockPlaylist);
 
-   ui->dockPlaylist_A->layout()->addWidget( volumeContainerA);
-   ui->dockPlaylist_A->layout()->addWidget( playlistContainerA);
+      m_playlistLayout[deck] = new QVBoxLayout(dockPlaylist);
+      m_playlistLayout[deck]->setContentsMargins(2,2,2,2);
 
-   QWidget * volumeContainerB = new QWidget( ui->dockPlaylist_B);
-   QWidget * playlistContainerB = new QWidget( ui->dockPlaylist_B);
-   m_volumeLayoutLineB = new QVBoxLayout( volumeContainerB);
-   m_volumeLayoutLineA->setContentsMargins(2,2,2,2);
-   m_playlistLayoutLineB = new QVBoxLayout( playlistContainerB);
+      dockPlaylistContainer->setObjectName( title);
+      dockPlaylistContainer->setWindowTitle( title);
 
-   ui->dockPlaylist_B->layout()->addWidget( volumeContainerB);
-   ui->dockPlaylist_B->layout()->addWidget( playlistContainerB);
+      QWidget * volumeContainer = new QWidget( dockPlaylist);
+      QWidget * playlistContainer = new QWidget( dockPlaylist);
+      m_volumeLayout[deck] = new QVBoxLayout( volumeContainer);
+      m_volumeLayout[deck]->setContentsMargins(2,2,2,2);
+
+
+      dockPlaylist->layout()->addWidget( volumeContainer);
+      dockPlaylist->layout()->addWidget( playlistContainer);
+
+      dockPlaylistContainer->setVisible(true);
+      dockPlaylist->setVisible(true);
+   }
 }
+
 
 void MainWindow::createRecentShowActions()
 {
@@ -231,10 +229,6 @@ void MainWindow::connect_actions()
 
    connect( ui->action_Open_script, SIGNAL(triggered()),
             &m_fileInport, SLOT(openScriptDialog()) );
-   connect( ui->action_Open_music_line_A, SIGNAL(triggered()),
-            &m_fileInport, SLOT(openTracksDialogLineA()) );
-   connect( ui->action_Open_music_line_B, SIGNAL(triggered()),
-            &m_fileInport, SLOT(openTracksDialogLineB()) );
 
    ui->action_Save_Show->setEnabled( false);
    ui->action_Save_Show_As->setEnabled( true);
@@ -243,8 +237,7 @@ void MainWindow::connect_actions()
 void MainWindow::load_action_icons()
 {
    attachIcon( ui->action_Open_script, "open_script.png" );
-   attachIcon( ui->action_Open_music_line_A, "open_music_A.png" );
-   attachIcon( ui->action_Open_music_line_B, "open_music_B.png" );
+
 
    attachIcon( ui->actionOpenCurtain, "openCurtain.png" );
    attachIcon( ui->actionCloseCurtain, "closeCurtain.png" );
@@ -282,17 +275,13 @@ QWidget *MainWindow::connectionArea()
    return ui->connectionToolbar;
 }
 
-QLayout *MainWindow::playlistAreaLineA()
+QLayout *MainWindow::playlistAreaForDeck(Playlist::Deck deck)
 {
-   T_ASSERT( m_playlistLayoutLineA != nullptr);
-   return m_playlistLayoutLineA;
+   T_ASSERT( deck < NUMBER_OF_MEDIA_DECKS);
+   T_ASSERT( m_playlistLayout[deck] != nullptr);
+   return m_playlistLayout[deck];
 }
 
-QLayout *MainWindow::playlistAreaLineB()
-{
-   T_ASSERT( m_playlistLayoutLineB != nullptr);
-   return m_playlistLayoutLineB;
-}
 
 QLayout *MainWindow::lightControlArea()
 {
@@ -300,17 +289,13 @@ QLayout *MainWindow::lightControlArea()
    return ui->dockLightPanel->layout();
 }
 
-QBoxLayout *MainWindow::volumeSliderAreaLineA()
+QBoxLayout *MainWindow::volumeSliderAreaForDeck(Playlist::Deck deck)
 {
-   T_ASSERT( m_volumeLayoutLineA != nullptr);
-   return m_volumeLayoutLineA;
+   T_ASSERT( deck < NUMBER_OF_MEDIA_DECKS);
+   T_ASSERT( m_volumeLayout[deck] != nullptr);
+   return m_volumeLayout[deck];
 }
 
-QBoxLayout *MainWindow::volumeSliderAreaLineB()
-{
-   T_ASSERT( m_volumeLayoutLineB != nullptr);
-   return m_volumeLayoutLineB;
-}
 
 void MainWindow::addShowActions(QList<QAction *> & actions)
 {
@@ -534,30 +519,7 @@ void MainWindow::on_action_Options_triggered()
     }
 }
 
-
-void MainWindow::on_action_view_playlist_line_A_triggered( bool checked)
-{
-   if (checked)
-   {
-      ui->dockPlaylistContainer_A->show();
-   }
-   else
-   {
-      ui->dockPlaylistContainer_A->hide();
-   }
-}
-
-void MainWindow::on_action_view_playlist_line_B_triggered(bool checked)
-{
-   if (checked)
-   {
-      ui->dockPlaylistContainer_B->show();
-   }
-   else
-   {
-      ui->dockPlaylistContainer_B->hide();
-   }
-}
+// _TODO toggle visibility of each dock container.
 
 void MainWindow::on_action_view_light_preset_triggered(bool checked)
 {
@@ -648,21 +610,10 @@ void MainWindow::showEvent( QShowEvent *event)
 {
    QMainWindow::showEvent( event);
 
-   ui->action_view_playlist_line_A->setChecked( ui->dockPlaylistContainer_A->isVisible());
-   ui->action_view_playlist_line_B->setChecked( ui->dockPlaylistContainer_B->isVisible());
+   // _TODO visibility of each media dock
    ui->action_view_light_preset->setChecked( ui->dockLightContainer->isVisible());
    ui->action_view_open_web_net->setChecked( ui->dockOpenWebNetContainer->isVisible());
    ui->action_view_sequencer->setChecked( ui->dockSequencerContainer->isVisible());
-}
-
-void MainWindow::on_dockPlaylistContainer_A_visibilityChanged(bool visible)
-{
-   ui->action_view_playlist_line_A->setChecked( visible);
-}
-
-void MainWindow::on_dockPlaylistContainer_B_visibilityChanged(bool visible)
-{
-   ui->action_view_playlist_line_B->setChecked( visible);
 }
 
 void MainWindow::on_dockLightContainer_visibilityChanged(bool visible)

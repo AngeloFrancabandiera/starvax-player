@@ -24,15 +24,16 @@ IF_ShowGuiInterface *ShowFactory::buildShowGui()
    return new ShowFileGui( m_appSettings);
 }
 
-ShowLoader *ShowFactory::buildShowLoader( IF_ShowGuiInterface *selectDialog, MediaListModel *mediaModelLineA,
-                                          MediaListModel *mediaModelLineB, LightPresetModel *lightModel,
+ShowLoader *ShowFactory::buildShowLoader( IF_ShowGuiInterface *selectDialog,
+                                          std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
+                                          LightPresetModel *lightModel,
                                           SequenceEditorGui *sequencerGui,
                                           IF_ScriptEngineInterface *scriptInterafce,
                                           ApplicationSettings & appSettings)
 {
    ShowFileFactory *parserFactory = new ShowFileFactory( m_numOfLightChannels, this);
-   ShowLoader *loader = new ShowLoader( *selectDialog, parserFactory, mediaModelLineA,
-                                        mediaModelLineB, lightModel, sequencerGui,
+   ShowLoader *loader = new ShowLoader( *selectDialog, parserFactory, mediaModelSet,
+                                        lightModel, sequencerGui,
                                         scriptInterafce, appSettings, this);
 
    return loader;
@@ -46,8 +47,7 @@ IF_ShowWriterInterface *ShowFactory::buildShowWriter( ShowFileFormatter *formatt
 
 
 ShowFileFormatter *ShowFactory::buildShowFileFormatter( const IF_ScriptEngineInterface &script,
-                                                        const QAbstractListModel & mediaModelLineA,
-                                                        const QAbstractListModel & mediaModelLineB,
+                                                        const std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                                                         const QAbstractListModel & lightsetModel,
                                                         const SequenceEditorGui &sequencerGui,
                                                         ApplicationSettings & appSettings)
@@ -55,7 +55,7 @@ ShowFileFormatter *ShowFactory::buildShowFileFormatter( const IF_ScriptEngineInt
    HtmlOptimizer * optimizer = new HtmlOptimizer(this);
    optimizer->setSaveScriptFontSize( appSettings.getSaveFontSize());
 
-   return new ShowFileFormatter( script, mediaModelLineA, mediaModelLineB,
+   return new ShowFileFormatter( script, mediaModelSet,
                                  lightsetModel, *optimizer, sequencerGui);
 }
 

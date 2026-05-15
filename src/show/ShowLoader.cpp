@@ -13,8 +13,8 @@
 #include "testableAssert.h"
 
 
-ShowLoader::ShowLoader(IF_ShowGuiInterface & fileSelect, ShowFileFactory *parserFactory,
-                        MediaListModel *mediaModelLineA, MediaListModel * mediaModelLineB,
+ShowLoader::ShowLoader( IF_ShowGuiInterface & fileSelect, ShowFileFactory *parserFactory,
+                        std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                         LightPresetModel *lighModel,
                         SequenceEditorGui *sequencerGui,
                         IF_ScriptEngineInterface *scriptEngine,
@@ -22,15 +22,13 @@ ShowLoader::ShowLoader(IF_ShowGuiInterface & fileSelect, ShowFileFactory *parser
    QObject(parent),
    m_guiInterface( fileSelect),
    m_parserFactory( parserFactory),
-   m_mediaModelLineA( mediaModelLineA),
-   m_mediaModelLineB( mediaModelLineB),
+   m_mediaModelSet( mediaModelSet),
    m_lightModel( lighModel),
    m_sequencerGui( sequencerGui),
    m_scriptEngine( scriptEngine),
    m_applicationSettings( applicationSettings)
 {
    T_ASSERT( parserFactory != nullptr);
-   T_ASSERT( mediaModelLineA != nullptr);
    T_ASSERT( lighModel != nullptr);
    T_ASSERT( scriptEngine != nullptr);
 }
@@ -141,14 +139,12 @@ void ShowLoader::loadShowData(const QString &filename, const ShowFileParser &par
 {
    emit newSearchPath( QFileInfo(filename).absolutePath() );
 
-   foreach (QString mediaPath, parser.trackListLineA())
+   for (int deck = 0; deck < NUMBER_OF_MEDIA_DECKS; deck++)
    {
-      m_mediaModelLineA->addMediaFile( mediaPath);
-   }
-
-   foreach (QString mediaPath, parser.trackListLineB())
-   {
-      m_mediaModelLineB->addMediaFile( mediaPath);
+      for (QString mediaPath : parser.trackListForDeck(deck))
+      {
+         dynamic_cast<MediaListModel*>(m_mediaModelSet[deck])->addMediaFile( mediaPath);
+      }
    }
 
    foreach (LightPresetData *lightset, parser.lightsetList() )
@@ -165,8 +161,12 @@ void ShowLoader::loadShowData(const QString &filename, const ShowFileParser &par
 void ShowLoader::resetShowData()
 {
    m_scriptEngine->setScriptContent("");
-   m_mediaModelLineA->removeRows( 0, m_mediaModelLineA->rowCount());
-   m_mediaModelLineB->removeRows( 0, m_mediaModelLineB->rowCount());
    m_lightModel->removeRows( 0, m_lightModel->rowCount());
    m_sequencerGui->setScriptContent( QString());
+
+   for (QAbstractListModel * model : m_mediaModelSet)
+   {
+      T_ASSERT( model);
+      model->removeRows( 0, model->rowCount());
+   }
 }

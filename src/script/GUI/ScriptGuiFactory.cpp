@@ -20,8 +20,7 @@ ScriptGuiFactory::ScriptGuiFactory(QWidget *parent) :
 }
 
 IF_ScriptViewerInterface *ScriptGuiFactory::build( QWidget *container, ScriptActionTrigger *actionTrigger,
-                                                   QAbstractListModel *mediaModelLineA,
-                                                   QAbstractListModel *mediaModelLineB,
+                                                   std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                                                    QStringListModel & sequenceEntryModel,
                                                    StatusDisplay * msgDisplay,
                                                    ApplicationSettings & settings,
@@ -32,7 +31,7 @@ IF_ScriptViewerInterface *ScriptGuiFactory::build( QWidget *container, ScriptAct
    container->layout()->setContentsMargins( 0,0,0,0);
 
    HighLightTextViewer *viewer = new HighLightTextViewer( *msgDisplay, settings, container);
-   ActionTargetSelectorDialog *selectDialog = new ActionTargetSelectorDialog( mediaModelLineA, mediaModelLineB,
+   ActionTargetSelectorDialog *selectDialog = new ActionTargetSelectorDialog( mediaModelSet,
                                                                               lightModel, sequenceEntryModel,
                                                                               viewer);
    ScriptActionCreator *actionCreator = new ScriptActionCreator( *selectDialog);

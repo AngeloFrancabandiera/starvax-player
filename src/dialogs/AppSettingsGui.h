@@ -2,6 +2,8 @@
 #define APPSETTINGSGUI_H
 
 #include <QDialog>
+#include <QSpinBox>
+#include <array>
 
 namespace Ui {
 class AppSettingsGui;
@@ -31,6 +33,7 @@ private slots:
 
 private:
    Ui::AppSettingsGui *ui;
+   std::array<QSpinBox*, NUMBER_OF_MEDIA_DECKS> m_defaultVolumeSet;
    ApplicationSettings & m_settings;
 };
 

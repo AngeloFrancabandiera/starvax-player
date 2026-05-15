@@ -1,6 +1,7 @@
 #ifndef ACTIONTARGETSELECTORDIALOG_H
 #define ACTIONTARGETSELECTORDIALOG_H
 
+#include <array>
 #include <QDialog>
 #include "IF_ActionSelectorInterface.h"
 
@@ -19,8 +20,7 @@ class ActionTargetSelectorDialog : public QDialog, public IF_ActionSelectorInter
    Q_OBJECT
 
 public:
-   explicit ActionTargetSelectorDialog( QAbstractListModel *mediaModelLineA,
-                                        QAbstractListModel * mediaModelLineB,
+   explicit ActionTargetSelectorDialog( std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                                         QAbstractListModel *lightModel,
                                         QStringListModel& sequenceEntryModel,
                                         QWidget *parent = 0);
@@ -34,8 +34,7 @@ private:
    Ui::ActionTargetSelectorDialog *ui;
 
 private slots:
-   void selectMediaPageLineA();
-   void selectMediaPageLineB();
+   void selectMediaPage();
    void selectLightPage();
    void selectSequencerEntryPage();
    void selectPage(int page);

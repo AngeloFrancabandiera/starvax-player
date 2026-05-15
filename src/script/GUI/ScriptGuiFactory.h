@@ -1,7 +1,8 @@
 #ifndef SCRIPTGUIFACTORY_H
 #define SCRIPTGUIFACTORY_H
 
-#include "QObject"
+#include <array>
+#include <QObject>
 
 class IF_ScriptViewerInterface;
 class QWidget;
@@ -18,9 +19,9 @@ class ScriptGuiFactory : public QObject
 public:
    ScriptGuiFactory( QWidget *parent);
 
-   IF_ScriptViewerInterface * build(QWidget *container, ScriptActionTrigger *actionTrigger,
-                                     QAbstractListModel *mediaModelLineA,
-                                     QAbstractListModel * mediaModelLineB,
+   IF_ScriptViewerInterface * build( QWidget *container,
+                                     ScriptActionTrigger *actionTrigger,
+                                     std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                                      QStringListModel& sequenceEntryModel,
                                      StatusDisplay * msgDisplay,
                                      ApplicationSettings &settings,

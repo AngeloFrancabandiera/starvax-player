@@ -121,22 +121,19 @@ QList<Command_IF *> Factory::buildShowCommands( CommandReply_IF & cmdReply,
 
 QList<Server::Command_IF *> Factory::buildPlaylistCommands(
       Server::CommandReply_IF & cmdReply,
-      MediaAutomation & avAutomation_A,
-      MediaAutomation & avAutomation_B,
-      MediaListModel & mediaList_A,
-      MediaListModel & mediaList_B,
-      IF_MediaEngineInterface & mediaEngine_A,
-      IF_MediaEngineInterface & mediaEngine_B)
+      std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & MediaAutomationSet,
+      std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & MediaListModelSet,
+      std::array<IF_MediaEngineInterface *, NUMBER_OF_MEDIA_DECKS> & MediaEngineSet)
 {
    QList<Server::Command_IF *> commands;
 
-   commands << new Server::SetActiveTrackCommand( avAutomation_A, avAutomation_B,
-                                                  mediaList_A, mediaList_B, cmdReply)
-            << new Server::GetMediaListCommand( mediaList_A, mediaList_B, cmdReply)
-            << new Server::PlayMediaCommand( mediaEngine_A, mediaEngine_B, cmdReply)
-            << new Server::PauseMediaCommand( mediaEngine_A, mediaEngine_B, cmdReply)
-            << new Server::StopMediaCommand( mediaEngine_A, mediaEngine_B, cmdReply)
-            << new Server::RewindMediaCommand( mediaEngine_A, mediaEngine_B, cmdReply);
+   commands << new Server::SetActiveTrackCommand( MediaAutomationSet,
+                                                  MediaListModelSet, cmdReply)
+            << new Server::GetMediaListCommand( MediaListModelSet, cmdReply)
+            << new Server::PlayMediaCommand( MediaEngineSet, cmdReply)
+            << new Server::PauseMediaCommand( MediaEngineSet, cmdReply)
+            << new Server::StopMediaCommand( MediaEngineSet, cmdReply)
+            << new Server::RewindMediaCommand( MediaEngineSet, cmdReply);
 
    return commands;
 }

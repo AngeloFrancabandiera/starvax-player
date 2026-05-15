@@ -4,18 +4,15 @@
 #include "MediaAutomation.h"
 #include "MediaListModel.h"
 #include "CommandReply_IF.h"
+#include "testableAssert.h"
 
 
 Server::SetActiveTrackCommand::
-SetActiveTrackCommand( MediaAutomation & audioVideoAutomation_A,
-                       MediaAutomation & audioVideoAutomation_B,
-                       MediaListModel & mediaModel_A,
-                       MediaListModel & mediaModel_B,
+SetActiveTrackCommand( std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & mediaAutomationSet,
+                       std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaListModelSet,
                        CommandReply_IF & replySink) :
-   m_audioVideoAutomation_A( audioVideoAutomation_A),
-   m_audioVideoAutomation_B( audioVideoAutomation_B),
-   m_mediaModel_A( mediaModel_A),
-   m_mediaModel_B( mediaModel_B),
+   m_mediaAutomationSet( mediaAutomationSet),
+   m_mediaListModelSet( mediaListModelSet),
    m_replySink( replySink)
 {
 }
@@ -34,7 +31,7 @@ bool Server::SetActiveTrackCommand::execute(const QStringList & parameters)
       label = parameters.at(1);
 
       /* try to activate */
-      ok = activateLabelForLine( label, line);
+      ok = activateLabelForDeck( label, line);
 
       if (ok)
       {
@@ -57,30 +54,21 @@ bool Server::SetActiveTrackCommand::execute(const QStringList & parameters)
    return ok;
 }
 
-bool Server::SetActiveTrackCommand::activateLabelForLine( const QString & label,
-                                                          const QString & line)
+bool Server::SetActiveTrackCommand::activateLabelForDeck( const QString & label,
+                                                          const QString & deck)
 {
    bool valid = false;
    MediaAutomation * automation = nullptr;
    MediaListModel * model = nullptr;
    QString lineTag;
 
-   if (line == "A")
-   {
-      automation = & m_audioVideoAutomation_A;
-      model = & m_mediaModel_A;
-      lineTag = "A";
-   }
-   else if (line == "B")
-   {
-      automation = & m_audioVideoAutomation_B;
-      model = & m_mediaModel_B;
-      lineTag = "B";
-   }
-   else
-   {
-      m_errorString = "line must be 'A' or 'B'";
-   }
+   int deck_num = Playlist::toDeck(deck.at(0));
+   T_ASSERT( deck_num < NUMBER_OF_MEDIA_DECKS);
+
+   automation = m_mediaAutomationSet[deck_num];
+   model = dynamic_cast<MediaListModel *>(m_mediaListModelSet[deck_num]);
+   lineTag = deck;
+
 
    if (model)
    {

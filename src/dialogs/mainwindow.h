@@ -15,6 +15,8 @@
 
 #include "qtranslator.h"
 
+#include "PlaylistDecks.h"
+
 class PlaylistFunction;
 class LightPresetModel;
 class MediaListModel;
@@ -40,11 +42,9 @@ public:
    QWidget *openWebNetFunctionArea();
    QWidget *scriptArea();
    QWidget *connectionArea();
-   QLayout *playlistAreaLineA();
-   QLayout *playlistAreaLineB();
+   QLayout *playlistAreaForDeck(Playlist::Deck deck);
    QLayout *lightControlArea();
-   QBoxLayout *volumeSliderAreaLineA();
-   QBoxLayout *volumeSliderAreaLineB();
+   QBoxLayout *volumeSliderAreaForDeck(Playlist::Deck deck);
 
    void addShowActions( QList<QAction *> & actions);
    void addMediaListActions( QList<QAction *> & actions);
@@ -111,10 +111,8 @@ private:
    QList<QAction *> m_recentShowActions;
    AppSettingsGui * m_appSettingsGui;
 
-   QVBoxLayout * m_volumeLayoutLineA;
-   QVBoxLayout * m_volumeLayoutLineB;
-   QVBoxLayout * m_playlistLayoutLineA;
-   QVBoxLayout * m_playlistLayoutLineB;
+   QVBoxLayout * m_volumeLayout[NUMBER_OF_MEDIA_DECKS];
+   QVBoxLayout * m_playlistLayout[NUMBER_OF_MEDIA_DECKS];
 
 private slots:
    void onShowNameChanged(const QString &filename);
@@ -129,18 +127,14 @@ private slots:
    void on_actionOpenCurtain_triggered();
    void on_actionCloseCurtain_triggered();
    void on_action_Options_triggered();
-   void on_action_view_playlist_line_A_triggered(bool checked);
-   void on_action_view_playlist_line_B_triggered(bool checked);
    void on_action_view_light_preset_triggered(bool checked);
    void on_action_view_open_web_net_triggered(bool checked);
    void on_action_view_sequencer_triggered(bool checked);
    void on_action_view_save_layout_triggered();
    void on_action_view_restore_layout_triggered();
-   void on_dockPlaylistContainer_A_visibilityChanged(bool visible);
    void on_dockLightContainer_visibilityChanged(bool visible);
    void on_dockSequencerContainer_visibilityChanged(bool visible);
    void on_dockOpenWebNetContainer_visibilityChanged(bool visible);
-   void on_dockPlaylistContainer_B_visibilityChanged(bool visible);
    void on_actionAbout_MeTeOr_Player_triggered();
    void on_actionAbout_Qt_triggered();
    void on_actionAbout_mmedia_library_triggered();

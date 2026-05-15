@@ -1,7 +1,8 @@
 #ifndef APPLICATIONFACTORY_H
 #define APPLICATIONFACTORY_H
 
-#include "QObject"
+#include <array>
+#include <QObject>
 
 class MainWindow;
 class SequenceFunctionFactory;
@@ -46,9 +47,8 @@ private:
    ScriptFunctionFactory *m_scriptFactory;
 
 private:
-   void wireScriptFunction(ScriptEngine* scriptEngine,
-                            MediaAutomation *avAutomationLineA,
-                            MediaAutomation * avAutomationLineB,
+   void wireScriptFunction( ScriptEngine* scriptEngine,
+                            std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & mediaAutomationSet,
                             IF_LightEngineInterface *lightEngine,
                             Sequencer::Functionality *sequencer);
    void wireShowFunction(ShowManager *show, ScriptEngine *scriptEngine);

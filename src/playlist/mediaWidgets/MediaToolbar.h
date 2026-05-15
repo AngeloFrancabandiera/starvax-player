@@ -41,8 +41,7 @@ public slots:
    {
       /* This is also called for non-picture files. In this case,
        * the cast to QPixmap return NULL object */
-      m_isPictureLoaded = ((picture.mediaKind() == AbstractMediaSource::PICTURE_LINE_A) ||
-                           (picture.mediaKind() == AbstractMediaSource::PICTURE_LINE_B) );
+      m_isPictureLoaded = (picture.mediaKind() == AbstractMediaSource::PICTURE);
    }
 
 private:

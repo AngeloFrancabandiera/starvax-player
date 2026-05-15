@@ -25,7 +25,7 @@ public:
    IF_ShowGuiInterface *buildShowGui() override;
 
    ShowLoader * buildShowLoader( IF_ShowGuiInterface *selectDialog,
-                                 MediaListModel *mediaModelLineA, MediaListModel * mediaModelLineB,
+                                 std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                                  LightPresetModel *lightModel,
                                  SequenceEditorGui * sequencerGui,
                                  IF_ScriptEngineInterface *scriptInterafce,
@@ -34,8 +34,7 @@ public:
    IF_ShowWriterInterface *buildShowWriter(ShowFileFormatter *formatter) override;
 
    ShowFileFormatter *buildShowFileFormatter(const IF_ScriptEngineInterface &script,
-                                             const QAbstractListModel &mediaModelLineA,
-                                             const QAbstractListModel &mediaModelLineB,
+                                             const std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                                              const QAbstractListModel &lightsetModel,
                                              const SequenceEditorGui & sequencerGui,
                                              ApplicationSettings &appSettings) override;

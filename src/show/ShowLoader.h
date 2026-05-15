@@ -1,11 +1,13 @@
 #ifndef SHOWLOADER_H
 #define SHOWLOADER_H
 
+#include <array>
 #include <QObject>
 
 class IF_ShowGuiInterface;
 class ShowFileParser;
 class ShowFileFactory;
+class QAbstractListModel;
 
 class QTextStream;
 
@@ -21,7 +23,7 @@ class ShowLoader : public QObject
    Q_OBJECT
 public:
    explicit ShowLoader( IF_ShowGuiInterface & fileSelect, ShowFileFactory *parserFactory ,
-                        MediaListModel *mediaModelLineA, MediaListModel *mediaModelLineB,
+                        std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                         LightPresetModel * lighModel, SequenceEditorGui * sequencerGui,
                         IF_ScriptEngineInterface *scriptEngine,
                         ApplicationSettings & applicationSettings, QObject *parent = nullptr);
@@ -40,8 +42,7 @@ signals:
 private:
    IF_ShowGuiInterface & m_guiInterface;
    ShowFileFactory * m_parserFactory;
-   MediaListModel * m_mediaModelLineA;
-   MediaListModel * m_mediaModelLineB;
+   std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & m_mediaModelSet;
    LightPresetModel * m_lightModel;
    SequenceEditorGui * m_sequencerGui;
    IF_ScriptEngineInterface *m_scriptEngine;

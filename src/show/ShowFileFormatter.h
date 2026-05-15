@@ -18,8 +18,7 @@ class ShowFileFormatter
 {
 public:
    ShowFileFormatter( const IF_ScriptEngineInterface &script,
-                      const QAbstractListModel & mediaModelLineA,
-                      const QAbstractListModel & mediaModelLineB,
+                      const std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                       const QAbstractListModel & lightsetModel,
                       HtmlOptimizer & optimizer,
                       const SequenceEditorGui & sequencerGui);
@@ -32,8 +31,7 @@ public:
 private:
    QDir m_showPath;
    const IF_ScriptEngineInterface & m_script;
-   const QAbstractListModel & m_mediaModelLineA;
-   const QAbstractListModel & m_mediaModelLineB;
+   const std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & m_mediaModelSet;
    const QAbstractListModel & m_lightsetModel;
    HtmlOptimizer & m_optimizer;
    const SequenceEditorGui & m_sequencerGui;

@@ -68,8 +68,7 @@ void ScriptViewer::setMenuActionList(const QList<QAction *> &actionList)
 
 void ScriptViewer::addMediaEvent()
 {
-   /* always start from page of LINE A; in case, user will switch later to LINE B */
-   m_textViewer.insertHtml( m_actionHtmlMaker.makeHtmlForMediaAction( Playlist::LINE_A) );
+   m_textViewer.insertHtml( m_actionHtmlMaker.makeHtmlForMediaAction( 0) );  // _TODO deck
 }
 
 void ScriptViewer::addSeqEntryEvent()

@@ -2,13 +2,12 @@
 #include "MediaListModel.h"
 #include "CommandReply_IF.h"
 #include "modelViewRules.h"
+#include "PlaylistDecks.h"
 
 
-Server::GetMediaListCommand::GetMediaListCommand( MediaListModel & mediaModel_A,
-                                                  MediaListModel & mediaModel_B,
+Server::GetMediaListCommand::GetMediaListCommand( std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaListModelSet,
                                                   CommandReply_IF & replySink) :
-   m_mediaModel_A( mediaModel_A),
-   m_mediaModel_B( mediaModel_B),
+   m_mediaListModelSet( mediaListModelSet),
    m_replySink( replySink)
 {
 }
@@ -60,13 +59,9 @@ char Server::GetMediaListCommand::selectModelTag(const QStringList & parameters)
    {
       QString param = parameters.at(0);
 
-      if (param == "A")
+      if ((param.at(0) >= 'A') && (param.at(0) < (QChar('A' + NUMBER_OF_MEDIA_DECKS))))
       {
-         tag = 'A';
-      }
-      else if (param == "B")
-      {
-         tag = 'B';
+         tag = param.at(0).unicode();
       }
    }
 
@@ -76,14 +71,11 @@ char Server::GetMediaListCommand::selectModelTag(const QStringList & parameters)
 MediaListModel * Server::GetMediaListCommand::selectModel( char modelTag)
 {
    MediaListModel * model = nullptr;
+   int deck = Playlist::toDeck(modelTag);
 
-   if (modelTag == 'A')
+   if (deck <= NUMBER_OF_MEDIA_DECKS)
    {
-      model = & m_mediaModel_A;
-   }
-   else if (modelTag == 'B')
-   {
-      model = & m_mediaModel_B;
+      model = dynamic_cast<MediaListModel *>(m_mediaListModelSet[deck]);
    }
 
    return model;

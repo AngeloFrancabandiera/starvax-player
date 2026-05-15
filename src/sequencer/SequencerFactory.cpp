@@ -22,14 +22,13 @@ SequenceEditorGui *Sequencer::SequencerFactory::buildGuiHandler( StatusDisplay &
    return new SequenceEditorGuiQt( msgDisplay, settings, parent);
 }
 
-InstructionFactory *SequencerFactory::buildInstructionFactory( MediaAutomation & audioVideoAutomation_lineA,
-                                                               MediaAutomation & audioVideoAutomation_lineB,
+InstructionFactory *SequencerFactory::buildInstructionFactory( std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & mediaAutomationSet,
                                                                IF_LightEngineInterface & lightEngine,
                                                                OpenWebNetEngine_IF & ownEngine,
                                                                const OwnModel & ownModel,
                                                                SequenceEditorGui & gui)
 {
-   return new Sequencer::InstructionFactory( audioVideoAutomation_lineA, audioVideoAutomation_lineB,
+   return new Sequencer::InstructionFactory( mediaAutomationSet,
                                              lightEngine, ownEngine, ownModel, gui);
 }
 

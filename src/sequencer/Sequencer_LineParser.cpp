@@ -1,9 +1,10 @@
 #include "Sequencer_LineParser.h"
 
-//#include <QStringView>
 #include <QStringList>
 #include <QMap>
 #include <QRegularExpression>
+
+#include "PlaylistDecks.h"
 
 namespace {
 
@@ -212,7 +213,7 @@ bool LineParser::parsePlaylist( const QString & line)
       /* check parsed values */
       QChar playlistLine = match.captured("line").at(0);
 
-      m_lineParamsPlaylist.line = (playlistLine == 'A') ? Playlist::LINE_A :Playlist::LINE_B;
+      m_lineParamsPlaylist.deck = Playlist::toDeck(playlistLine);
       m_lineParamsPlaylist.subCommand = PlaylistSubcommandTable.value( match.captured("cmd"),
                                                                        PLAYLIST_NONE);
 

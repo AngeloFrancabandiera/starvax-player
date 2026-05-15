@@ -2,7 +2,7 @@
 #define PLAYLISTGUIFACTORY_H
 
 #include <QObject>
-#include "PlaylistConstants.h"
+#include "PlaylistDecks.h"
 
 class QBoxLayout;
 class QLayout;
@@ -38,6 +38,7 @@ class PlaylistGuiFactory : public QObject
    Q_OBJECT
 public:
    explicit PlaylistGuiFactory( const ApplicationSettings & settings,
+                                Playlist::Deck deck,
                                 QObject *parent = nullptr);
 
    MediaPositionSlider *buildSeekbar(IF_MediaEngineInterface *engine, QWidget *parent);
@@ -52,15 +53,23 @@ public:
                                        ActionListController *actionController,
                                        StatusDisplay * msgDisplay,
                                        QWidget *parent);
-   void buildPlaylistPanel( IF_MediaEngineInterface *engine, MediaAutomation *automation,
-                            MediaListModel * mediaModel,Playlist::Line line,
-                            ActionListView *playlistView, FileInport *fileInport,
-                            QAction * setEditModeAction, QLayout *container);
+   void buildPlaylistPanel( IF_MediaEngineInterface *engine,
+                            MediaAutomation *automation,
+                            MediaListModel *mediaModel,
+                            ActionListView * playlistView,
+                            FileInport *fileInport,
+                            QAction * setEditModeAction,
+                            QLayout *container);
 private:
-   void connectOpenMediaFunction( Playlist::Line line, FileInport *fileInport, QPushButton *openMediaButton);
+   void connectOpenMediaFunction( FileInport *fileInport, QPushButton *openMediaButton);
 
 private:
    const ApplicationSettings & m_settings;
+   Playlist::Deck m_deck;
+   FileInport * m_fileInport;
+
+private slots:
+   void onOpenMediaClicked();
 };
 
 #endif // PLAYLISTGUIFACTORY_H

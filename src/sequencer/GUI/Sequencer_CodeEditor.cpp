@@ -376,15 +376,7 @@ void CodeEditor::handleDropOperationForMedia(QDropEvent *event)
 
       kind = static_cast<AbstractMediaSource::MediaKind>( kindOverlay);
 
-      if ((kind == AbstractMediaSource::AUDIO_VIDEO_LINE_A) ||
-          (kind == AbstractMediaSource::PICTURE_LINE_A))
-      {
-         line = "A";
-      }
-      else
-      {
-         line = "B";
-      }
+      line = "A"; // _TODO fix deck
 
       /* insert label in quotes */
       textCursor().insertText( QString("playlist %1 %2 \"%3\"\n").arg(line).arg(command).arg(label) );

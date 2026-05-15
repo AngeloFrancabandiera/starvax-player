@@ -12,14 +12,12 @@
 
 #include "modelViewRules.h"
 
-#define  MEDIA_LINE_A_TAB_INDEX    0   /**< tab position of media tab (must be coherent to UI) */
-#define  MEDIA_LINE_B_TAB_INDEX    1   /**< tab position of media tab (must be coherent to UI) */
-#define  LIGHT_TAB_INDEX    2   /**< tab position of light tab (must be coherent to UI) */
-#define  SEQUENCER_ENTRY_TAB_INDEX    3   /**< tab position of sequencer (must be coherent to UI) */
+#define  MEDIA_TAB_INDEX    0   /**< tab position of media tab (must be coherent to UI) */
+#define  LIGHT_TAB_INDEX    1   /**< tab position of light tab (must be coherent to UI) */
+#define  SEQUENCER_ENTRY_TAB_INDEX    2   /**< tab position of sequencer (must be coherent to UI) */
 
 
-ActionTargetSelectorDialog::ActionTargetSelectorDialog(QAbstractListModel *mediaModelLineA,
-                                                        QAbstractListModel *mediaModelLineB,
+ActionTargetSelectorDialog::ActionTargetSelectorDialog( std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                                                         QAbstractListModel *lightModel,
                                                         QStringListModel & sequenceEntryModel,
                                                         QWidget *parent) :
@@ -30,12 +28,15 @@ ActionTargetSelectorDialog::ActionTargetSelectorDialog(QAbstractListModel *media
 
    connect( ui->eventTypeTab, & QTabWidget::currentChanged,
             this, & ActionTargetSelectorDialog::selectPage);
-   selectMediaPageLineA();
+   selectMediaPage();
 
    ui->lightList->setModel( lightModel);
-   ui->mediaListLineA->setModel( mediaModelLineA);
-   ui->mediaListLineB->setModel( mediaModelLineB);
    ui->sequenceEntryList->setModel( & sequenceEntryModel);
+
+   for (int deck=0; deck < NUMBER_OF_MEDIA_DECKS; deck++)
+   {
+      ui->mediaListLineA->setModel( mediaModelSet[deck]);  // _TODO line A!!!
+   }
 
    connect( ui->lightList, & QListView::doubleClicked, this, & ActionTargetSelectorDialog::addSelectedItem);
    connect( ui->mediaListLineA, & QListView::doubleClicked, this, & ActionTargetSelectorDialog::addSelectedItem);
@@ -60,13 +61,9 @@ void ActionTargetSelectorDialog::selectPageForEvent(Type actionType)
 {
    int pageNumber = -1;
 
-   if ((actionType == MediaActionLineA) || (actionType == PictureActionLineA))
+   if ((actionType == MediaAction) || (actionType == PictureAction))
    {
-      pageNumber = MEDIA_LINE_A_TAB_INDEX;
-   }
-   else if ((actionType == MediaActionLineB) || (actionType == PictureActionLineB))
-   {
-      pageNumber = MEDIA_LINE_B_TAB_INDEX;
+      pageNumber = MEDIA_TAB_INDEX;
    }
    else if (actionType == LightAction)
    {
@@ -84,11 +81,8 @@ void ActionTargetSelectorDialog::selectPage(int page)
 {
    switch (page)
    {
-   case MEDIA_LINE_A_TAB_INDEX:
-      selectMediaPageLineA();
-      break;
-   case MEDIA_LINE_B_TAB_INDEX:
-      selectMediaPageLineB();
+   case MEDIA_TAB_INDEX:
+      selectMediaPage();
       break;
    case LIGHT_TAB_INDEX:
       selectLightPage();
@@ -103,32 +97,22 @@ void ActionTargetSelectorDialog::selectPage(int page)
 }
 
 
-void ActionTargetSelectorDialog::selectMediaPageLineA()
+void ActionTargetSelectorDialog::selectMediaPage()
 {
-   ui->eventTypeTab->setCurrentIndex( MEDIA_LINE_A_TAB_INDEX);
+   ui->eventTypeTab->setCurrentIndex( MEDIA_TAB_INDEX);
    ui->iconHolder->setPixmap( QPixmap(IconPath("sound_A.png")) );
-   ui->lineLabel->setText(tr("LINE A"));
-}
-
-void ActionTargetSelectorDialog::selectMediaPageLineB()
-{
-   ui->eventTypeTab->setCurrentIndex( MEDIA_LINE_B_TAB_INDEX);
-   ui->iconHolder->setPixmap( QPixmap(IconPath("sound_B.png")) );
-   ui->lineLabel->setText(tr("LINE B"));
 }
 
 void ActionTargetSelectorDialog::selectLightPage()
 {
    ui->eventTypeTab->setCurrentIndex( LIGHT_TAB_INDEX);
    ui->iconHolder->setPixmap( QPixmap(IconPath("light.png")) );
-   ui->lineLabel->setText("");
 }
 
 void ActionTargetSelectorDialog::selectSequencerEntryPage()
 {
    ui->eventTypeTab->setCurrentIndex( SEQUENCER_ENTRY_TAB_INDEX);
    ui->iconHolder->setPixmap( QPixmap(IconPath("sequencer_play.png")) );
-   ui->lineLabel->setText("");
 }
 
 void ActionTargetSelectorDialog::on_addButton_clicked()
@@ -140,9 +124,9 @@ void ActionTargetSelectorDialog::addSelectedItem()
 {
    QModelIndex selectedItem;
 
-   if (ui->eventTypeTab->currentIndex() == MEDIA_LINE_A_TAB_INDEX)
+   if (ui->eventTypeTab->currentIndex() == MEDIA_TAB_INDEX)
    {
-      m_actionType = IF_ActionSelectorInterface::MediaActionLineA;
+      m_actionType = IF_ActionSelectorInterface::MediaAction;
 
       selectedItem = ui->mediaListLineA->currentIndex();
       m_actionId = selectedItem.data( modelViewRules::StringId).toString();
@@ -154,24 +138,7 @@ void ActionTargetSelectorDialog::addSelectedItem()
 
       if (PICTURE_SUPPORTED_FORMATS.contains( actionInfo.suffix(), Qt::CaseInsensitive))
       {
-         m_actionType = IF_ActionSelectorInterface::PictureActionLineA;
-      }
-   }
-   else if (ui->eventTypeTab->currentIndex() == MEDIA_LINE_B_TAB_INDEX)
-   {
-      m_actionType = IF_ActionSelectorInterface::MediaActionLineB;
-
-      selectedItem = ui->mediaListLineB->currentIndex();
-      m_actionId = selectedItem.data( modelViewRules::StringId).toString();
-
-      /* picture is in same model as all other media
-       * It can only be distinguished by file extenrtion
-       */
-      QFileInfo actionInfo( m_actionId);
-
-      if (PICTURE_SUPPORTED_FORMATS.contains( actionInfo.suffix(), Qt::CaseInsensitive))
-      {
-         m_actionType = IF_ActionSelectorInterface::PictureActionLineB;
+         m_actionType = IF_ActionSelectorInterface::PictureAction;
       }
    }
    else if (ui->eventTypeTab->currentIndex() == LIGHT_TAB_INDEX)

@@ -4,6 +4,7 @@
 #include <QCheckBox>
 
 #include "PlaylistGuiFactory.h"
+#include "PlaylistDecks.h"
 #include "IF_MediaEngineInterface.h"
 #include "mediaPositionSlider.h"
 #include "MediaAutomation.h"
@@ -25,10 +26,14 @@
 #include "ApplicationIcon.h"
 
 
+
 PlaylistGuiFactory::PlaylistGuiFactory( const ApplicationSettings & settings,
+                                        Playlist::Deck deck,
                                         QObject *parent) :
    QObject(parent),
-   m_settings(settings)
+   m_settings(settings),
+   m_deck(deck),
+   m_fileInport(nullptr)
 {
 }
 
@@ -121,7 +126,6 @@ ActionListView *PlaylistGuiFactory::buildPlaylistView( PlaylistBar *playbar,
 void PlaylistGuiFactory::buildPlaylistPanel( IF_MediaEngineInterface *engine,
                                              MediaAutomation *automation,
                                              MediaListModel *mediaModel,
-                                             Playlist::Line line,
                                              ActionListView * playlistView,
                                              FileInport *fileInport,
                                              QAction * setEditModeAction,
@@ -131,12 +135,9 @@ void PlaylistGuiFactory::buildPlaylistPanel( IF_MediaEngineInterface *engine,
    container->setContentsMargins( 2,2,2,2);
    QSize iconSize = QSize(m_settings.getIconSize(), m_settings.getIconSize());
 
-   switch (line)
-   {
-   case Playlist::LINE_A : playlistView->setObjectName("playlist_A"); break;
-   case Playlist::LINE_B : playlistView->setObjectName("playlist_B"); break;
-   default: T_ASSERT(false); break;
-   }
+   T_ASSERT( m_deck < NUMBER_OF_MEDIA_DECKS);
+
+   playlistView->setObjectName(QString("playlist_%1").arg(Playlist::toLetter(m_deck)));
 
    QWidget *toolbar = new QWidget( container->parentWidget());
    toolbar->setLayout( new QHBoxLayout());
@@ -196,7 +197,7 @@ void PlaylistGuiFactory::buildPlaylistPanel( IF_MediaEngineInterface *engine,
                                                  QString(), toolbar);
    openMediaButton->setToolTip( tr("open a dialog to load new media files"));
    openMediaButton->setFocusPolicy(Qt::NoFocus);
-   connectOpenMediaFunction(line, fileInport, openMediaButton);
+   connectOpenMediaFunction( fileInport, openMediaButton);
    toolbar->layout()->addWidget( openMediaButton);
    openMediaButton->setMaximumSize(iconSize);
 
@@ -260,15 +261,17 @@ void PlaylistGuiFactory::buildPlaylistPanel( IF_MediaEngineInterface *engine,
    connect( setEditModeAction, SIGNAL(triggered(bool)), playlistView, SLOT(setEditMode(bool)));
 }
 
-void PlaylistGuiFactory::connectOpenMediaFunction( Playlist::Line line, FileInport *fileInport,
+void PlaylistGuiFactory::connectOpenMediaFunction( FileInport *fileInport,
                                                    QPushButton *openMediaButton)
 {
-   if (line == Playlist::LINE_B)
-   {
-      connect( openMediaButton, SIGNAL(clicked()), fileInport, SLOT(openTracksDialogLineB()) );
-   }
-   else
-   {
-      connect( openMediaButton, SIGNAL(clicked()), fileInport, SLOT(openTracksDialogLineA()) );
-   }
+   m_fileInport = fileInport;
+   connect( openMediaButton, & QPushButton::clicked, this, & PlaylistGuiFactory::onOpenMediaClicked);
+}
+
+
+void PlaylistGuiFactory::onOpenMediaClicked()
+{
+   T_ASSERT( m_fileInport);
+   m_fileInport->openTracksDialogForDeck( m_deck);
+
 }

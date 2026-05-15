@@ -4,6 +4,7 @@
 #include <QDir>
 
 #include "WindowLayout.h"
+#include "PlaylistDecks.h"
 
 
 /** @class ApplicationSettings
@@ -65,34 +66,18 @@ int ApplicationSettings::maxRecentShowFiles() const
    return NUMBER_OF_RECENT_SHOW_FILES;
 }
 
-void ApplicationSettings::setDefaultVolumeLineA(int volume)
+void ApplicationSettings::setDefaultVolume( int deck, int volume)
 {
    QSettings setting( QSettings::IniFormat, QSettings::UserScope, COMPANY_TAG, PRODUCT_TAG);
-   setting.setValue( "default volume line A", volume);
+   setting.setValue( QString("default volume line %1").arg(Playlist::toLetter(deck)), volume);
 
-   emit defaultVolumeChangedLineA( volume);
+   emit defaultVolumeChanged( deck, volume);
 }
 
-int ApplicationSettings::defaultVolumeLineA() const
+int ApplicationSettings::defaultVolume( int deck) const
 {
    QSettings setting( QSettings::IniFormat, QSettings::UserScope, COMPANY_TAG, PRODUCT_TAG);
-   int defVolume = setting.value( "default volume line A", 100).toInt();
-
-   return defVolume;
-}
-
-void ApplicationSettings::setDefaultVolumeLineB(int volume)
-{
-   QSettings setting( QSettings::IniFormat, QSettings::UserScope, COMPANY_TAG, PRODUCT_TAG);
-   setting.setValue( "default volume line B", volume);
-
-   emit defaultVolumeChangedLineB( volume);
-}
-
-int ApplicationSettings::defaultVolumeLineB() const
-{
-   QSettings setting( QSettings::IniFormat, QSettings::UserScope, COMPANY_TAG, PRODUCT_TAG);
-   int defVolume = setting.value( "default volume line B", 100).toInt();
+   int defVolume = setting.value( QString("default volume line %1").arg(Playlist::toLetter(deck)), 100).toInt();
 
    return defVolume;
 }
@@ -176,28 +161,18 @@ QByteArray ApplicationSettings::getPreviousWindowGeometry() const
 }
 
 
-void ApplicationSettings::setOpenMusicFolder( int line, const QString & folder)
+void ApplicationSettings::setOpenMusicFolder( int deck, const QString & folder)
 {
    QSettings setting( QSettings::IniFormat, QSettings::UserScope, COMPANY_TAG, PRODUCT_TAG);
-   if (line == 0) {
-      setting.setValue( "open music folder LA", folder);
-   }
-   else {
-      setting.setValue( "open music folder LB", folder);
-   }
+   setting.setValue( QString("open music folder L%1").arg(Playlist::toLetter(deck)), folder);
 }
 
-QString ApplicationSettings::openMusicFolder(int line) const
+QString ApplicationSettings::openMusicFolder(int deck) const
 {
    QSettings setting( QSettings::IniFormat, QSettings::UserScope, COMPANY_TAG, PRODUCT_TAG);
    QString musicFolder;
 
-   if (line == 0) {
-      musicFolder = setting.value( "open music folder LA").toString();
-   }
-   else {
-      musicFolder = setting.value( "open music folder LB").toString();
-   }
+   musicFolder = setting.value( QString("open music folder deck %1").arg(Playlist::toLetter(deck))).toString();
 
    return musicFolder;
 }

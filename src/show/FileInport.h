@@ -18,8 +18,7 @@ public:
    /** Panel where drop operation occurred */
    enum GuiArea
    {
-      PLAYLIST_A = 0,
-      PLAYLIST_B,
+      PLAYLIST = 0,
       SCRIPT,
       SEQUENCE,
       LIGHT,
@@ -30,30 +29,31 @@ public:
    static QString open_style_dialog();
 
    /** set panel in which last drop operation occurred */
-   void setDropTarget( GuiArea target) {
+   // _TODO ma serve davvero?
+   void setDropTarget( GuiArea target, int param) {
       m_lastDropTarget = target;
+      m_lastDropTargetParam = param;
    }
 
 public slots:
    void openScriptDialog();
-   void openTracksDialogLineA();
-   void openTracksDialogLineB();
+   void openTracksDialogForDeck( int deck);
 
 
 signals:
-   void inportScriptContent( QString filename );
-   void inportMediaTracksLineA( QStringList filenames );
-   void inportMediaTracksLineB( QStringList filenames );
-   void inportShowFile( QString filename );
+   void importScriptContent( QString filename );
+   void importMediaTracksForDeck( QStringList filenames, int deck);
+   void importShowFile( QString filename );
    void loadStyle( QString filename );
 
 private:
    QString getFileContents(QString filename);
-   QStringList openTracksDialog( GuiArea line);
+   QStringList selectTracksForDeck( int deck);
 
 private:
    ApplicationSettings & m_applicationSettings;
    GuiArea m_lastDropTarget;
+   int m_lastDropTargetParam;
 };
 
 #endif // FILEINPORT_H

@@ -104,8 +104,7 @@ void PicturePlaybar::onPictureShowChanged( bool isShown)
 
 void PicturePlaybar::onCurrentMediaChanged(const AbstractMediaSource & mediaSource)
 {
-   if ((mediaSource.mediaKind() == AbstractMediaSource::PICTURE_LINE_A) ||
-       (mediaSource.mediaKind() == AbstractMediaSource::PICTURE_LINE_B) )
+   if (mediaSource.mediaKind() == AbstractMediaSource::PICTURE)
    {
       QPixmap pixmap = mediaSource.mediaContent().value<QPixmap>();
 

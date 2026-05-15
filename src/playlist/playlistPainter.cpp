@@ -20,10 +20,8 @@ PlaylistPainter::PlaylistPainter(const ApplicationSettings &settings) :
    m_soundIcon_A = QPixmap( IconPath("sound_A.png")).scaled(16,16);
    m_soundIcon_B = QPixmap( IconPath("sound_B.png")).scaled(16,16);
 
-   TypeToIconMap.insert( AbstractMediaSource::AUDIO_VIDEO_LINE_A, & m_soundIcon_A);
-   TypeToIconMap.insert( AbstractMediaSource::AUDIO_VIDEO_LINE_B, & m_soundIcon_B);
-   TypeToIconMap.insert( AbstractMediaSource::PICTURE_LINE_A, & m_pictureIcon_A);
-   TypeToIconMap.insert( AbstractMediaSource::PICTURE_LINE_B, & m_pictureIcon_B);
+   TypeToIconMap.insert( AbstractMediaSource::AUDIO_VIDEO, & m_soundIcon_A);  // _TODO decks!
+   TypeToIconMap.insert( AbstractMediaSource::PICTURE, & m_pictureIcon_A);
 }
 
 

@@ -8,11 +8,9 @@
 #define  PLAYLIST_LEGACY_START_TAG   "<!--PLAYLIST>"
 #define  PLAYLIST_LEGACY_END_TAG     "<PLAYLIST-->"
 
-#define  PLAYLIST_LINE_A_START_TAG   "<!--PLAYLIST_LINE_A>"
-#define  PLAYLIST_LINE_A_END_TAG     "<PLAYLIST_LINE_A-->"
-
-#define  PLAYLIST_LINE_B_START_TAG   "<!--PLAYLIST_LINE_B>"
-#define  PLAYLIST_LINE_B_END_TAG     "<PLAYLIST_LINE_B-->"
+#define  PLAYLIST_START_BEGIN    "<!--PLAYLIST_LINE_"
+#define  PLAYLIST_START_TAG(deck)   QString("<!--PLAYLIST_LINE_%1>").arg(Playlist::toLetter(deck))
+#define  PLAYLIST_END_TAG(deck)     QString("<PLAYLIST_LINE_%1-->").arg(Playlist::toLetter(deck))
 
 #define  LIGHTSET_START_TAG   "<!--LIGHTSET>"
 #define  LIGHTSET_END_TAG     "<LIGHTSET-->"

@@ -2,6 +2,8 @@
 #define PLAYMEDIACOMMAND_H
 
 #include "Command_IF.h"
+#include <array>
+
 class IF_MediaEngineInterface;
 
 
@@ -18,8 +20,7 @@ class CommandReply_IF;
 class PlayMediaCommand : public Command_IF
 {
 public:
-   PlayMediaCommand( IF_MediaEngineInterface & mediaEngine_A,
-                     IF_MediaEngineInterface & mediaEngine_B,
+   PlayMediaCommand( std::array<IF_MediaEngineInterface *, NUMBER_OF_MEDIA_DECKS> & mediaEngineSet,
                      CommandReply_IF & replySink);
 
    ~PlayMediaCommand() override{}
@@ -38,8 +39,7 @@ public:
    bool execute(const QStringList & parameters) override;
 
 private:
-   IF_MediaEngineInterface & m_mediaEngine_A;
-   IF_MediaEngineInterface & m_mediaEngine_B;
+   std::array<IF_MediaEngineInterface *, NUMBER_OF_MEDIA_DECKS> & m_mediaEngineSet;
    CommandReply_IF & m_replySink;
 };
 

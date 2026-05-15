@@ -1,11 +1,12 @@
 #ifndef SHOWMANAGER_H
 #define SHOWMANAGER_H
 
+#include <array>
 #include <QObject>
 
 #include "LightPresetData.h"
 
-
+class QAbstractListModel;
 class ShowFileParser;
 class QTextStream;
 class SequenceEditorGui;
@@ -25,7 +26,7 @@ class ShowManager : public QObject
    Q_OBJECT
 public:
    explicit ShowManager( IF_ShowFactoryInterface *showFactory, IF_ScriptEngineInterface & scriptEngine,
-                         MediaListModel & mediaModelLineA, MediaListModel & mediaModelLineB,
+                         std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                          LightPresetModel &lightModel,SequenceEditorGui & sequencerGui,
                          ApplicationSettings & applicationSettings,
                          QObject *parent = nullptr);
@@ -41,8 +42,7 @@ private:
 
 private:
    QString m_showFilename;
-   MediaListModel & m_mediaModelLineA;
-   MediaListModel & m_mediaModelLineB;
+   std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & m_mediaModelSet;
    LightPresetModel & m_lightsetModel;
    SequenceEditorGui & m_sequencerGui;
 

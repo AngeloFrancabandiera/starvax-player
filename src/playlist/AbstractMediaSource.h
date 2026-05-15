@@ -18,10 +18,8 @@ class AbstractMediaSource : public QObject
 public:
    enum MediaKind {
       KIND_NONE = 0,
-      AUDIO_VIDEO_LINE_A,
-      AUDIO_VIDEO_LINE_B,
-      PICTURE_LINE_A,
-      PICTURE_LINE_B
+      AUDIO_VIDEO,
+      PICTURE
    };
 
    AbstractMediaSource() {}

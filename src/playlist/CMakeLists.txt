@@ -21,7 +21,7 @@ set(STARVAX_SOURCES
    src/playlist/MediaSourceFactory.h
    src/playlist/PictureSource.cpp
    src/playlist/PictureSource.h
-   src/playlist/PlaylistConstants.h
+   src/playlist/PlaylistDecks.h
    src/playlist/PlaylistFunctionFactory.cpp
    src/playlist/PlaylistFunctionFactory.h
    src/playlist/playlistPainter.cpp

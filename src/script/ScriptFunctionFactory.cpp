@@ -28,8 +28,7 @@ ScriptFunctionFactory::ScriptFunctionFactory(QAction *editModeAction, QObject *p
 }
 
 ScriptEngine *ScriptFunctionFactory::build( QWidget *container,
-                                            QAbstractListModel *mediaModelLineA,
-                                            QAbstractListModel *mediaModelLineB,
+                                            std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                                             QStringListModel & sequenceEntryModel,
                                             StatusDisplay * msgDisplay,
                                             ApplicationSettings & settings,
@@ -41,7 +40,7 @@ ScriptEngine *ScriptFunctionFactory::build( QWidget *container,
 
    ScriptGuiFactory *guiFactory = new ScriptGuiFactory( container);
    IF_ScriptViewerInterface *viewer = guiFactory->build( container, actionTrigger,
-                                                         mediaModelLineA, mediaModelLineB, sequenceEntryModel,
+                                                         mediaModelSet, sequenceEntryModel,
                                                          msgDisplay, settings, lightModel);
 
    QtTimerService *timerService = new QtTimerService( this);

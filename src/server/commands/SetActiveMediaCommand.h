@@ -3,8 +3,11 @@
 
 #include "Command_IF.h"
 #include <QString>
+#include <array>
+
 class MediaAutomation;
 class MediaListModel;
+class QAbstractListModel;
 
 
 namespace Server {
@@ -19,10 +22,8 @@ class CommandReply_IF;
 class SetActiveTrackCommand : public Command_IF
 {
 public:
-   SetActiveTrackCommand( MediaAutomation & audioVideoAutomation_A,
-                          MediaAutomation & audioVideoAutomation_B,
-                          MediaListModel & mediaModel_A,
-                          MediaListModel & mediaModel_B,
+   SetActiveTrackCommand( std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & mediaAutomationSet,
+                          std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaListModelSet,
                           CommandReply_IF & replySink);
    ~SetActiveTrackCommand() override {}
 
@@ -41,17 +42,15 @@ public:
    bool execute(const QStringList & parameters) override;
 
 private:
-   MediaAutomation & m_audioVideoAutomation_A;
-   MediaAutomation & m_audioVideoAutomation_B;
-   MediaListModel & m_mediaModel_A;
-   MediaListModel & m_mediaModel_B;
+   std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & m_mediaAutomationSet;
+   std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & m_mediaListModelSet;
    CommandReply_IF & m_replySink;
 
    QString m_errorString;
 
 private:
-   bool activateLabelForLine( const QString & label,
-                              const QString & line);
+   bool activateLabelForDeck( const QString & label,
+                              const QString & deck);
 };
 
 }  // namespace Server

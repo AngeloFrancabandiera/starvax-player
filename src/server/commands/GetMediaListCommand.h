@@ -3,6 +3,7 @@
 
 #include "Command_IF.h"
 class MediaListModel;
+class QAbstractListModel;
 
 
 namespace Server {
@@ -15,8 +16,7 @@ class CommandReply_IF;
 class GetMediaListCommand : public Command_IF
 {
 public:
-   GetMediaListCommand( MediaListModel & mediaModel_A,
-                        MediaListModel & mediaModel_B,
+   GetMediaListCommand( std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaListModelSet,
                         CommandReply_IF & replySink);
    ~GetMediaListCommand() override {}
 
@@ -34,8 +34,7 @@ public:
    bool execute(const QStringList & parameters) override;
 
 private:
-   MediaListModel & m_mediaModel_A;  // line A
-   MediaListModel & m_mediaModel_B;  // line B
+   std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & m_mediaListModelSet;
    CommandReply_IF & m_replySink;
 
 private:

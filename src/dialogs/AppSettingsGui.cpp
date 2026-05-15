@@ -1,9 +1,15 @@
 #include "AppSettingsGui.h"
 #include "ui_AppSettingsGui.h"
 #include "ApplicationSettings.h"
+#include "testableAssert.h"
+#include "PlaylistDecks.h"
 
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QLabel>
+#include <QSpinBox>
+#include <QSpacerItem>
+#include <QGridLayout>
 
 
 AppSettingsGui::AppSettingsGui( ApplicationSettings & settings,
@@ -14,6 +20,25 @@ AppSettingsGui::AppSettingsGui( ApplicationSettings & settings,
 {
    ui->setupUi(this);
    setWindowTitle(tr("Options"));
+
+   T_ASSERT(ui->groupBox_media->layout());
+   T_ASSERT(dynamic_cast<QGridLayout*>(ui->groupBox_media->layout()));
+   QGridLayout* media_layout = dynamic_cast<QGridLayout*>(ui->groupBox_media->layout());
+
+   // create settings for decks
+   for (int deck=0; deck < NUMBER_OF_MEDIA_DECKS; deck++)
+   {
+      QLabel *label = new QLabel(QString("Default volume for deck %1").arg(Playlist::toLetter(deck)), ui->groupBox_media);
+      m_defaultVolumeSet[deck] = new QSpinBox( ui->groupBox_media);
+      QSpacerItem *spacer = new QSpacerItem( 10, 10, QSizePolicy::Expanding);
+
+      media_layout->addWidget( label, deck, 0);
+      media_layout->addWidget( m_defaultVolumeSet[deck], deck, 1);
+      media_layout->addItem( spacer, deck, 2);
+
+      m_defaultVolumeSet[deck]->setMinimum(0);
+      m_defaultVolumeSet[deck]->setMaximum(100);
+   }
 }
 
 AppSettingsGui::~AppSettingsGui()
@@ -27,8 +52,11 @@ void AppSettingsGui::setVisible(bool visible)
    if (visible == true)
    {
       /* upload GUI */
-      ui->defaultVolumeLineA->setValue( m_settings.defaultVolumeLineA());
-      ui->defaultVolumeLineB->setValue( m_settings.defaultVolumeLineB());
+      for (int deck=0; deck < NUMBER_OF_MEDIA_DECKS; deck++)
+      {
+         m_defaultVolumeSet[deck]->setValue( m_settings.defaultVolume( deck));
+      }
+
       ui->passwordLine->setText( m_settings.remotePassword());
       ui->DmxChannelsSpinBox->setValue( m_settings.numberOfDmxChannels());
 
@@ -53,8 +81,11 @@ void AppSettingsGui::setVisible(bool visible)
 void AppSettingsGui::on_commitButton_clicked()
 {
    /* update settings */
-   m_settings.setDefaultVolumeLineA( ui->defaultVolumeLineA->value());
-   m_settings.setDefaultVolumeLineB( ui->defaultVolumeLineB->value());
+   for (int deck=0; deck < NUMBER_OF_MEDIA_DECKS; deck++)
+   {
+      m_settings.setDefaultVolume( deck, m_defaultVolumeSet[deck]->value());
+   }
+
    m_settings.setRemotePassword( ui->passwordLine->text());
    m_settings.setNumberOfDmxChannels( ui->DmxChannelsSpinBox->value());
 

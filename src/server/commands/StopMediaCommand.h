@@ -16,8 +16,7 @@ class CommandReply_IF;
 class StopMediaCommand : public Command_IF
 {
 public:
-   StopMediaCommand( IF_MediaEngineInterface & mediaEngine_A,
-                     IF_MediaEngineInterface & mediaEngine_B,
+   StopMediaCommand( std::array<IF_MediaEngineInterface *, NUMBER_OF_MEDIA_DECKS> & mediaEngineSet,
                      CommandReply_IF & replySink);
 
    ~StopMediaCommand() override {}
@@ -36,8 +35,7 @@ public:
    bool execute(const QStringList & parameters) override;
 
 private:
-   IF_MediaEngineInterface & m_mediaEngine_A;
-   IF_MediaEngineInterface & m_mediaEngine_B;
+   std::array<IF_MediaEngineInterface *, NUMBER_OF_MEDIA_DECKS> & m_mediaEngineSet;
    CommandReply_IF & m_replySink;
 };
 

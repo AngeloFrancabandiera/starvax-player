@@ -1,6 +1,7 @@
 #ifndef SHOWFACTORY_IF_H
 #define SHOWFACTORY_IF_H
 
+#include <array>
 #include <QObject>
 
 class QAbstractListModel;
@@ -31,8 +32,7 @@ public:
    virtual IF_ShowGuiInterface *buildShowGui() = 0;
 
    virtual ShowLoader * buildShowLoader( IF_ShowGuiInterface *selectDialog,
-                                         MediaListModel *mediaModelLineA,
-                                         MediaListModel * mediaModelLineB,
+                                         std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                                          LightPresetModel *lightModel,
                                          SequenceEditorGui * sequencerGui,
                                          IF_ScriptEngineInterface *scriptInterafce,
@@ -41,8 +41,7 @@ public:
    virtual IF_ShowWriterInterface *buildShowWriter(ShowFileFormatter *formatter) = 0;
 
    virtual ShowFileFormatter *buildShowFileFormatter(const IF_ScriptEngineInterface &script,
-                                                     const QAbstractListModel &mediaModelLineA,
-                                                     const QAbstractListModel &mediaModelLineB,
+                                                     const std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                                                      const QAbstractListModel &lightsetModel,
                                                      const SequenceEditorGui & sequencerGui,
                                                      ApplicationSettings & appSettings) = 0;

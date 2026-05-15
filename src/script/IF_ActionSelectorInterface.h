@@ -18,10 +18,8 @@ public:
    {
       NoAction,
       LightAction,
-      MediaActionLineA,
-      MediaActionLineB,
-      PictureActionLineA,
-      PictureActionLineB,
+      MediaAction,
+      PictureAction,
       SequenceEntryAction
    } Type;
 

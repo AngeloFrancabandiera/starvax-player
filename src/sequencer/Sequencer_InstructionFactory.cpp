@@ -12,17 +12,15 @@
 
 namespace Sequencer {
 
-InstructionFactory::InstructionFactory( MediaAutomation & audioVideoAutomation_lineA,
-                                        MediaAutomation & audioVideoAutomation_lineB,
+InstructionFactory::InstructionFactory( std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & mediaAutomationSet,
                                         IF_LightEngineInterface & lightEngine,
                                         OpenWebNetEngine_IF & ownEngine,
                                         const OwnModel & ownModel,
                                         SequenceEditorGui & gui) :
-   m_audioVideoAutomation_lineA( audioVideoAutomation_lineA),
-   m_audioVideoAutomation_lineB( audioVideoAutomation_lineB),
+   m_audioVideoAutomationSet( mediaAutomationSet),
    m_lightEngine( lightEngine),
    m_ownEngine( ownEngine),
-   m_ownModel(ownModel),
+   m_ownModel( ownModel),
    m_gui( gui)
 {
 }
@@ -85,20 +83,8 @@ Instruction *InstructionFactory::buildPlaylistInstruction(const LineParamsPlayli
 {
    Instruction * inst =nullptr;
 
-   if (params.line == Playlist::LINE_A)
-   {
-      inst = new PlaylistInstruction( srcLine, m_audioVideoAutomation_lineA, params.subCommand,
+   inst = new PlaylistInstruction( srcLine, *m_audioVideoAutomationSet[params.deck], params.subCommand,
                                       params.label, params.numericParam);
-   }
-   else if (params.line == Playlist::LINE_B)
-   {
-      inst = new PlaylistInstruction( srcLine, m_audioVideoAutomation_lineB, params.subCommand,
-                                      params.label, params.numericParam);
-   }
-   else
-   {
-      T_ASSERT_REP( false, "LINE must be A or B");
-   }
 
    return  inst;
 }

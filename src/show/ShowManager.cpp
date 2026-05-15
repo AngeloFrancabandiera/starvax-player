@@ -21,12 +21,11 @@
 
 
 ShowManager::ShowManager( IF_ShowFactoryInterface *showFactory, IF_ScriptEngineInterface &scriptEngine,
-                          MediaListModel &mediaModelLineA, MediaListModel & mediaModelLineB,
+                          std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                           LightPresetModel &lightModel, SequenceEditorGui &sequencerGui,
                           ApplicationSettings & applicationSettings,  QObject *parent) :
    QObject(parent),
-   m_mediaModelLineA( mediaModelLineA),
-   m_mediaModelLineB( mediaModelLineB),
+   m_mediaModelSet( mediaModelSet),
    m_lightsetModel(lightModel),
    m_sequencerGui( sequencerGui),
    m_scriptEngine(scriptEngine),
@@ -53,8 +52,9 @@ void ShowManager::onSaveShowAsRequest()
 void ShowManager::saveShow(const QString &filename)
 {
    IF_ShowGuiInterface *guiInterafce = m_showFactory->buildShowGui();
-   ShowFileFormatter *formatter = m_showFactory->buildShowFileFormatter( m_scriptEngine, m_mediaModelLineA,
-                                                                         m_mediaModelLineB, m_lightsetModel,
+   ShowFileFormatter *formatter = m_showFactory->buildShowFileFormatter( m_scriptEngine,
+                                                                         m_mediaModelSet,
+                                                                         m_lightsetModel,
                                                                          m_sequencerGui,
                                                                          m_applicationSettings);
    IF_ShowWriterInterface *writer = m_showFactory->buildShowWriter( formatter);
@@ -95,8 +95,9 @@ void ShowManager::openFile()
 void ShowManager::loadShowFile( const QString &filename )
 {
    IF_ShowGuiInterface *guiInterafce = m_showFactory->buildShowGui();
-   ShowLoader *loader = m_showFactory->buildShowLoader( guiInterafce, &m_mediaModelLineA,
-                                                        &m_mediaModelLineB, &m_lightsetModel,
+   ShowLoader *loader = m_showFactory->buildShowLoader( guiInterafce,
+                                                        m_mediaModelSet,
+                                                        &m_lightsetModel,
                                                         &m_sequencerGui,
                                                         &m_scriptEngine,
                                                         m_applicationSettings);

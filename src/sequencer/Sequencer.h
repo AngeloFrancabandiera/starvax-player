@@ -2,7 +2,7 @@
 #define SEQUENCER_H
 
 #include <QString>
-#include <PlaylistConstants.h>
+#include "PlaylistDecks.h"
 
 namespace Sequencer {
 
@@ -50,13 +50,13 @@ enum PlaylistSubCommand
 
 /** parametrs of 'playlist' line*/
 struct LineParamsPlaylist {
-   Playlist::Line line;
+   Playlist::Deck deck;
    PlaylistSubCommand subCommand;
    QString label;
    int numericParam;
 
    LineParamsPlaylist() :
-      line( Playlist::LINE_A),
+      deck( 0),
       subCommand( PLAYLIST_NONE),
       numericParam(0)
    {}

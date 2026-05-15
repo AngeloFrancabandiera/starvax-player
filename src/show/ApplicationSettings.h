@@ -31,10 +31,8 @@ signals:
    /** emitted when the list of recent shows changes */
    void recentShowsChanged();
 
-   /** emitted when default volume is changed for line A*/
-   void defaultVolumeChangedLineA(int);
-   /** emitted when default volume is changed for line B*/
-   void defaultVolumeChangedLineB(int);
+   /** emitted when default volume is changed for a deck*/
+   void defaultVolumeChanged(int deck, int vol);
    /** emitted when Open Web Net configuration file changes */
    void OWN_configFileChanged( const QString & configFile) const;
    /** emitted when tetx editor font size is changed */
@@ -59,10 +57,8 @@ public:
    /** @} */
 
    /** @{ volume that is set when 'default' button is pressed */
-   void setDefaultVolumeLineA(int volume);
-   int defaultVolumeLineA() const;
-   void setDefaultVolumeLineB(int volume);
-   int defaultVolumeLineB() const;
+   void setDefaultVolume( int deck, int volume);
+   int defaultVolume( int deck) const;
    /** @} */
 
    /** @{ current language */
@@ -78,8 +74,8 @@ public:
    /** @} */
 
    /** @{ last directory for opening files */
-   void setOpenMusicFolder( int line, const QString & folder);
-   QString openMusicFolder( int line) const;
+   void setOpenMusicFolder( int deck, const QString & folder);
+   QString openMusicFolder( int deck) const;
    void setOpenScriptFolder( const QString & folder);
    QString openScriptFolder() const;
    /** @} */

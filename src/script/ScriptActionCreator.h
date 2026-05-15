@@ -2,7 +2,7 @@
 #define SCRIPTACTIONCREATOR_H
 
 #include "QString"
-#include "PlaylistConstants.h"
+#include "PlaylistDecks.h"
 #include "AbstractMediaSource.h"
 
 class QTextBrowser;
@@ -16,7 +16,7 @@ public:
 public:
    QString makeHtmlForLightAction();
    QString makeHtmlForSequenceAction();
-   QString makeHtmlForMediaAction(Playlist::Line line);
+   QString makeHtmlForMediaAction( Playlist::Deck deck);
    QString makeHtmlForLightAction( const QString & label);
    QString makeHtmlForMediaAction( AbstractMediaSource::MediaKind kind, const QString & label);
    QString makeHtmlForSequenceAction( const QString & label);
@@ -25,7 +25,7 @@ private:
    IF_ActionSelectorInterface & m_actionSelector;
 
 private:
-   QString makeHtmlForAction();
+   QString makeHtmlForAction( int param);
 };
 
 #endif // SCRIPTACTIONCREATOR_H

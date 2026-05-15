@@ -2,7 +2,7 @@
 #define MEDIA_AUTOMATION_H
 
 #include <QObject>
-#include <PlaylistConstants.h>
+#include "PlaylistDecks.h"
 
 class IF_MediaEngineInterface;
 class MediaListModel;
@@ -65,7 +65,7 @@ signals:
     */
    void trackFinished();
 
-private slots:
+public slots:
    void setDefaultVolume( int volume) {
       m_defaultVolume = volume;
    }

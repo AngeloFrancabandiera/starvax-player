@@ -2,7 +2,6 @@
 
 #include <QStandardPaths>
 #include <QTextStream>
-//#include <QTextCodec>
 
 #include "MediaListModel.h"
 #include "LightPresetModel.h"
@@ -14,6 +13,7 @@
 #include "HtmlOptimizer.h"
 
 #include "modelViewRules.h"
+#include "PlaylistDecks.h"
 
 
 #define  PROJECT_FILE_HEADER\
@@ -21,14 +21,12 @@
            "     # Please do not edit manually-->\n\n")
 
 ShowFileFormatter::ShowFileFormatter( const IF_ScriptEngineInterface &script,
-                                      const QAbstractListModel &mediaModelLineA,
-                                      const QAbstractListModel & mediaModelLineB,
+                                      const std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                                       const QAbstractListModel &lightsetModel,
                                       HtmlOptimizer & optimizer,
                                       const SequenceEditorGui & sequencerGui) :
    m_script( script),
-   m_mediaModelLineA( mediaModelLineA),
-   m_mediaModelLineB( mediaModelLineB),
+   m_mediaModelSet( mediaModelSet),
    m_lightsetModel( lightsetModel),
    m_optimizer( optimizer),
    m_sequencerGui( sequencerGui)
@@ -71,10 +69,13 @@ QString ShowFileFormatter::formatShowFile()
 
 void ShowFileFormatter::formatPlaylist(QTextStream & output)
 {
-   formatPlaylistForLine( output, m_mediaModelLineA,
-                          PLAYLIST_LINE_A_START_TAG, PLAYLIST_LINE_A_END_TAG);
-   formatPlaylistForLine( output, m_mediaModelLineB,
-                          PLAYLIST_LINE_B_START_TAG, PLAYLIST_LINE_B_END_TAG);
+   int deck = 0;
+   for (const QAbstractListModel * model: m_mediaModelSet)
+   {
+      formatPlaylistForLine( output, *model,
+                             PLAYLIST_START_TAG(deck), PLAYLIST_END_TAG(deck));
+      deck++;
+   }
 }
 
 void ShowFileFormatter::formatPlaylistForLine( QTextStream & output, const QAbstractListModel & m_mediaModel,

@@ -17,8 +17,7 @@ class CommandReply_IF;
 class RewindMediaCommand : public Command_IF
 {
 public:
-   RewindMediaCommand( IF_MediaEngineInterface & mediaEngine_A,
-                       IF_MediaEngineInterface & mediaEngine_B,
+   RewindMediaCommand( std::array<IF_MediaEngineInterface *, NUMBER_OF_MEDIA_DECKS> & mediaEngineSet,
                        CommandReply_IF & replySink);
 
    ~RewindMediaCommand() override {}
@@ -37,8 +36,7 @@ public:
    bool execute(const QStringList & parameters) override;
 
 private:
-   IF_MediaEngineInterface & m_mediaEngine_A;
-   IF_MediaEngineInterface & m_mediaEngine_B;
+   std::array<IF_MediaEngineInterface *, NUMBER_OF_MEDIA_DECKS> & m_mediaEngineSet;
    CommandReply_IF & m_replySink;
 };
 

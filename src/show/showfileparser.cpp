@@ -3,11 +3,13 @@
 #include <QFileDialog>
 #include <QTextStream>
 #include <QStringList>
+#include <QRegularExpression>
 
 #include "ShowFileStrings.h"
 #include "supported_files.h"
 #include "testableAssert.h"
 #include "LightPresetData.h"
+#include "PlaylistDecks.h"
 
 
 /** @file ShowFileParser.c
@@ -16,6 +18,22 @@
  * tags ( such as playlist, light preset, ...) and store tags data to
  * local structures.
  */
+namespace {
+   QRegularExpression trackListOpenRegEx = QRegularExpression(QString("%1(.)>").arg(PLAYLIST_START_BEGIN));
+
+   int extractDeck( const QString & line)
+   {
+      int deck = NUMBER_OF_MEDIA_DECKS + 1;  // invalid value
+
+      QRegularExpressionMatch m = trackListOpenRegEx.match(line);
+      if (m.hasMatch())
+      {
+         deck = m.captured(1).toInt();
+      }
+
+      return deck;
+   }
+}
 
 
 /** constructor */
@@ -58,20 +76,15 @@ void ShowFileParser::parse()
 
       if (line == QString(PLAYLIST_LEGACY_START_TAG))
       {
-         m_activeMediaList = & m_trackListLineA; /* By default, use line A */
+         m_activeMediaList = & m_trackList[0]; /* By default, use line A */
          parseLinesUntilTag( QString(PLAYLIST_LEGACY_END_TAG), &ShowFileParser::readMediaLine );
          m_activeMediaList = nullptr;
       }
-      else if (line == QString(PLAYLIST_LINE_A_START_TAG))
+      else if (line == QString(PLAYLIST_START_BEGIN))
       {
-         m_activeMediaList = & m_trackListLineA;
-         parseLinesUntilTag( QString(PLAYLIST_LINE_A_END_TAG), &ShowFileParser::readMediaLine );
-         m_activeMediaList = nullptr;
-      }
-      else if (line == QString(PLAYLIST_LINE_B_START_TAG))
-      {
-         m_activeMediaList = & m_trackListLineB;
-         parseLinesUntilTag( QString(PLAYLIST_LINE_B_END_TAG), &ShowFileParser::readMediaLine );
+         int deck = extractDeck(line);
+         m_activeMediaList = & m_trackList[deck];
+         parseLinesUntilTag( QString(PLAYLIST_END_TAG(deck)), &ShowFileParser::readMediaLine );
          m_activeMediaList = nullptr;
       }
       else if (line == QString(LIGHTSET_START_TAG))

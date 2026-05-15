@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QDir>
 #include <QList>
+#include <array>
 
 
 class QTextStream;
@@ -26,16 +27,14 @@ public:
 
    /* getters */
    const QStringList & errorLog() const { return m_errorsLog; }
-   QList<QString> trackListLineA() const { return m_trackListLineA; }
-   QList<QString> trackListLineB() const { return m_trackListLineB; }
+   QList<QString> trackListForDeck( int deck) const { return m_trackList[deck]; }
    QList<LightPresetData *> lightsetList() const { return m_lightSetList; }
    QList<SequenceItem *> sequenceItemList() const { return m_sequenceItemList; }
    const QString & sequencerScript() const  { return m_sequencerScript; }
 
 private:
    QStringList m_errorsLog;
-   QList<QString> m_trackListLineA;
-   QList<QString> m_trackListLineB;
+   std::array<QList<QString>, NUMBER_OF_MEDIA_DECKS> m_trackList;
    QList<QString> * m_activeMediaList; /** used to select line A or line B */
    QList<LightPresetData *> m_lightSetList;
    QList<SequenceItem *> m_sequenceItemList;

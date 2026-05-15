@@ -1,6 +1,7 @@
 #ifndef SCRIPTFUNCTIONFACTORY_H
 #define SCRIPTFUNCTIONFACTORY_H
 
+#include <array>
 #include "qobject.h"
 
 class QWidget;
@@ -19,8 +20,8 @@ class ScriptFunctionFactory : public QObject
 public:
    ScriptFunctionFactory( QAction * editModeAction, QObject *parent);
 
-   ScriptEngine * build(QWidget *container, QAbstractListModel *mediaModelLineA,
-                         QAbstractListModel * mediaModelLineB,
+   ScriptEngine * build( QWidget *container,
+                         std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaModelSet,
                          QStringListModel& sequenceEntryModel,
                          StatusDisplay * msgDisplay, ApplicationSettings & settings,
                          QAbstractListModel *lightModel);

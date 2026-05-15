@@ -16,6 +16,7 @@ class SequenceRunner;
 class ShowFileInfo;
 
 class QAction;
+class QAbstractListModel;
 class StatusDisplay;
 
 namespace Server {
@@ -51,12 +52,9 @@ public:
                                                   ShowFileInfo & showInfo);
 
    QList<Server::Command_IF *> buildPlaylistCommands( Server::CommandReply_IF & cmdReply,
-                                                      MediaAutomation & avAutomation_A,
-                                                      MediaAutomation & avAutomation_B,
-                                                      MediaListModel & mediaList_A,
-                                                      MediaListModel & mediaList_B,
-                                                      IF_MediaEngineInterface & mediaEngine_A,
-                                                      IF_MediaEngineInterface & mediaEngine_B);
+                                                      std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & MediaAutomationSet,
+                                                      std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & MediaListModelSet,
+                                                      std::array<IF_MediaEngineInterface *, NUMBER_OF_MEDIA_DECKS> & MediaEngineSet);
 
    QList<Server::Command_IF *> buildLightsetCommands( Server::CommandReply_IF & cmdReply,
                                                       LightPresetModel & lightModel,

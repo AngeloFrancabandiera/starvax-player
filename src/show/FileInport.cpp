@@ -9,7 +9,7 @@
 
 #include "supported_files.h"
 #include "ApplicationSettings.h"
-
+#include "PlaylistDecks.h"
 
 
 FileInport::FileInport( ApplicationSettings & applicationSettings,
@@ -33,28 +33,18 @@ bool FileInport::openFile( QString filename )
    {
       /* script file */
       QString content = getFileContents(filename);
-      emit inportScriptContent( content );
+      emit importScriptContent( content );
    }
    else if( MEDIA_TRACKS_SUPPORTED_FORMATS.contains( ext ) ||
             PICTURE_SUPPORTED_FORMATS.contains(ext))
    {
       /* media file */
-      if (m_lastDropTarget == PLAYLIST_B)
-      {
-         emit inportMediaTracksLineB( QStringList(filename) );
-      }
-      else
-      {
-         /* playlist line A and default */
-         emit inportMediaTracksLineA( QStringList(filename) );
-      }
-
-      m_lastDropTarget = OTHER;
+      emit importMediaTracksForDeck( QStringList(filename), 1);  // _TODO fix deck!!
    }
    else if( SHOWS_SUPPORTED_FORMATS.contains( ext ) )
    {
       /* meteor show file */
-      emit inportShowFile( filename );
+      emit importShowFile( filename );
    }
    else if( ext == STYLE_SHEET_EXT )
    {
@@ -112,32 +102,21 @@ void FileInport::openScriptDialog()
 }
 
 
-void FileInport::openTracksDialogLineA()
+void FileInport::openTracksDialogForDeck( int deck)
 {
-   QStringList files = openTracksDialog( PLAYLIST_A);
+   QStringList files = selectTracksForDeck( deck);
 
    if( files.count() > 0)
    {
-      emit inportMediaTracksLineA( files );
-   }
-}
-
-void FileInport::openTracksDialogLineB()
-{
-   QStringList files = openTracksDialog( PLAYLIST_B);
-
-   if( files.count() > 0)
-   {
-      emit inportMediaTracksLineB( files );
+      emit importMediaTracksForDeck( files, deck );
    }
 }
 
 
-QStringList FileInport::openTracksDialog( GuiArea line)
+QStringList FileInport::selectTracksForDeck( int deck)
 {
    QStringList filenames;
-   int lineSetting = static_cast<int>(line);
-   QString music_dir = m_applicationSettings.openMusicFolder( lineSetting);
+   QString music_dir = m_applicationSettings.openMusicFolder( deck);
 
    if (music_dir == QString())
    {
@@ -145,14 +124,14 @@ QStringList FileInport::openTracksDialog( GuiArea line)
    }
 
    /* open from music folder */
-   filenames = QFileDialog::getOpenFileNames( nullptr, tr("Open media - %1").
-                                              arg((line==PLAYLIST_B) ? tr("LINE B") : tr("LINE A")),
+   filenames = QFileDialog::getOpenFileNames( nullptr, tr("Open media - deck %1").
+                                              arg(Playlist::toLetter(deck)),
                                               music_dir, MEDIA_TRACKS_DLG_FILTER );
 
    /* send audio files to playlist manager */
    if( filenames.count() > 0)
    {
-      m_applicationSettings.setOpenMusicFolder( lineSetting,
+      m_applicationSettings.setOpenMusicFolder( deck,
                                                 QFileInfo(filenames.last()).absoluteDir().absolutePath());
    }
 
