@@ -177,24 +177,26 @@ void MainWindow::setupPlaylistAreas()
 
       addDockWidget( Qt::RightDockWidgetArea, dockPlaylistContainer);
       dockPlaylistContainer->setWidget( dockPlaylist);
-
-      m_playlistLayout[deck] = new QVBoxLayout(dockPlaylist);
-      m_playlistLayout[deck]->setContentsMargins(2,2,2,2);
-
       dockPlaylistContainer->setObjectName( title);
       dockPlaylistContainer->setWindowTitle( title);
 
-      QWidget * volumeContainer = new QWidget( dockPlaylist);
+      QHBoxLayout *panelLayout = new QHBoxLayout( dockPlaylist);
+      panelLayout->setObjectName("panelLayout");
+
       QWidget * playlistContainer = new QWidget( dockPlaylist);
+      playlistContainer->setObjectName("playlistContainer");
+      m_playlistLayout[deck] = new QVBoxLayout(playlistContainer);
+      m_playlistLayout[deck]->setContentsMargins(2,2,2,2);
+      m_playlistLayout[deck]->setObjectName("m_playlistLayout");
+
+      QWidget * volumeContainer = new QWidget( dockPlaylist);
+      volumeContainer->setObjectName("volumeContainer");
       m_volumeLayout[deck] = new QVBoxLayout( volumeContainer);
       m_volumeLayout[deck]->setContentsMargins(2,2,2,2);
+      m_volumeLayout[deck]->setObjectName("m_volumeLayout");
 
-
-      dockPlaylist->layout()->addWidget( volumeContainer);
-      dockPlaylist->layout()->addWidget( playlistContainer);
-
-      dockPlaylistContainer->setVisible(true);
-      dockPlaylist->setVisible(true);
+      panelLayout->addWidget( volumeContainer);
+      panelLayout->addWidget( playlistContainer);
    }
 }
 
