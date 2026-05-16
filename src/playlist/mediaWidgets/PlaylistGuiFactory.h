@@ -9,6 +9,10 @@ class QBoxLayout;
 class QLayout;
 class QWidget;
 class QPushButton;
+class QAction;
+class QAbstractListModel;
+class QVBoxLayout;
+
 class IF_MediaEngineInterface;
 class MediaListModel;
 class MediaAutomation;
@@ -17,15 +21,12 @@ class VolumeSlider;
 class AudioVideoPlayBar;
 class PicturePlaybar;
 class PlaylistBar;
-class QAbstractListModel;
 class ActionListController;
-class FileInport;
 class ApplicationSettings;
 class ActionListView;
-class QAction;
 class StatusDisplay;
 class FullScreenMediaWidget;
-class QVBoxLayout;
+class FileInport;
 
 
 /**
@@ -41,50 +42,52 @@ class PlaylistGuiFactory : public QObject
 public:
    explicit PlaylistGuiFactory( const ApplicationSettings & settings,
                                 Playlist::Deck deck,
+                                IF_MediaEngineInterface *engine,
+                                MediaListModel * mediaList,
+                                FileInport *fileInport,
                                 QObject *parent = nullptr);
 
-   AudioVideoPlayBar *buildAudioVideoPlaybar( IF_MediaEngineInterface *engine, QWidget *parent);
-   PicturePlaybar *buildPicturePlaybar(IF_MediaEngineInterface *engine,
-                                       MediaAutomation &automation, QWidget *parent);
+   AudioVideoPlayBar *buildAudioVideoPlaybar( QWidget *parent);
+
+   PicturePlaybar *buildPicturePlaybar( MediaAutomation &automation, QWidget *parent);
+
    PlaylistBar * buildPlaylistBar( AudioVideoPlayBar * audioVideoBar,
-                                   PicturePlaybar * pictureBar, MediaListModel * mediaList,
+                                   PicturePlaybar * pictureBar,
                                    QWidget * parent);
-   ActionListView * buildPlaylistView(PlaylistBar * playbar, MediaListModel *model,
+
+   ActionListView * buildPlaylistView( PlaylistBar * playbar,
                                        ActionListController *actionController,
                                        StatusDisplay * msgDisplay,
                                        QWidget *parent);
-   void buildPlaylistPanel( IF_MediaEngineInterface *engine,
-                            MediaAutomation *automation,
-                            MediaListModel *mediaModel,
+
+   void buildPlaylistPanel( MediaAutomation *automation,
                             ActionListView * playlistView,
-                            FileInport *fileInport,
                             QAction * setEditModeAction,
                             QDockWidget *container);
 private:
-   void buildPlaylistControlArea( IF_MediaEngineInterface *engine,
-                                  MediaAutomation *automation,
-                                  MediaListModel *mediaModel,
+   void buildPlaylistControlArea( MediaAutomation *automation,
                                   ActionListView * playlistView,
-                                  FileInport *fileInport,
                                   QAction * setEditModeAction,
                                   QLayout *container);
 
-   VolumeSlider *buildVolumeBar( IF_MediaEngineInterface *engine, QBoxLayout *container);
-   MediaPositionSlider *buildSeekbar(IF_MediaEngineInterface *engine, QWidget *parent);
+   VolumeSlider *buildVolumeBar( QBoxLayout *container);
+   MediaPositionSlider *buildSeekbar( QWidget *parent);
 
    void buildInternalLayouts( QDockWidget *container,
                               QVBoxLayout **mediaListLayout,
                               QVBoxLayout **volumeLayout);
 
-   void connectOpenMediaFunction( FileInport *fileInport, QPushButton *openMediaButton);
+   void connectOpenMediaFunction( QPushButton *openMediaButton);
+
+private slots:
+   void onOpenMediaClicked();
 
 private:
    const ApplicationSettings & m_settings;
    Playlist::Deck m_deck;
-   FileInport * m_fileInport;
-
-private slots:
-   void onOpenMediaClicked();
+   IF_MediaEngineInterface *m_engine;
+   MediaListModel *m_mediaList;
+   FileInport *m_fileInport;
 };
 
 #endif // PLAYLISTGUIFACTORY_H

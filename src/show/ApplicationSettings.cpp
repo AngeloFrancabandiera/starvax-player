@@ -164,7 +164,7 @@ QByteArray ApplicationSettings::getPreviousWindowGeometry() const
 void ApplicationSettings::setOpenMusicFolder( int deck, const QString & folder)
 {
    QSettings setting( QSettings::IniFormat, QSettings::UserScope, COMPANY_TAG, PRODUCT_TAG);
-   setting.setValue( QString("open music folder L%1").arg(Playlist::toLetter(deck)), folder);
+   setting.setValue( QString("open music folder deck %1").arg(Playlist::toLetter(deck)), folder);
 }
 
 QString ApplicationSettings::openMusicFolder(int deck) const

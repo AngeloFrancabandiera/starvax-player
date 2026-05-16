@@ -35,12 +35,11 @@ ActionTargetSelectorDialog::ActionTargetSelectorDialog( std::array<QAbstractList
 
    for (int deck=0; deck < NUMBER_OF_MEDIA_DECKS; deck++)
    {
-      ui->mediaListLineA->setModel( mediaModelSet[deck]);  // _TODO line A!!!
+      ui->mediaList->setModel( mediaModelSet[deck]);  // _TODO stai prendendo l'ultimo!
    }
 
    connect( ui->lightList, & QListView::doubleClicked, this, & ActionTargetSelectorDialog::addSelectedItem);
-   connect( ui->mediaListLineA, & QListView::doubleClicked, this, & ActionTargetSelectorDialog::addSelectedItem);
-   connect( ui->mediaListLineB, & QListView::doubleClicked, this, & ActionTargetSelectorDialog::addSelectedItem);
+   connect( ui->mediaList, & QListView::doubleClicked, this, & ActionTargetSelectorDialog::addSelectedItem);
    connect( ui->sequenceEntryList, & QListView::doubleClicked, this, & ActionTargetSelectorDialog::addSelectedItem);
 }
 
@@ -128,7 +127,7 @@ void ActionTargetSelectorDialog::addSelectedItem()
    {
       m_actionType = IF_ActionSelectorInterface::MediaAction;
 
-      selectedItem = ui->mediaListLineA->currentIndex();
+      selectedItem = ui->mediaList->currentIndex();
       m_actionId = selectedItem.data( modelViewRules::StringId).toString();
 
       /* picture is in same model as all other media

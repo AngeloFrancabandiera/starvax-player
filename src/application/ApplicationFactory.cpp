@@ -189,13 +189,15 @@ ApplicationFactory::ApplicationFactory()
                                               *statusDisplay);
       MediaAutomationSet[deck] = audioVideoAutomation;
 
-      PlaylistGuiFactory *playGuiFactory = new PlaylistGuiFactory( *applicationSettings, deck, this);
-      AudioVideoPlayBar *audvidPlaybar = playGuiFactory->buildAudioVideoPlaybar( mediaEngine, m_mainWindow);
-      PicturePlaybar * pictPlaybar = playGuiFactory->buildPicturePlaybar( mediaEngine, *audioVideoAutomation, m_mainWindow);
+      PlaylistGuiFactory *playGuiFactory = new PlaylistGuiFactory( *applicationSettings, deck,
+                                                                    mediaEngine, playlistModel,
+                                                                    fileInport, this);
+      AudioVideoPlayBar *audvidPlaybar = playGuiFactory->buildAudioVideoPlaybar( m_mainWindow);
+      PicturePlaybar * pictPlaybar = playGuiFactory->buildPicturePlaybar( *audioVideoAutomation, m_mainWindow);
       PlaylistBar * playlistBar = playGuiFactory->buildPlaylistBar( audvidPlaybar, pictPlaybar,
-                                                                     playlistModel, m_mainWindow);
+                                                                    m_mainWindow);
 
-      ActionListView *playlistView = playGuiFactory->buildPlaylistView( playlistBar, playlistModel,
+      ActionListView *playlistView = playGuiFactory->buildPlaylistView( playlistBar,
                                                                         mediaActionController,
                                                                         statusDisplay,
                                                                         m_mainWindow);
@@ -211,9 +213,10 @@ ApplicationFactory::ApplicationFactory()
       connect( mediaActionController, & ActionListController::requestToPlay,
                mediaEngine, & IF_MediaEngineInterface::play);
 
-      playGuiFactory->buildPlaylistPanel( mediaEngine, audioVideoAutomation, playlistModel,
-                                          playlistView, fileInport,
-                                          setEditModeAction, m_mainWindow->playlistAreaForDeck(deck));
+      playGuiFactory->buildPlaylistPanel( audioVideoAutomation,
+                                          playlistView,
+                                          setEditModeAction,
+                                          m_mainWindow->playlistAreaForDeck(deck));
 
       // _TODO setDefaultVolume is per instance and has no 'deck' parameter
 //      connect( applicationSettings, & ApplicationSettings::defaultVolumeChanged,

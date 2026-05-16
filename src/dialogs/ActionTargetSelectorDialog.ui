@@ -36,23 +36,13 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="mediaTabA">
+     <widget class="QWidget" name="mediaTab">
       <attribute name="title">
-       <string>Media file Line &amp;A</string>
+       <string>&amp;Media file</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QListView" name="mediaListLineA"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="mediaTabB">
-      <attribute name="title">
-       <string>Media file Line &amp;B</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <widget class="QListView" name="mediaListLineB"/>
+        <widget class="QTreeView" name="mediaList"/>
        </item>
       </layout>
      </widget>

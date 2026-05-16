@@ -3,6 +3,7 @@
 #include <QAction>
 #include <QCheckBox>
 #include <QDockWidget>
+#include <QStringList>
 
 #include "PlaylistGuiFactory.h"
 #include "PlaylistDecks.h"
@@ -30,77 +31,73 @@
 
 PlaylistGuiFactory::PlaylistGuiFactory( const ApplicationSettings & settings,
                                         Playlist::Deck deck,
+                                        IF_MediaEngineInterface *engine,
+                                        MediaListModel * mediaList,
+                                        FileInport *fileInport,
                                         QObject *parent) :
    QObject(parent),
    m_settings(settings),
    m_deck(deck),
-   m_fileInport(nullptr)
-{
-}
-
-MediaPositionSlider *PlaylistGuiFactory::buildSeekbar(IF_MediaEngineInterface *engine, QWidget *parent)
+   m_engine( engine),
+   m_mediaList( mediaList),
+   m_fileInport(fileInport)
 {
    T_ASSERT( engine != nullptr);
+   T_ASSERT( mediaList != nullptr);
+}
 
+MediaPositionSlider *PlaylistGuiFactory::buildSeekbar( QWidget *parent)
+{
    MediaPositionSlider *positionSlider = new MediaPositionSlider( parent);
 
-   connect( engine, SIGNAL(totalTimeChanged(qint64)), positionSlider, SLOT(setDurationMs(qint64)) );
-   connect( engine, SIGNAL(tick(qint64)), positionSlider, SLOT(setPositionMs(qint64)) );
+   connect( m_engine, SIGNAL(totalTimeChanged(qint64)), positionSlider, SLOT(setDurationMs(qint64)) );
+   connect( m_engine, SIGNAL(tick(qint64)), positionSlider, SLOT(setPositionMs(qint64)) );
 
    connect( positionSlider, SIGNAL(positionChangeRequested(qint64)),
-            engine, SLOT(onUserPositionRequested(qint64)) );
+            m_engine, SLOT(onUserPositionRequested(qint64)) );
 
    return positionSlider;
 }
 
-VolumeSlider *PlaylistGuiFactory::buildVolumeBar(IF_MediaEngineInterface *engine,
-                                                 QBoxLayout *container)
+VolumeSlider *PlaylistGuiFactory::buildVolumeBar(QBoxLayout *container)
 {
-   T_ASSERT( engine != nullptr);
-
    Qt::Orientation orientation;
    orientation = (container->direction() <= QBoxLayout::RightToLeft) ?
                     Qt::Horizontal : Qt::Vertical;
 
-   VolumeSlider *volumeSlider = new VolumeSlider( *engine, orientation, container);
+   VolumeSlider *volumeSlider = new VolumeSlider( *m_engine, orientation, container);
    return volumeSlider;
 }
 
-AudioVideoPlayBar *PlaylistGuiFactory::buildAudioVideoPlaybar( IF_MediaEngineInterface *engine,
-                                                               QWidget *parent)
+AudioVideoPlayBar *PlaylistGuiFactory::buildAudioVideoPlaybar( QWidget *parent)
 {
-   T_ASSERT( engine != nullptr);
-
-   MediaPositionSlider *positionSlider = buildSeekbar( engine, parent);
+   MediaPositionSlider *positionSlider = buildSeekbar( parent);
    T_ASSERT( positionSlider != nullptr);
-   AudioVideoPlayBar *playbar = new AudioVideoPlayBar( *engine, *positionSlider, parent);
+   AudioVideoPlayBar *playbar = new AudioVideoPlayBar( *m_engine, *positionSlider, parent);
 
-   connect( engine, & IF_MediaEngineInterface::audioOnlyChanged,
+   connect( m_engine, & IF_MediaEngineInterface::audioOnlyChanged,
             playbar, & AudioVideoPlayBar::onAudioOnlyChanged );
 
    return playbar;
 }
 
-PicturePlaybar *PlaylistGuiFactory::buildPicturePlaybar( IF_MediaEngineInterface * engine,
-                                                         MediaAutomation & automation,
+PicturePlaybar *PlaylistGuiFactory::buildPicturePlaybar( MediaAutomation & automation,
                                                          QWidget * parent)
 {
-   return new PicturePlaybar( engine, automation, parent);
+   return new PicturePlaybar( m_engine, automation, parent);
 }
 
 PlaylistBar * PlaylistGuiFactory::buildPlaylistBar( AudioVideoPlayBar * audioVideoBar,
                                                     PicturePlaybar * pictureBar,
-                                                    MediaListModel * mediaList,
+
                                                     QWidget * parent)
 {
    T_ASSERT (audioVideoBar != nullptr);
    T_ASSERT (pictureBar != nullptr);
-   T_ASSERT (mediaList != nullptr);
-   return new PlaylistBar( *audioVideoBar, *pictureBar, *mediaList, parent);
+   return new PlaylistBar( *audioVideoBar, *pictureBar, *m_mediaList, parent);
 }
 
 ActionListView *PlaylistGuiFactory::buildPlaylistView( PlaylistBar *playbar,
-                                                       MediaListModel *model,
                                                        ActionListController *actionController,
                                                        StatusDisplay * msgDisplay,
                                                        QWidget *parent)
@@ -111,24 +108,21 @@ ActionListView *PlaylistGuiFactory::buildPlaylistView( PlaylistBar *playbar,
    ActionListView * playlistView = new MediaListView( *actionController, painter,
                                                       *msgDisplay, parent);
 
-   playlistView->setModel( model);
+   playlistView->setModel( m_mediaList);
    playlistView->setActionBar( playbar);
 
    connect( & m_settings, SIGNAL(panelFontSizeChanged(int)),
             playlistView, SLOT(onPanelFontSizeChanged(int)) );
 
-   connect( playlistView, &ActionListView::redoRequest, model, &MediaListModel::redo);
-   connect( playlistView, &ActionListView::undoRequest, model, &MediaListModel::undo);
+   connect( playlistView, &ActionListView::redoRequest, m_mediaList, &MediaListModel::redo);
+   connect( playlistView, &ActionListView::undoRequest, m_mediaList, &MediaListModel::undo);
 
    return playlistView;
 }
 
 
-void PlaylistGuiFactory::buildPlaylistPanel( IF_MediaEngineInterface *engine,
-                                             MediaAutomation *automation,
-                                             MediaListModel *mediaModel,
+void PlaylistGuiFactory::buildPlaylistPanel( MediaAutomation *automation,
                                              ActionListView * playlistView,
-                                             FileInport *fileInport,
                                              QAction * setEditModeAction,
                                              QDockWidget *container)
 {
@@ -137,10 +131,11 @@ void PlaylistGuiFactory::buildPlaylistPanel( IF_MediaEngineInterface *engine,
    QVBoxLayout *volumeLayout = nullptr;
    buildInternalLayouts( container, &controlLayout, &volumeLayout);
 
-   buildPlaylistControlArea( engine, automation, mediaModel,
-                             playlistView, fileInport,
-                             setEditModeAction, controlLayout);
-   buildVolumeBar( engine, volumeLayout);
+   buildPlaylistControlArea( automation,
+                             playlistView,
+                             setEditModeAction,
+                             controlLayout);
+   buildVolumeBar( volumeLayout);
 }
 
 
@@ -169,11 +164,8 @@ void PlaylistGuiFactory::buildInternalLayouts( QDockWidget *container,
    panelLayout->addWidget( playlistContainer);
 }
 
-void PlaylistGuiFactory::buildPlaylistControlArea( IF_MediaEngineInterface *engine,
-                                                   MediaAutomation *automation,
-                                                   MediaListModel *mediaModel,
+void PlaylistGuiFactory::buildPlaylistControlArea( MediaAutomation *automation,
                                                    ActionListView * playlistView,
-                                                   FileInport *fileInport,
                                                    QAction * setEditModeAction,
                                                    QLayout *container)
 {
@@ -189,7 +181,7 @@ void PlaylistGuiFactory::buildPlaylistControlArea( IF_MediaEngineInterface *engi
    toolbar->setLayout( new QHBoxLayout());
    toolbar->layout()->setContentsMargins( 2,2,2,2);
 
-   MediaPositionSlider *seekBar = buildSeekbar( engine, container->parentWidget());
+   MediaPositionSlider *seekBar = buildSeekbar( container->parentWidget());
    container->addWidget( seekBar);
 
    /* 'fader' button */
@@ -230,9 +222,9 @@ void PlaylistGuiFactory::buildPlaylistControlArea( IF_MediaEngineInterface *engi
    onTopButton->setCheckable( true);
    onTopButton->setChecked( false);
    /* UI operation on button */
-   connect( onTopButton, & QPushButton::clicked, engine, & IF_MediaEngineInterface::showOnTop);
+   connect( onTopButton, & QPushButton::clicked, m_engine, & IF_MediaEngineInterface::showOnTop);
    /* 'onTop' changed by automation */
-   connect( engine, & IF_MediaEngineInterface::onTopChanged, onTopButton, & QPushButton::setChecked);
+   connect( m_engine, & IF_MediaEngineInterface::onTopChanged, onTopButton, & QPushButton::setChecked);
    toolbar->layout()->addWidget( onTopButton);
    onTopButton->setMaximumSize(iconSize);
 
@@ -243,7 +235,7 @@ void PlaylistGuiFactory::buildPlaylistControlArea( IF_MediaEngineInterface *engi
                                                  QString(), toolbar);
    openMediaButton->setToolTip( tr("open a dialog to load new media files"));
    openMediaButton->setFocusPolicy(Qt::NoFocus);
-   connectOpenMediaFunction( fileInport, openMediaButton);
+   connectOpenMediaFunction( openMediaButton);
    toolbar->layout()->addWidget( openMediaButton);
    openMediaButton->setMaximumSize(iconSize);
 
@@ -279,8 +271,8 @@ void PlaylistGuiFactory::buildPlaylistControlArea( IF_MediaEngineInterface *engi
    undoButton->setToolTip( tr("undo"));
    undoButton->setFocusPolicy(Qt::NoFocus);
    undoButton->setEnabled( false);
-   connect( undoButton, & QPushButton::clicked, mediaModel, & MediaListModel::undo );
-   connect( mediaModel, & MediaListModel::canUndoChanged, undoButton, & QPushButton::setEnabled);
+   connect( undoButton, & QPushButton::clicked, m_mediaList, & MediaListModel::undo );
+   connect( m_mediaList, & MediaListModel::canUndoChanged, undoButton, & QPushButton::setEnabled);
    toolbar->layout()->addWidget( undoButton);
    undoButton->setMaximumSize(iconSize);
 
@@ -288,8 +280,8 @@ void PlaylistGuiFactory::buildPlaylistControlArea( IF_MediaEngineInterface *engi
    redoButton->setToolTip( tr("redo"));
    redoButton->setFocusPolicy(Qt::NoFocus);
    redoButton->setEnabled( false);
-   connect( redoButton, & QPushButton::clicked, mediaModel, & MediaListModel::redo );
-   connect( mediaModel, & MediaListModel::canRedoChanged, redoButton, & QPushButton::setEnabled);
+   connect( redoButton, & QPushButton::clicked, m_mediaList, & MediaListModel::redo );
+   connect( m_mediaList, & MediaListModel::canRedoChanged, redoButton, & QPushButton::setEnabled);
    toolbar->layout()->addWidget( redoButton);
    redoButton->setMaximumSize(iconSize);
 
@@ -307,17 +299,18 @@ void PlaylistGuiFactory::buildPlaylistControlArea( IF_MediaEngineInterface *engi
    connect( setEditModeAction, SIGNAL(triggered(bool)), playlistView, SLOT(setEditMode(bool)));
 }
 
-void PlaylistGuiFactory::connectOpenMediaFunction( FileInport *fileInport,
-                                                   QPushButton *openMediaButton)
+void PlaylistGuiFactory::connectOpenMediaFunction( QPushButton *openMediaButton)
 {
-   m_fileInport = fileInport;
    connect( openMediaButton, & QPushButton::clicked, this, & PlaylistGuiFactory::onOpenMediaClicked);
 }
 
 
 void PlaylistGuiFactory::onOpenMediaClicked()
 {
-   T_ASSERT( m_fileInport);
-   m_fileInport->openTracksDialogForDeck( m_deck);
+   QStringList tracks = m_fileInport->selectTracksForDeck( m_deck);
 
+   if (tracks.length() > 0)
+   {
+      m_mediaList->addMediaFiles( tracks);
+   }
 }

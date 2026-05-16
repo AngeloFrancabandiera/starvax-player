@@ -35,6 +35,8 @@ public:
       m_lastDropTargetParam = param;
    }
 
+   QStringList selectTracksForDeck( int deck);
+
 public slots:
    void openScriptDialog();
    void openTracksDialogForDeck( int deck);
@@ -48,7 +50,6 @@ signals:
 
 private:
    QString getFileContents(QString filename);
-   QStringList selectTracksForDeck( int deck);
 
 private:
    ApplicationSettings & m_applicationSettings;
