@@ -2,6 +2,7 @@
 #include <QCommonStyle>
 #include <QAction>
 #include <QCheckBox>
+#include <QDockWidget>
 
 #include "PlaylistGuiFactory.h"
 #include "PlaylistDecks.h"
@@ -129,7 +130,52 @@ void PlaylistGuiFactory::buildPlaylistPanel( IF_MediaEngineInterface *engine,
                                              ActionListView * playlistView,
                                              FileInport *fileInport,
                                              QAction * setEditModeAction,
-                                             QLayout *container)
+                                             QDockWidget *container)
+{
+
+   QVBoxLayout *controlLayout = nullptr;
+   QVBoxLayout *volumeLayout = nullptr;
+   buildInternalLayouts( container, &controlLayout, &volumeLayout);
+
+   buildPlaylistControlArea( engine, automation, mediaModel,
+                             playlistView, fileInport,
+                             setEditModeAction, controlLayout);
+   buildVolumeBar( engine, volumeLayout);
+}
+
+
+void PlaylistGuiFactory::buildInternalLayouts( QDockWidget *container,
+                                               QVBoxLayout **mediaListLayout,
+                                               QVBoxLayout **volumeLayout)
+{
+   QWidget * dockPlaylist = new QWidget( container);
+   container->setWidget( dockPlaylist);
+
+   QHBoxLayout *panelLayout = new QHBoxLayout( dockPlaylist);
+
+   QWidget * playlistContainer = new QWidget( dockPlaylist);
+   playlistContainer->setObjectName("playlistContainer");
+   *mediaListLayout = new QVBoxLayout(playlistContainer);
+   (*mediaListLayout)->setContentsMargins(2,2,2,2);
+   (*mediaListLayout)->setObjectName("m_playlistLayout");
+
+   QWidget * volumeContainer = new QWidget( dockPlaylist);
+   volumeContainer->setObjectName("volumeContainer");
+   *volumeLayout = new QVBoxLayout( volumeContainer);
+   (*volumeLayout)->setContentsMargins(2,2,2,2);
+   (*volumeLayout)->setObjectName("m_volumeLayout");
+
+   panelLayout->addWidget( volumeContainer);
+   panelLayout->addWidget( playlistContainer);
+}
+
+void PlaylistGuiFactory::buildPlaylistControlArea( IF_MediaEngineInterface *engine,
+                                                   MediaAutomation *automation,
+                                                   MediaListModel *mediaModel,
+                                                   ActionListView * playlistView,
+                                                   FileInport *fileInport,
+                                                   QAction * setEditModeAction,
+                                                   QLayout *container)
 {
    QCommonStyle style;
    container->setContentsMargins( 2,2,2,2);

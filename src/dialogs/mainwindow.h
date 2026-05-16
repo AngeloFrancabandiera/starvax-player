@@ -1,19 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <array>
 #include <QMainWindow>
-#include "qlistview.h"
-#include "qsplitter.h"
 
-#include "qgridlayout.h"
-#include "qlayout.h"
-#include "QLabel"
-
-#include <QDragEnterEvent>
-#include <QDropEvent>
 #include <QToolBar>
-
-#include "qtranslator.h"
+#include <QDockWidget>
+#include <QTranslator>
 
 #include "PlaylistDecks.h"
 
@@ -42,9 +35,8 @@ public:
    QWidget *openWebNetFunctionArea();
    QWidget *scriptArea();
    QWidget *connectionArea();
-   QLayout *playlistAreaForDeck(Playlist::Deck deck);
+   QDockWidget *playlistAreaForDeck(Playlist::Deck deck);
    QLayout *lightControlArea();
-   QBoxLayout *volumeSliderAreaForDeck(Playlist::Deck deck);
 
    void addShowActions( QList<QAction *> & actions);
    void addMediaListActions( QList<QAction *> & actions);
@@ -104,15 +96,14 @@ private:
    QTranslator m_appTranslator;
 
    // toolbars
-   QToolBar    *ui_script_anim_toolbar;
-   QToolBar    *ui_script_toolbar;
-   QToolBar    *ui_music_toolbar;
+   QToolBar *ui_script_anim_toolbar;
+   QToolBar *ui_script_toolbar;
+   QToolBar *ui_music_toolbar;
 
    QList<QAction *> m_recentShowActions;
-   AppSettingsGui * m_appSettingsGui;
+   AppSettingsGui *m_appSettingsGui;
 
-   QVBoxLayout * m_volumeLayout[NUMBER_OF_MEDIA_DECKS];
-   QVBoxLayout * m_playlistLayout[NUMBER_OF_MEDIA_DECKS];
+   std::array<QDockWidget *, NUMBER_OF_MEDIA_DECKS> m_dockSetForDecks;
 
 private slots:
    void onShowNameChanged(const QString &filename);

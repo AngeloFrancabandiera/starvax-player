@@ -4,6 +4,7 @@
 #include <QObject>
 #include "PlaylistDecks.h"
 
+class QDockWidget;
 class QBoxLayout;
 class QLayout;
 class QWidget;
@@ -24,6 +25,7 @@ class ActionListView;
 class QAction;
 class StatusDisplay;
 class FullScreenMediaWidget;
+class QVBoxLayout;
 
 
 /**
@@ -41,8 +43,6 @@ public:
                                 Playlist::Deck deck,
                                 QObject *parent = nullptr);
 
-   MediaPositionSlider *buildSeekbar(IF_MediaEngineInterface *engine, QWidget *parent);
-   VolumeSlider *buildVolumeBar( IF_MediaEngineInterface *engine, QBoxLayout *container);
    AudioVideoPlayBar *buildAudioVideoPlaybar( IF_MediaEngineInterface *engine, QWidget *parent);
    PicturePlaybar *buildPicturePlaybar(IF_MediaEngineInterface *engine,
                                        MediaAutomation &automation, QWidget *parent);
@@ -59,8 +59,23 @@ public:
                             ActionListView * playlistView,
                             FileInport *fileInport,
                             QAction * setEditModeAction,
-                            QLayout *container);
+                            QDockWidget *container);
 private:
+   void buildPlaylistControlArea( IF_MediaEngineInterface *engine,
+                                  MediaAutomation *automation,
+                                  MediaListModel *mediaModel,
+                                  ActionListView * playlistView,
+                                  FileInport *fileInport,
+                                  QAction * setEditModeAction,
+                                  QLayout *container);
+
+   VolumeSlider *buildVolumeBar( IF_MediaEngineInterface *engine, QBoxLayout *container);
+   MediaPositionSlider *buildSeekbar(IF_MediaEngineInterface *engine, QWidget *parent);
+
+   void buildInternalLayouts( QDockWidget *container,
+                              QVBoxLayout **mediaListLayout,
+                              QVBoxLayout **volumeLayout);
+
    void connectOpenMediaFunction( FileInport *fileInport, QPushButton *openMediaButton);
 
 private:

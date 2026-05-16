@@ -8,6 +8,7 @@
 #include <QDataStream>
 #include <QDockWidget>
 #include <WindowLayout.h>
+#include <QCloseEvent>
 
 #include "testableAssert.h"
 #include "ApplicationIcon.h"
@@ -171,32 +172,12 @@ void MainWindow::setupPlaylistAreas()
 {
    for (int deck = 0; deck < NUMBER_OF_MEDIA_DECKS; deck++)
    {
-      QDockWidget * dockPlaylistContainer = new QDockWidget(this);
-      QWidget * dockPlaylist = new QWidget( dockPlaylistContainer);
       QString title = tr("Deck %1").arg(Playlist::toLetter(deck));
 
-      addDockWidget( Qt::RightDockWidgetArea, dockPlaylistContainer);
-      dockPlaylistContainer->setWidget( dockPlaylist);
-      dockPlaylistContainer->setObjectName( title);
-      dockPlaylistContainer->setWindowTitle( title);
-
-      QHBoxLayout *panelLayout = new QHBoxLayout( dockPlaylist);
-      panelLayout->setObjectName("panelLayout");
-
-      QWidget * playlistContainer = new QWidget( dockPlaylist);
-      playlistContainer->setObjectName("playlistContainer");
-      m_playlistLayout[deck] = new QVBoxLayout(playlistContainer);
-      m_playlistLayout[deck]->setContentsMargins(2,2,2,2);
-      m_playlistLayout[deck]->setObjectName("m_playlistLayout");
-
-      QWidget * volumeContainer = new QWidget( dockPlaylist);
-      volumeContainer->setObjectName("volumeContainer");
-      m_volumeLayout[deck] = new QVBoxLayout( volumeContainer);
-      m_volumeLayout[deck]->setContentsMargins(2,2,2,2);
-      m_volumeLayout[deck]->setObjectName("m_volumeLayout");
-
-      panelLayout->addWidget( volumeContainer);
-      panelLayout->addWidget( playlistContainer);
+      m_dockSetForDecks[deck] = new QDockWidget(this);
+      addDockWidget( Qt::RightDockWidgetArea, m_dockSetForDecks[deck]);
+      m_dockSetForDecks[deck]->setWindowTitle( title);
+      m_dockSetForDecks[deck]->setObjectName( title);
    }
 }
 
@@ -277,11 +258,9 @@ QWidget *MainWindow::connectionArea()
    return ui->connectionToolbar;
 }
 
-QLayout *MainWindow::playlistAreaForDeck(Playlist::Deck deck)
+QDockWidget *MainWindow::playlistAreaForDeck(Playlist::Deck deck)
 {
-   T_ASSERT( deck < NUMBER_OF_MEDIA_DECKS);
-   T_ASSERT( m_playlistLayout[deck] != nullptr);
-   return m_playlistLayout[deck];
+   return m_dockSetForDecks.at(deck);
 }
 
 
@@ -290,14 +269,6 @@ QLayout *MainWindow::lightControlArea()
    T_ASSERT( ui->dockLightPanel->layout() != nullptr);
    return ui->dockLightPanel->layout();
 }
-
-QBoxLayout *MainWindow::volumeSliderAreaForDeck(Playlist::Deck deck)
-{
-   T_ASSERT( deck < NUMBER_OF_MEDIA_DECKS);
-   T_ASSERT( m_volumeLayout[deck] != nullptr);
-   return m_volumeLayout[deck];
-}
-
 
 void MainWindow::addShowActions(QList<QAction *> & actions)
 {

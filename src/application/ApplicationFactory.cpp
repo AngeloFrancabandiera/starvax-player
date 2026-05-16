@@ -215,8 +215,6 @@ ApplicationFactory::ApplicationFactory()
                                           playlistView, fileInport,
                                           setEditModeAction, m_mainWindow->playlistAreaForDeck(deck));
 
-      playGuiFactory->buildVolumeBar( mediaEngine, m_mainWindow->volumeSliderAreaForDeck(deck) );
-
       // _TODO setDefaultVolume is per instance and has no 'deck' parameter
 //      connect( applicationSettings, & ApplicationSettings::defaultVolumeChanged,
 //               audioVideoAutomation, & MediaAutomation::setDefaultVolume );
