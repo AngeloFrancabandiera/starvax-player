@@ -138,112 +138,20 @@ ApplicationFactory::ApplicationFactory()
    /* 'show changed' notification */
    connect( lightModel, SIGNAL(layoutChanged()), m_mainWindow, SLOT(onShowChanged()) );
 
-   /* playlist function */
-   PlaylistFunctionFactory *playlistFactory;
-   playlistFactory = new PlaylistFunctionFactory( this);
-
-   /* action for all decks */
-   Action * pauseAllAction = new Action( QIcon(IconPath("track_pause_all.png")), tr("pause all"));
-   pauseAllAction->bindShortcut(Qt::Key_End);
-   pauseAllAction->setCheckable(false);
-
    Action * playAllAction = new Action( QIcon(IconPath("track_play_all.png")), tr("play all"));
    playAllAction->bindShortcut(Qt::CTRL | Qt::Key_Space);
    playAllAction->setCheckable(false);
+   connect( playAllAction, & QAction::triggered,
+            lightPresetPanel, & IF_GuiLightControlPanel::triggerActivePreset);
 
-   Action * rewindAllAction = new Action( QIcon(IconPath("track_rewind_all.png")), tr("rewind all"));
-   rewindAllAction->bindShortcut( Qt::CTRL | Qt::Key_Home);
-   rewindAllAction->setCheckable(false);
+   m_mainWindow->addMediaListActions( QList<QAction *>() << playAllAction);
 
-   Action * stopAllAction = new Action( QIcon(IconPath("track_stop_all.png")), tr("stop all"));
-   stopAllAction->bindShortcut( Qt::Key_Escape);
-   stopAllAction->setCheckable(false);
-
-   m_mainWindow->addMediaListActions( QList<QAction *>() << playAllAction << pauseAllAction
-                                                         << rewindAllAction << stopAllAction);
-
-   connect( playAllAction, & QAction::triggered, lightPresetPanel, & IF_GuiLightControlPanel::triggerActivePreset);
-
-   // _TODO extraxt function
-   for (int deck=0; deck < NUMBER_OF_MEDIA_DECKS; deck++)
-   {
-      FullScreenMediaWidget * mediaWidget = new FullScreenMediaWidget( m_mainWindow);
-
-      ExponentialFader *expFader = new ExponentialFader( this);
-      MediaListModel *playlistModel = playlistFactory->buildModel(QString("P%1").arg(deck+1));
-      MediaListModelSet[deck] = playlistModel;
-
-      IF_MediaEngineInterface * mediaEngine = playlistFactory->buildMediaEngine( *expFader,
-                                                                                 *mediaWidget,
-                                                                                 *statusDisplay,
-                                                                                 applicationSettings);
-      MediaEngineSet[deck] = mediaEngine;
-      mediaEngine->setVolume( applicationSettings->defaultVolume(deck));  // _TODO line A?
-
-      ActionListController * mediaActionController = new ActionListController( *playlistModel, this);
-
-      MediaAutomation *audioVideoAutomation =
-            playlistFactory->buildAutomation( playlistModel, mediaEngine,
-                                              mediaActionController, expFader,
-                                              applicationSettings->defaultVolume(deck),  // _TODO line A?
-                                              *statusDisplay);
-      MediaAutomationSet[deck] = audioVideoAutomation;
-
-      PlaylistGuiFactory *playGuiFactory = new PlaylistGuiFactory( *applicationSettings, deck,
-                                                                    mediaEngine, playlistModel,
-                                                                    fileInport, this);
-      AudioVideoPlayBar *audvidPlaybar = playGuiFactory->buildAudioVideoPlaybar( m_mainWindow);
-      PicturePlaybar * pictPlaybar = playGuiFactory->buildPicturePlaybar( *audioVideoAutomation, m_mainWindow);
-      PlaylistBar * playlistBar = playGuiFactory->buildPlaylistBar( audvidPlaybar, pictPlaybar,
-                                                                    m_mainWindow);
-
-      ActionListView *playlistView = playGuiFactory->buildPlaylistView( playlistBar,
-                                                                        mediaActionController,
-                                                                        statusDisplay,
-                                                                        m_mainWindow);
-      pictPlaybar->setThumbnailContainer( playlistView);
-      playlistView->setDragEnabled(true);
-      playlistView->setTitle(tr("Playlist Deck %1").arg(deck+1));
-
-      audioVideoAutomation->activateNextAfterPlaybck( applicationSettings->activateNextAfterPLayback());
-      connect( applicationSettings, & ApplicationSettings::activateNextAfterPLaybackChanged,
-               audioVideoAutomation, & MediaAutomation::activateNextAfterPlaybck);
-
-
-      connect( mediaActionController, & ActionListController::requestToPlay,
-               mediaEngine, & IF_MediaEngineInterface::play);
-
-      playGuiFactory->buildPlaylistPanel( audioVideoAutomation,
-                                          playlistView,
-                                          setEditModeAction,
-                                          m_mainWindow->playlistAreaForDeck(deck));
-
-      // _TODO setDefaultVolume is per instance and has no 'deck' parameter
-//      connect( applicationSettings, & ApplicationSettings::defaultVolumeChanged,
-//               audioVideoAutomation, & MediaAutomation::setDefaultVolume );
-
-      connect( m_mainWindow, SIGNAL(mainWindowAboutToClose()), audioVideoAutomation, SLOT(onClosing()) );
-
-      connect( mediaActionController, & ActionListController::activeRowChanged,
-               audioVideoAutomation, & MediaAutomation::activateByRowNumer);
-
-      connect( mediaActionController, & ActionListController::activeRowChanged,
-               playlistBar, & PlaylistBar::onActiveRowChanged);
-
-      /* build media Actions. Use SHIFT modifier for lINE B */
-      QList<QAction *> playlistActions =
-            playlistFactory->buildActionList( mediaEngine, audioVideoAutomation,
-                                             PlaylistFunctionFactory::BaseActions);
-
-      m_mainWindow->addMediaListActions( playlistActions);
-      actionMode->addActions( playlistActions);
-
-      connect( playAllAction, & QAction::triggered, mediaEngine, & IF_MediaEngineInterface::play );
-      connect( pauseAllAction, SIGNAL(triggered()), mediaEngine, SLOT(pause()));
-      connect( rewindAllAction, & QAction::triggered, mediaEngine, & IF_MediaEngineInterface::rewind);
-      connect( stopAllAction, & QAction::triggered, mediaEngine, & IF_MediaEngineInterface::stop);
-      connect( playlistModel, SIGNAL(layoutChanged()), m_mainWindow, SLOT(onShowChanged()) );
-   }
+   build_playlist_function( statusDisplay,
+                            applicationSettings,
+                            fileInport,
+                            setEditModeAction,
+                            actionMode,
+                            playAllAction );
 
    /* Open Web Net function */
    OpenWebNetFactory ownFactory;
@@ -383,13 +291,120 @@ ApplicationFactory::ApplicationFactory()
    /* enter edit mode */
    setEditModeAction->setChecked( true);
    setEditModeAction->triggered( true);
-
 }
 
 
 ApplicationFactory::~ApplicationFactory()
 {
    delete m_mainWindow;
+}
+
+void ApplicationFactory::build_playlist_function( StatusDisplay * statusDisplay,
+                                                  ApplicationSettings *applicationSettings,
+                                                  FileInport *fileInport,
+                                                  Action * setEditModeAction,
+                                                  ActionModeFilter * actionMode,
+                                                  Action * playAllAction )
+{
+   /* playlist function */
+   PlaylistFunctionFactory *playlistFactory;
+   playlistFactory = new PlaylistFunctionFactory( this);
+
+   /* action for all decks */
+   Action * pauseAllAction = new Action( QIcon(IconPath("track_pause_all.png")), tr("pause all"));
+   pauseAllAction->bindShortcut(Qt::Key_End);
+   pauseAllAction->setCheckable(false);
+
+   Action * rewindAllAction = new Action( QIcon(IconPath("track_rewind_all.png")), tr("rewind all"));
+   rewindAllAction->bindShortcut( Qt::CTRL | Qt::Key_Home);
+   rewindAllAction->setCheckable(false);
+
+   Action * stopAllAction = new Action( QIcon(IconPath("track_stop_all.png")), tr("stop all"));
+   stopAllAction->bindShortcut( Qt::Key_Escape);
+   stopAllAction->setCheckable(false);
+
+   m_mainWindow->addMediaListActions( QList<QAction *>() << pauseAllAction
+                                       << rewindAllAction << stopAllAction);
+
+   for (int deck=0; deck < NUMBER_OF_MEDIA_DECKS; deck++)
+   {
+      FullScreenMediaWidget * mediaWidget = new FullScreenMediaWidget( m_mainWindow);
+
+      ExponentialFader *expFader = new ExponentialFader( this);
+      MediaListModel *playlistModel = playlistFactory->buildModel(QString("%1").arg(Playlist::toLetter(deck)));
+      MediaListModelSet[deck] = playlistModel;
+
+      IF_MediaEngineInterface * mediaEngine = playlistFactory->buildMediaEngine( *expFader,
+                                                                                 *mediaWidget,
+                                                                                 *statusDisplay,
+                                                                                 applicationSettings);
+      MediaEngineSet[deck] = mediaEngine;
+      mediaEngine->setVolume( applicationSettings->defaultVolume(deck));  // _TODO line A?
+
+      ActionListController * mediaActionController = new ActionListController( *playlistModel, this);
+
+      MediaAutomation *audioVideoAutomation =
+            playlistFactory->buildAutomation( playlistModel, mediaEngine,
+                                              mediaActionController, expFader,
+                                              applicationSettings->defaultVolume(deck),  // _TODO line A?
+                                              *statusDisplay);
+      MediaAutomationSet[deck] = audioVideoAutomation;
+
+      PlaylistGuiFactory *playGuiFactory = new PlaylistGuiFactory( *applicationSettings, deck,
+                                                                    mediaEngine, playlistModel,
+                                                                    fileInport, this);
+      AudioVideoPlayBar *audvidPlaybar = playGuiFactory->buildAudioVideoPlaybar( m_mainWindow);
+      PicturePlaybar * pictPlaybar = playGuiFactory->buildPicturePlaybar( *audioVideoAutomation, m_mainWindow);
+      PlaylistBar * playlistBar = playGuiFactory->buildPlaylistBar( audvidPlaybar, pictPlaybar,
+                                                                    m_mainWindow);
+
+      ActionListView *playlistView = playGuiFactory->buildPlaylistView( playlistBar,
+                                                                        mediaActionController,
+                                                                        statusDisplay,
+                                                                        m_mainWindow);
+      pictPlaybar->setThumbnailContainer( playlistView);
+      playlistView->setDragEnabled(true);
+      playlistView->setTitle(tr("Playlist Deck %1").arg(deck+1));
+
+      audioVideoAutomation->activateNextAfterPlaybck( applicationSettings->activateNextAfterPLayback());
+      connect( applicationSettings, & ApplicationSettings::activateNextAfterPLaybackChanged,
+               audioVideoAutomation, & MediaAutomation::activateNextAfterPlaybck);
+
+
+      connect( mediaActionController, & ActionListController::requestToPlay,
+               mediaEngine, & IF_MediaEngineInterface::play);
+
+      playGuiFactory->buildPlaylistPanel( audioVideoAutomation,
+                                          playlistView,
+                                          setEditModeAction,
+                                          m_mainWindow->playlistAreaForDeck(deck));
+
+      // _TODO setDefaultVolume is per instance and has no 'deck' parameter
+//      connect( applicationSettings, & ApplicationSettings::defaultVolumeChanged,
+//               audioVideoAutomation, & MediaAutomation::setDefaultVolume );
+
+      connect( m_mainWindow, SIGNAL(mainWindowAboutToClose()), audioVideoAutomation, SLOT(onClosing()) );
+
+      connect( mediaActionController, & ActionListController::activeRowChanged,
+               audioVideoAutomation, & MediaAutomation::activateByRowNumer);
+
+      connect( mediaActionController, & ActionListController::activeRowChanged,
+               playlistBar, & PlaylistBar::onActiveRowChanged);
+
+      /* build media Actions. Use SHIFT modifier for lINE B */
+      QList<QAction *> playlistActions =
+            playlistFactory->buildActionList( mediaEngine, audioVideoAutomation,
+                                             PlaylistFunctionFactory::BaseActions);
+
+      m_mainWindow->addMediaListActions( playlistActions);
+      actionMode->addActions( playlistActions);
+
+      connect( playAllAction, & QAction::triggered, mediaEngine, & IF_MediaEngineInterface::play );
+      connect( pauseAllAction, SIGNAL(triggered()), mediaEngine, SLOT(pause()));
+      connect( rewindAllAction, & QAction::triggered, mediaEngine, & IF_MediaEngineInterface::rewind);
+      connect( stopAllAction, & QAction::triggered, mediaEngine, & IF_MediaEngineInterface::stop);
+      connect( playlistModel, SIGNAL(layoutChanged()), m_mainWindow, SLOT(onShowChanged()) );
+   }
 }
 
 

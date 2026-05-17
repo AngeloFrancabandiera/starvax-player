@@ -347,9 +347,7 @@ void CodeEditor::handleDropOperationForMedia(QDropEvent *event)
 {
    QByteArray encodedData = event->mimeData()->data("playlist-data");
    QDataStream stream( & encodedData, QIODevice::ReadOnly);
-
    QString command;
-   QString line;
 
    /* according to drop point, use play or playAll */
    if (event->position().x() < viewport()->width()/2)
@@ -365,21 +363,19 @@ void CodeEditor::handleDropOperationForMedia(QDropEvent *event)
    int kindOverlay;
    QString label;
    QString path; // not used
-
-
+   QString deck_tag;
 
    while ( ! stream.atEnd())
    {
       stream >> kindOverlay;
       stream >> label;
       stream >> path;  // not used
+      stream >> deck_tag;
 
       kind = static_cast<AbstractMediaSource::MediaKind>( kindOverlay);
 
-      line = "A"; // _TODO fix deck
-
       /* insert label in quotes */
-      textCursor().insertText( QString("playlist %1 %2 \"%3\"\n").arg(line).arg(command).arg(label) );
+      textCursor().insertText( QString("playlist %1 %2 \"%3\"\n").arg(deck_tag).arg(command).arg(label) );
    }
 
    event->accept();

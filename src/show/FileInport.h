@@ -15,25 +15,8 @@ public:
    explicit FileInport( ApplicationSettings & applicationSettings,
                         QObject *parent = 0);
 
-   /** Panel where drop operation occurred */
-   enum GuiArea
-   {
-      PLAYLIST = 0,
-      SCRIPT,
-      SEQUENCE,
-      LIGHT,
-      OTHER
-   };
-
    bool openFile( QString filename );
    static QString open_style_dialog();
-
-   /** set panel in which last drop operation occurred */
-   // _TODO ma serve davvero?
-   void setDropTarget( GuiArea target, int param) {
-      m_lastDropTarget = target;
-      m_lastDropTargetParam = param;
-   }
 
    QStringList selectTracksForDeck( int deck);
 
@@ -53,8 +36,6 @@ private:
 
 private:
    ApplicationSettings & m_applicationSettings;
-   GuiArea m_lastDropTarget;
-   int m_lastDropTargetParam;
 };
 
 #endif // FILEINPORT_H

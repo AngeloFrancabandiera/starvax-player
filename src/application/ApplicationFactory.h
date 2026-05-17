@@ -13,6 +13,11 @@ class SequenceModel;
 class ScriptEngine;
 class MediaAutomation;
 class ShowManager;
+class StatusDisplay;
+class ApplicationSettings;
+class FileInport;
+class Action;
+class ActionModeFilter;
 
 class IF_LightEngineInterface;
 
@@ -47,6 +52,12 @@ private:
    ScriptFunctionFactory *m_scriptFactory;
 
 private:
+   void build_playlist_function( StatusDisplay * statusDisplay,
+                                 ApplicationSettings *applicationSettings,
+                                 FileInport *fileInport,
+                                 Action * setEditModeAction,
+                                 ActionModeFilter * actionMode,
+                                 Action * playAllAction );
    void wireScriptFunction( ScriptEngine* scriptEngine,
                             std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & mediaAutomationSet,
                             IF_LightEngineInterface *lightEngine,

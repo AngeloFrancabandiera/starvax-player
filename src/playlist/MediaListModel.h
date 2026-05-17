@@ -36,7 +36,7 @@ public:
    Qt::ItemFlags flags(const QModelIndex &index) const  override;
 
    /** build a media entry from a \p fileName and insert it at the end of the list */
-   void addMediaFile(const QString & fileName);                     /* !!! */
+   void addMediaFile(const QString & fileName);
    const AbstractMediaSource *mediaData(const QModelIndex &index) const;
    QModelIndex indexForData(const AbstractMediaSource *data);
 

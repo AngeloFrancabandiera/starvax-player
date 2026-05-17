@@ -18,6 +18,8 @@
 /* insert element at the end of the list */
 namespace { const int END_OF_LINE = -1; }
 
+#include <QDebug>
+
 namespace MediaModelCommands
 {
 /**  */
@@ -31,6 +33,7 @@ public:
       _model( model)
    {
       AbstractMediaSource::MediaKind kind = model->mediaKindForFileName( filePath);
+      qDebug() << "==> " << filePath << "; kind: " << kind << "; id: " << model->createStringId(filePath);
       _mediaSrc = model->m_mediaFactory->buildMediaSource(
                     filePath, model->createStringId(filePath), kind);
    }
@@ -525,6 +528,7 @@ QMimeData *MediaListModel::mimeData(const QModelIndexList & indexes) const
          stream << static_cast<int>(mediaSource->mediaKind());
          stream << mediaSource->stringId();
          stream << mediaSource->fileName();
+         stream << m_modelTag;
       }
    }
 

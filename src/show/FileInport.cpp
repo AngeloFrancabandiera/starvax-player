@@ -15,8 +15,7 @@
 FileInport::FileInport( ApplicationSettings & applicationSettings,
                         QObject *parent) :
    QObject(parent),
-   m_applicationSettings(applicationSettings),
-   m_lastDropTarget( OTHER)
+   m_applicationSettings(applicationSettings)
 {
 }
 
@@ -148,3 +147,4 @@ QString FileInport::open_style_dialog()
                                             STYLES_DLG_FILTER );
    return filename;
 }
+
