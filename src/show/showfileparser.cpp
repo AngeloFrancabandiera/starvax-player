@@ -23,15 +23,22 @@ namespace {
 
    int extractDeck( const QString & line)
    {
-      int deck = NUMBER_OF_MEDIA_DECKS + 1;  // invalid value
+      char deck = ' ';  // invalid value
+      int deck_num = -1;
 
       QRegularExpressionMatch m = trackListOpenRegEx.match(line);
       if (m.hasMatch())
       {
-         deck = m.captured(1).toInt();
+         bool ok = false;
+         deck = m.captured(1).toStdString().at(0);
+
+         if ((deck >= 'A') && (deck <= 'Z'))
+         {
+            deck_num = Playlist::toDeck(QChar(deck));
+         }
       }
 
-      return deck;
+      return deck_num;
    }
 }
 
@@ -80,7 +87,7 @@ void ShowFileParser::parse()
          parseLinesUntilTag( QString(PLAYLIST_LEGACY_END_TAG), &ShowFileParser::readMediaLine );
          m_activeMediaList = nullptr;
       }
-      else if (line == QString(PLAYLIST_START_BEGIN))
+      else if (line.startsWith(QString(PLAYLIST_START_BEGIN)))
       {
          int deck = extractDeck(line);
          m_activeMediaList = & m_trackList[deck];

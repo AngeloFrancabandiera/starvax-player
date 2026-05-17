@@ -2,12 +2,8 @@ QTextBrowser#scriptEdit { background: #e0f0ff }
 
 QPlainTextEdit#sequencerEdit { background: #e0f5ff }
 
-QAbstractItemView#playlist_A {
+QAbstractItemView#playlist {
    background: rgb(220, 255, 200);
-}
-
-QAbstractItemView#playlist_B {
-   background: rgb(200, 255, 220);
 }
 
 QAbstractItemView#LightView {

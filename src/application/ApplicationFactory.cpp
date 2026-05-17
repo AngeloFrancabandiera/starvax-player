@@ -142,7 +142,7 @@ ApplicationFactory::ApplicationFactory()
    PlaylistFunctionFactory *playlistFactory;
    playlistFactory = new PlaylistFunctionFactory( this);
 
-   /* action for both lines */
+   /* action for all decks */
    Action * pauseAllAction = new Action( QIcon(IconPath("track_pause_all.png")), tr("pause all"));
    pauseAllAction->bindShortcut(Qt::Key_End);
    pauseAllAction->setCheckable(false);

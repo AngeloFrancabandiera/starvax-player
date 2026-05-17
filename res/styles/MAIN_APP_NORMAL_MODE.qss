@@ -1,6 +1,6 @@
 QTextBrowser#scriptEdit { background: #fafafa }
 
-QAbstractItemView#playlist_A {
+QAbstractItemView#playlist {
    background: rgb(255, 220, 220);
 }
 
@@ -10,8 +10,4 @@ QAbstractItemView#LightView {
 
 QAbstractItemView#SequencePanel {
    background: rgb(250, 250, 250);
-}
-
-QAbstractItemView#playlist_B {
-   background: rgb(220, 220, 255);
 }

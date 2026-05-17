@@ -10,8 +10,6 @@
 #include <QFontDatabase>
 #include <QCommonStyle>
 
-#include <QDebug>
-
 #define TICK_INTERVAL_MS  100
 
 #define PLAY_BUTTON_ICON_PATH   IconPath("track_play.png")
@@ -125,7 +123,6 @@ void  AudioVideoPlayBar::updateTime(qint64 timeMs )
  */
 void AudioVideoPlayBar::onTotalTimeChanged(qint64 timeMs)
 {
-   qDebug() << "total time: " << (double)timeMs/1000. << " s";
    if (timeMs > 0)
    {
       updateTotalTime( timeMs);
@@ -140,8 +137,6 @@ void  AudioVideoPlayBar::updateTotalTime(qint64 timeMs )
 {
    // update total time label
    QTime displayTime( 0, (timeMs / 60000) % 60, (timeMs / 1000) % 60 );
-
-   qDebug() << "total: " << displayTime;
 
    ui->lbTotalTime->setText( displayTime.toString("mm:ss") );
 }
@@ -311,7 +306,6 @@ void AudioVideoPlayBar::on_secondaryButtons_clicked(bool checked)
 
    if (checked)
    {
-      qDebug() << m_currentTimeMs;
    }
 }
 

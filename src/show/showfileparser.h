@@ -35,7 +35,7 @@ public:
 private:
    QStringList m_errorsLog;
    std::array<QList<QString>, NUMBER_OF_MEDIA_DECKS> m_trackList;
-   QList<QString> * m_activeMediaList; /** used to select line A or line B */
+   QList<QString> * m_activeMediaList; /** used to select one deck */
    QList<LightPresetData *> m_lightSetList;
    QList<SequenceItem *> m_sequenceItemList;
    QString m_sequencerScript;

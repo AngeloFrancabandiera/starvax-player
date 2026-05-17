@@ -2,7 +2,6 @@
 #define MEDIA_POSITION_SLIDER_H
 
 #include "swiftslider.h"
-#include <QDebug>
 
 #define TWO_DIGIT_ZERO_PAD(val)    val, 2, 10, QLatin1Char('0')
 #define ONE_DIGIT(val)    val, 1, 10
@@ -70,7 +69,6 @@ public slots:
 
    void setDurationMs(qint64 durationMs)
    {
-      qDebug() << "slider total: " << (double)durationMs/1000. << " s";
       /* define one positon every 100 ms */
       int ticks = (int)( durationMs / 100LL);
       setRange( 0, ticks);

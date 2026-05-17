@@ -7,5 +7,6 @@
         "activityBar.activeBackground" :"#c05f21",
         "tab.activeBackground" : "#400080",
         "tab.activeBorder" : "#AAFFAA"
-    } 
+    },
+    "sarif-viewer.connectToGithubCodeScanning": "off"
 }
