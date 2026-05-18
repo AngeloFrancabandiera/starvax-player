@@ -15,13 +15,12 @@ QMap< AbstractMediaSource::MediaKind, QPixmap *> TypeToIconMap;
 PlaylistPainter::PlaylistPainter(const ApplicationSettings &settings) :
    ActionListPainter( settings)
 {
-   m_pictureIcon_A = QPixmap( IconPath("picture_A.png")).scaled(16,16);
-   m_pictureIcon_B = QPixmap( IconPath("picture_B.png")).scaled(16,16);
-   m_soundIcon_A = QPixmap( IconPath("sound_A.png")).scaled(16,16);
-   m_soundIcon_B = QPixmap( IconPath("sound_B.png")).scaled(16,16);
+   /* TBD: all decks use the same icon */
+   m_pictureIcon = QPixmap( IconPath("picture_A.png")).scaled(16,16);
+   m_soundIcon = QPixmap( IconPath("sound_A.png")).scaled(16,16);
 
-   TypeToIconMap.insert( AbstractMediaSource::AUDIO_VIDEO, & m_soundIcon_A);  // _TODO decks!
-   TypeToIconMap.insert( AbstractMediaSource::PICTURE, & m_pictureIcon_A);
+   TypeToIconMap.insert( AbstractMediaSource::AUDIO_VIDEO, & m_soundIcon);
+   TypeToIconMap.insert( AbstractMediaSource::PICTURE, & m_pictureIcon);
 }
 
 

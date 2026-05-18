@@ -69,7 +69,6 @@ public slots:
 
 protected:
    void closeEvent(QCloseEvent *) override;
-   void showEvent(QShowEvent *event) override;
 
 private:
    void setup_gui_elems();
@@ -118,14 +117,8 @@ private slots:
    void on_actionOpenCurtain_triggered();
    void on_actionCloseCurtain_triggered();
    void on_action_Options_triggered();
-   void on_action_view_light_preset_triggered(bool checked);
-   void on_action_view_open_web_net_triggered(bool checked);
-   void on_action_view_sequencer_triggered(bool checked);
    void on_action_view_save_layout_triggered();
    void on_action_view_restore_layout_triggered();
-   void on_dockLightContainer_visibilityChanged(bool visible);
-   void on_dockSequencerContainer_visibilityChanged(bool visible);
-   void on_dockOpenWebNetContainer_visibilityChanged(bool visible);
    void on_actionAbout_MeTeOr_Player_triggered();
    void on_actionAbout_Qt_triggered();
    void on_actionAbout_mmedia_library_triggered();

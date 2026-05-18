@@ -165,11 +165,25 @@ void MainWindow::setup_gui_elems()
    ui_script_anim_toolbar->setIconSize(iconSize);
    ui_script_toolbar->setIconSize(iconSize);
    ui_music_toolbar->setIconSize(iconSize);
+
+   QAction *viewSequencer = ui->dockSequencerContainer->toggleViewAction();
+   viewSequencer->setText(tr("Sequencer"));
+   ui->menuView->insertAction( ui->menuView->actions().first(), viewSequencer);
+
+   QAction *viewLightPreset = ui->dockLightContainer->toggleViewAction();
+   viewLightPreset->setText(tr("Light Control"));
+   ui->menuView->insertAction( ui->menuView->actions().first(), viewLightPreset);
+
+   QAction *viewOpenWebNet = ui->dockOpenWebNetContainer->toggleViewAction();
+   viewOpenWebNet->setText(tr("Open Web Net"));
+   ui->menuView->insertAction( ui->menuView->actions().first(), viewOpenWebNet);
 }
 
 
 void MainWindow::setupPlaylistAreas()
 {
+   QAction *firstBuiltIn = ui->menuView->actions().first();
+
    for (int deck = 0; deck < NUMBER_OF_MEDIA_DECKS; deck++)
    {
       QString title = tr("Deck %1").arg(Playlist::toLetter(deck));
@@ -180,14 +194,9 @@ void MainWindow::setupPlaylistAreas()
       m_dockSetForDecks[deck]->setObjectName( title);
 
       /* add visibility menu for deck */
-      QAction *deckVisibleAction = new QAction( title, ui->menuView);
-      deckVisibleAction->setCheckable( true);
-      ui->menuView->addAction( deckVisibleAction);
-
-      connect( deckVisibleAction, & QAction::triggered,
-               m_dockSetForDecks[deck], & QDockWidget::setVisible);
-      connect( m_dockSetForDecks[deck], & QDockWidget::visibilityChanged,
-               deckVisibleAction, & QAction::setChecked);
+      QAction *deckVisibleAction = m_dockSetForDecks[deck]->toggleViewAction();
+      deckVisibleAction->setText( title);
+      ui->menuView->insertAction( firstBuiltIn, deckVisibleAction);
    }
 }
 
@@ -502,45 +511,6 @@ void MainWindow::on_action_Options_triggered()
     }
 }
 
-// _TODO toggle visibility of each dock container.
-
-void MainWindow::on_action_view_light_preset_triggered(bool checked)
-{
-   if (checked)
-   {
-      ui->dockLightContainer->show();
-   }
-   else
-   {
-      ui->dockLightContainer->hide();
-   }
-}
-
-void MainWindow::on_action_view_open_web_net_triggered(bool checked)
-{
-   if (checked)
-   {
-      ui->dockOpenWebNetContainer->show();
-   }
-   else
-   {
-      ui->dockOpenWebNetContainer->hide();
-   }
-}
-
-void MainWindow::on_action_view_sequencer_triggered(bool checked)
-{
-   if (checked)
-   {
-      ui->dockSequencerContainer->show();
-   }
-   else
-   {
-      ui->dockSequencerContainer->hide();
-   }
-}
-
-
 void MainWindow::on_action_view_save_layout_triggered()
 {
    QString path = QFileDialog::getSaveFileName( this, tr("save layout"),
@@ -588,32 +558,6 @@ void MainWindow::on_action_view_restore_layout_triggered()
    }
 }
 
-
-void MainWindow::showEvent( QShowEvent *event)
-{
-   QMainWindow::showEvent( event);
-
-   // _TODO visibility of each media dock
-   ui->action_view_light_preset->setChecked( ui->dockLightContainer->isVisible());
-   ui->action_view_open_web_net->setChecked( ui->dockOpenWebNetContainer->isVisible());
-   ui->action_view_sequencer->setChecked( ui->dockSequencerContainer->isVisible());
-}
-
-void MainWindow::on_dockLightContainer_visibilityChanged(bool visible)
-{
-   ui->action_view_light_preset->setChecked( visible);
-}
-
-void MainWindow::on_dockSequencerContainer_visibilityChanged(bool visible)
-{
-   ui->action_view_sequencer->setChecked( visible);
-}
-
-void MainWindow::on_dockOpenWebNetContainer_visibilityChanged(bool visible)
-{
-   ui->action_view_open_web_net->setChecked( visible);
-}
-
 void MainWindow::on_actionAbout_MeTeOr_Player_triggered()
 {
    QMessageBox::about( this, tr("About Starvax Me.Te.Or. Player"),
@@ -635,7 +579,6 @@ void MainWindow::on_actionAbout_Qt_triggered()
 {
    QMessageBox::aboutQt( this);
 }
-
 
 void MainWindow::on_actionAbout_mmedia_library_triggered()
 {

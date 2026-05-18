@@ -14,10 +14,8 @@ protected:
 
 private:
    QString formatDisplayText(int position, const QString &displayText );
-   QPixmap m_pictureIcon_A;
-   QPixmap m_pictureIcon_B;
-   QPixmap m_soundIcon_A;
-   QPixmap m_soundIcon_B;
+   QPixmap m_pictureIcon;
+   QPixmap m_soundIcon;
 };
 
 #endif // PlaylistPainter_H

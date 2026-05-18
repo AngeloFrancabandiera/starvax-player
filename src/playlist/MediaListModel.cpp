@@ -291,12 +291,10 @@ MediaListModel::mediaKindForFileName(const QString & fileName) const
 
    if (PICTURE_SUPPORTED_FORMATS.contains( suffix))
    {
-      // _TODO fix deck number  (m_modelTag == "PB")
       kind = AbstractMediaSource::PICTURE;
    }
    else if (MEDIA_TRACKS_SUPPORTED_FORMATS.contains( suffix))
    {
-      // _TODO fix deck number  (m_modelTag == "PB")
       kind = AbstractMediaSource::AUDIO_VIDEO;
    }
 
