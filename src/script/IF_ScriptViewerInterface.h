@@ -41,7 +41,8 @@ public slots:
    virtual void markWordUnderCursorAsCharacter() = 0;
 
    virtual void onLightEventRequested( const QString & label) = 0;
-   virtual void onMediaEventRequested( AbstractMediaSource::MediaKind kind, QString label) = 0;
+   virtual void onMediaEventRequested( AbstractMediaSource::MediaKind kind,
+                                       QString label, QString deckTag) = 0;
    virtual void onSequenceEventRequested( const QString & label) = 0;
 
 signals:

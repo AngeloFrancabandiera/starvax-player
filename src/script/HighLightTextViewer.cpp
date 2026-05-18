@@ -624,15 +624,17 @@ void HighLightTextViewer::playlistDropEvent(QDropEvent* event)
    int kind;  // AbstractMediaSource::MediaKind
    QString label;
    QString path; // not used
+   QString model_tag;  // deck information
 
    while ( ! stream.atEnd())
    {
       stream >> kind;
       stream >> label;
       stream >> path;  // not used
+      stream >> model_tag;
 
       emit insertPlaylistEventRequest( static_cast<AbstractMediaSource::MediaKind>(kind),
-                                       label);
+                                       label, model_tag);
    }
 }
 

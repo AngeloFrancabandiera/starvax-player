@@ -18,7 +18,7 @@ public:
    {
       invalidAction,
       lightAction,
-      audVidAction_lineA,
+      audVidAction_lineA,  // _TODO line dependency. Check backward compatibility
       audVidAction_lineB,
       pictureAction_lineA,
       pictureAction_lineB,

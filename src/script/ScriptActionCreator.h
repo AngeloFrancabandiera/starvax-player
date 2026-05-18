@@ -18,14 +18,15 @@ public:
    QString makeHtmlForSequenceAction();
    QString makeHtmlForMediaAction( Playlist::Deck deck);
    QString makeHtmlForLightAction( const QString & label);
-   QString makeHtmlForMediaAction( AbstractMediaSource::MediaKind kind, const QString & label);
+   QString makeHtmlForMediaAction( AbstractMediaSource::MediaKind kind,
+                                   const QString & label, QString deckTag);
    QString makeHtmlForSequenceAction( const QString & label);
 
 private:
    IF_ActionSelectorInterface & m_actionSelector;
 
 private:
-   QString makeHtmlForAction( int param);
+   QString makeHtmlForAction();
 };
 
 #endif // SCRIPTACTIONCREATOR_H

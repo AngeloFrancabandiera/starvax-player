@@ -58,7 +58,8 @@ signals:
 
    // events creaed from drag n drop operation
    void insertPlaylistEventRequest( AbstractMediaSource::MediaKind kind,
-                                    const QString & label);
+                                    const QString & label,
+                                    const QString & deck_tag);
    void insertLightEventRequest( const QString & label);
    void insertSequenceEntryRequest( const QString & label);
 

@@ -42,7 +42,8 @@ public slots:
    void addSearchPath(const QString &) override;
    void onLightEventRequested( const QString & label) override;
    void onSequenceEventRequested( const QString & label) override;
-   void onMediaEventRequested(AbstractMediaSource::MediaKind kind, QString label) override;
+   void onMediaEventRequested( AbstractMediaSource::MediaKind kind,
+                               QString label, QString deckTag) override;
    void markWordUnderCursorAsCharacter() override;
 
 

@@ -17,12 +17,12 @@
 /** html for audio/video event */
 #define  MEDIA_ACTION_HTML(label, deck)  \
    QString("<br><h2><a href=\"$$EVENT_MEDIA_LINE_%1$$%2\"><span style=\"font-size: 15.0 pt; background: #1188ee;\">").arg(label) +\
-   QString("<img src=\"file:sound_A.png\"/></a> MEDIA:  %1 </span></h2><br>").arg(Playlist::toLetter(deck)).arg(label)
+   QString("<img src=\"file:sound_A.png\"/></a> MEDIA %1:  %2 </span></h2><br>").arg(deck).arg(label)
 
 /** html for picture event */
 #define  PICTURE_ACTION_HTML(label, deck)  \
    QString("<br><h2><a href=\"$$EVENT_PICTURE_LINE_%1$$%2\"><span style=\" background: #1177ff; color: white\">").arg(label) +\
-   QString("<img src=\"file:picture_A.png\"/></a> PICTURE:  %1 </span></h2><br>").arg(Playlist::toLetter(deck)).arg(label)
+   QString("<img src=\"file:picture_A.png\"/></a> PICTURE %1:  %2 </span></h2><br>").arg(deck).arg(label)
 
 /** html for sequencer entry event */
 #define SEQUENCER_ENTRY_HTML(label) \
@@ -48,20 +48,21 @@ ScriptActionCreator::ScriptActionCreator(IF_ActionSelectorInterface &actionSelec
 QString ScriptActionCreator::makeHtmlForLightAction()
 {
    m_actionSelector.selectEvent( IF_ActionSelectorInterface::LightAction);
-   return makeHtmlForAction(0);
+   return makeHtmlForAction();
 }
 
 QString ScriptActionCreator::makeHtmlForSequenceAction()
 {
    m_actionSelector.selectEvent( IF_ActionSelectorInterface::SequenceEntryAction);
-   return makeHtmlForAction(0);
+   return makeHtmlForAction();
 }
 
 QString ScriptActionCreator::makeHtmlForMediaAction( Playlist::Deck deck)
 {
    m_actionSelector.selectEvent( IF_ActionSelectorInterface::MediaAction);
+   m_actionSelector.setParam( Playlist::toLetter(deck));
 
-   return makeHtmlForAction( deck);
+   return makeHtmlForAction();
 }
 
 
@@ -70,19 +71,21 @@ QString ScriptActionCreator::makeHtmlForLightAction(const QString & label)
    m_actionSelector.setActionType( IF_ActionSelectorInterface::LightAction);
    m_actionSelector.setActionId( label);
 
-   return makeHtmlForAction(0);
+   return makeHtmlForAction();
 }
 
 QString ScriptActionCreator::makeHtmlForMediaAction( AbstractMediaSource::MediaKind kind,
-                                                     const QString & label)
+                                                     const QString & label,
+                                                     QString deckTag)
 {
    IF_ActionSelectorInterface::Type type =
          MEDIA_KIND_TABLE.value( kind, IF_ActionSelectorInterface::NoAction);
 
    m_actionSelector.setActionType( type);
    m_actionSelector.setActionId( label);
+   m_actionSelector.setParam( deckTag);
 
-   return makeHtmlForAction(0);
+   return makeHtmlForAction();
 }
 
 QString ScriptActionCreator::makeHtmlForSequenceAction(const QString& label)
@@ -90,10 +93,10 @@ QString ScriptActionCreator::makeHtmlForSequenceAction(const QString& label)
    m_actionSelector.setActionType( IF_ActionSelectorInterface::SequenceEntryAction);
    m_actionSelector.setActionId( label);
 
-   return makeHtmlForAction(0);
+   return makeHtmlForAction();
 }
 
-QString ScriptActionCreator::makeHtmlForAction( int param)
+QString ScriptActionCreator::makeHtmlForAction()
 {
    QString htmlForEvent;
    QString actionId = m_actionSelector.getActionId();
@@ -104,11 +107,11 @@ QString ScriptActionCreator::makeHtmlForAction( int param)
    }
    else if (m_actionSelector.getActionType() == IF_ActionSelectorInterface::MediaAction)
    {
-      htmlForEvent = MEDIA_ACTION_HTML(actionId, param);
+      htmlForEvent = MEDIA_ACTION_HTML(actionId, m_actionSelector.getParam());
    }
    else if (m_actionSelector.getActionType() == IF_ActionSelectorInterface::PictureAction)
    {
-      htmlForEvent = PICTURE_ACTION_HTML(actionId, param);
+      htmlForEvent = PICTURE_ACTION_HTML(actionId, m_actionSelector.getParam());
    }
    else if (m_actionSelector.getActionType() == IF_ActionSelectorInterface::SequenceEntryAction)
    {

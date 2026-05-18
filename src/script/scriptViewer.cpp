@@ -99,9 +99,10 @@ void ScriptViewer::onSequenceEventRequested(const QString &label)
    m_textViewer.insertHtml( html);
 }
 
-void ScriptViewer::onMediaEventRequested( AbstractMediaSource::MediaKind kind, QString label)
+void ScriptViewer::onMediaEventRequested( AbstractMediaSource::MediaKind kind,
+                                          QString label, QString deckTag)
 {
-   QString html = m_actionHtmlMaker.makeHtmlForMediaAction( kind, label);
+   QString html = m_actionHtmlMaker.makeHtmlForMediaAction( kind, label, deckTag);
    m_textViewer.insertHtml( html);
 }
 
