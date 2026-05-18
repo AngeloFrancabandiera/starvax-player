@@ -178,6 +178,16 @@ void MainWindow::setupPlaylistAreas()
       addDockWidget( Qt::RightDockWidgetArea, m_dockSetForDecks[deck]);
       m_dockSetForDecks[deck]->setWindowTitle( title);
       m_dockSetForDecks[deck]->setObjectName( title);
+
+      /* add visibility menu for deck */
+      QAction *deckVisibleAction = new QAction( title, ui->menuView);
+      deckVisibleAction->setCheckable( true);
+      ui->menuView->addAction( deckVisibleAction);
+
+      connect( deckVisibleAction, & QAction::triggered,
+               m_dockSetForDecks[deck], & QDockWidget::setVisible);
+      connect( m_dockSetForDecks[deck], & QDockWidget::visibilityChanged,
+               deckVisibleAction, & QAction::setChecked);
    }
 }
 

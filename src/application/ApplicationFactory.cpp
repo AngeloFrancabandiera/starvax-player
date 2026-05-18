@@ -233,6 +233,7 @@ ApplicationFactory::ApplicationFactory()
 
    for (QAbstractListModel * model : MediaListModelSet)
    {
+      // _TODO parameters mismatch! deck in importMediaTracksForDeck is lost!
       connect( fileInport, & FileInport::importMediaTracksForDeck,
                dynamic_cast<MediaListModel*>(model), & MediaListModel::addMediaFiles );
    }
@@ -339,14 +340,14 @@ void ApplicationFactory::build_playlist_function( StatusDisplay * statusDisplay,
                                                                                  *statusDisplay,
                                                                                  applicationSettings);
       MediaEngineSet[deck] = mediaEngine;
-      mediaEngine->setVolume( applicationSettings->defaultVolume(deck));  // _TODO line A?
+      mediaEngine->setVolume( applicationSettings->defaultVolume(deck));
 
       ActionListController * mediaActionController = new ActionListController( *playlistModel, this);
 
       MediaAutomation *audioVideoAutomation =
             playlistFactory->buildAutomation( playlistModel, mediaEngine,
                                               mediaActionController, expFader,
-                                              applicationSettings->defaultVolume(deck),  // _TODO line A?
+                                              applicationSettings->defaultVolume(deck),
                                               *statusDisplay);
       MediaAutomationSet[deck] = audioVideoAutomation;
 

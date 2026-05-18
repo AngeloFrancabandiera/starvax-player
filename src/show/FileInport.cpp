@@ -37,9 +37,7 @@ bool FileInport::openFile( QString filename )
    else if( MEDIA_TRACKS_SUPPORTED_FORMATS.contains( ext ) ||
             PICTURE_SUPPORTED_FORMATS.contains(ext))
    {
-      // _TODO : remove
-      QMessageBox::information(NULL, "Debug", "Media destinated to deck 0");
-      /* media file: assume deck 0 as we don't have any info here */
+      /* route to deck 'A': this only happens with application parameters */
       emit importMediaTracksForDeck( QStringList(filename), 0);
    }
    else if( SHOWS_SUPPORTED_FORMATS.contains( ext ) )
