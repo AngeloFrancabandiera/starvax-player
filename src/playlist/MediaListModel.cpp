@@ -18,7 +18,6 @@
 /* insert element at the end of the list */
 namespace { const int END_OF_LINE = -1; }
 
-#include <QDebug>
 
 namespace MediaModelCommands
 {
@@ -33,7 +32,6 @@ public:
       _model( model)
    {
       AbstractMediaSource::MediaKind kind = model->mediaKindForFileName( filePath);
-      qDebug() << "==> " << filePath << "; kind: " << kind << "; id: " << model->createStringId(filePath);
       _mediaSrc = model->m_mediaFactory->buildMediaSource(
                     filePath, model->createStringId(filePath), kind);
    }

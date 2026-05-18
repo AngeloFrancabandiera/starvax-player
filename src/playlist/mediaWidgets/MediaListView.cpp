@@ -188,7 +188,6 @@ void MediaListView::addValidUrlsToModel( QDropEvent * event)
    }
 }
 
-
 void MediaListView::addDroppedMedia(QDropEvent* event)
 {
    event->accept();
@@ -201,12 +200,14 @@ void MediaListView::addDroppedMedia(QDropEvent* event)
    int kind;  // AbstractMediaSource::MediaKind
    QString label;
    QString fileName;
+   QString modelTag;
 
    while ( ! stream.atEnd())
    {
       stream >> kind;
       stream >> label;
       stream >> fileName;
+      stream >> modelTag;
 
       /* with 'CreateFromString' rule, a new item is created in model
        * before setting data for it */

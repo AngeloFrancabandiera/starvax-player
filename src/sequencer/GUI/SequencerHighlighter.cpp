@@ -1,6 +1,7 @@
 #include "SequencerHighlighter.h"
 #include <QRegularExpression>
 #include "ApplicationSettings.h"
+#include "PlaylistDecks.h"
 
 #include <QStringList>
 
@@ -48,7 +49,7 @@ SequencerHighlighter::SequencerHighlighter( const ApplicationSettings & settings
 
    m_subKeywordRegExp = new QRegularExpression( subKeywordPattern);
 
-   QString numerPatter = QString("\\b((\\d|\\.)+|A|B|s)\\b");
+   QString numerPatter = QString("\\b((\\d|\\.)+|[A-%1])\\b").arg(Playlist::toLetter(NUMBER_OF_MEDIA_DECKS - 1));
    m_pseudoNumberRegExp = new QRegularExpression( numerPatter);
 
    // single line string enclosed in double quotes

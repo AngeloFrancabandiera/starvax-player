@@ -43,7 +43,7 @@ LineParser::LineParser() :
    KeywordRegExpTable.insert( "repeat",   new QRegularExpression("\\s*repeat\\b\\s*((\\d+)|forever)+\\s*$"));
    KeywordRegExpTable.insert( "end",      new QRegularExpression("\\s*end\\b\\s*$"));
    KeywordRegExpTable.insert( "playlist",
-                              new QRegularExpression("\\s*playlist\\b\\s*(?<line>A|B)\\s+(?<cmd>\\w+)\\s*(\"(?<media>.*)\")?(?<numVal>\\d+)?\\s*$",
+                              new QRegularExpression("\\s*playlist\\b\\s*(?<line>[A-Z])\\s+(?<cmd>\\w+)\\s*(\"(?<media>.*)\")?(?<numVal>\\d+)?\\s*$",
                                                      QRegularExpression::DontCaptureOption));
 
    KeywordRegExpTable.insert( "light",
@@ -238,7 +238,7 @@ bool LineParser::parsePlaylist( const QString & line)
    {
       m_lineKind = LINE_INVALID;
       m_errorString = QObject::tr("<b>syntax error.</b> "
-                                  "<p>Usage: <b>playlist LINE <i>command [\"track label\"]</i></b></p>"
+                                  "<p>Usage: <b>playlist DECK <i>command [\"track label\"]</i></b></p>"
                                   "<p><i>command is: </i><b>play, pause, stop, rewind, fadeout, volume</b></p>"
                                   "<p>Track label (within quotes) is required for <i>play</i> and <i>show</i> commands.</p>");
 
@@ -266,6 +266,11 @@ bool LineParser::checkPlaylistParams( QString & errorDetail, bool validVolume)
    {
       m_lineKind = LINE_INVALID;
       errorDetail = QObject::tr( "Command <b>show</b> requires to specify media");
+   }
+   else if ((m_lineParamsPlaylist.deck < 0) || (m_lineParamsPlaylist.deck >= NUMBER_OF_MEDIA_DECKS))
+   {
+      m_lineKind = LINE_INVALID;
+      errorDetail = QObject::tr( "Deck must be in range A to %1").arg(Playlist::toLetter(NUMBER_OF_MEDIA_DECKS - 1));
    }
    else if (m_lineParamsPlaylist.subCommand == PLAYLIST_VOLUME)
    {
