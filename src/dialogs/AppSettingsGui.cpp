@@ -32,9 +32,9 @@ AppSettingsGui::AppSettingsGui( ApplicationSettings & settings,
       m_defaultVolumeSet[deck] = new QSpinBox( ui->groupBox_media);
       QSpacerItem *spacer = new QSpacerItem( 10, 10, QSizePolicy::Expanding);
 
-      media_layout->addWidget( label, deck, 0);
-      media_layout->addWidget( m_defaultVolumeSet[deck], deck, 1);
-      media_layout->addItem( spacer, deck, 2);
+      media_layout->addWidget( label, deck+3, 0);
+      media_layout->addWidget( m_defaultVolumeSet[deck], deck+3, 1);
+      media_layout->addItem( spacer, deck+3, 2);
 
       m_defaultVolumeSet[deck]->setMinimum(0);
       m_defaultVolumeSet[deck]->setMaximum(100);
