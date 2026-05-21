@@ -28,7 +28,8 @@ public slots:
     * If \p dontStopFlag is True, current track is not stopped (or hidden)
     */
    void activateByRowNumer(int activeRow, bool dontStopFlag = false);
-   void activateMediaById(const QString & stringId, bool startImmediately=false, bool dontStopFlag=false);
+   void activateMediaById( const QString & stringId,
+                           bool startImmediately=false, bool dontStopFlag=false);
    void activateNext();
    void activatePrevious();
 

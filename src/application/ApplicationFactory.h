@@ -1,7 +1,6 @@
 #ifndef APPLICATIONFACTORY_H
 #define APPLICATIONFACTORY_H
 
-#include <array>
 #include <QObject>
 
 class MainWindow;
@@ -59,7 +58,6 @@ private:
                                  ActionModeFilter * actionMode,
                                  Action * playAllAction );
    void wireScriptFunction( ScriptEngine* scriptEngine,
-                            std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & mediaAutomationSet,
                             IF_LightEngineInterface *lightEngine,
                             Sequencer::Functionality *sequencer);
    void wireShowFunction(ShowManager *show, ScriptEngine *scriptEngine);

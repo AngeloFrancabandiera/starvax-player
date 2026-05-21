@@ -29,6 +29,7 @@
 #include "ExponentialFader.h"
 #include "MediaListModel.h"
 #include "MediaAutomation.h"
+#include "MediaAutomationSet.h"
 #include "PicturePlaybar.h"
 #include "FullScreenMediaWidget.h"
 #include "StillPictureWidget.h"
@@ -62,7 +63,7 @@
 #include "Sequencer_Functionality.h"
 
 namespace {
-   std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> MediaAutomationSet;
+   MediaAutomationSet theMediaAutomationSet;
    std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> MediaListModelSet;
    std::array<IF_MediaEngineInterface *, NUMBER_OF_MEDIA_DECKS> MediaEngineSet;
 }
@@ -187,7 +188,7 @@ ApplicationFactory::ApplicationFactory()
                                            m_mainWindow->sequencerFunctionArea());
 
    Sequencer::InstructionFactory * instructionFactory =
-         sequencerFactory.buildInstructionFactory( MediaAutomationSet, *lightEngine,
+         sequencerFactory.buildInstructionFactory( theMediaAutomationSet, *lightEngine,
                                                    *ownEngine, *ownModel, *sequencerGui);
 
    Sequencer::Functionality * sequencerFunction =
@@ -212,8 +213,7 @@ ApplicationFactory::ApplicationFactory()
 
    connect( setEditModeAction, SIGNAL(triggered(bool)), scriptEngine, SLOT(setEditMode(bool)) );
 
-   wireScriptFunction( scriptEngine, MediaAutomationSet,
-                       lightEngine, sequencerFunction);
+   wireScriptFunction( scriptEngine, lightEngine, sequencerFunction);
    QList<QAction *> scriptActions = scriptEngine->getActionList();
    m_mainWindow->addScriptActions( scriptActions);
    actionMode->addActions( scriptActions);
@@ -268,7 +268,7 @@ ApplicationFactory::ApplicationFactory()
    serverEngine->addCommands( serverCommands);
 
    serverCommands = serverFactory.buildPlaylistCommands( *cmdReply,
-                                                         MediaAutomationSet,
+                                                         theMediaAutomationSet,
                                                          MediaListModelSet,
                                                          MediaEngineSet);
    serverEngine->addCommands( serverCommands);
@@ -349,7 +349,7 @@ void ApplicationFactory::build_playlist_function( StatusDisplay * statusDisplay,
                                               mediaActionController, expFader,
                                               applicationSettings->defaultVolume(deck),
                                               *statusDisplay);
-      MediaAutomationSet[deck] = audioVideoAutomation;
+      theMediaAutomationSet.set(deck, audioVideoAutomation);
 
       PlaylistGuiFactory *playGuiFactory = new PlaylistGuiFactory( *applicationSettings, deck,
                                                                     mediaEngine, playlistModel,
@@ -410,7 +410,6 @@ void ApplicationFactory::build_playlist_function( StatusDisplay * statusDisplay,
 
 
 void ApplicationFactory::wireScriptFunction( ScriptEngine *scriptEngine,
-                                             std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & mediaAutomationSet,
                                              IF_LightEngineInterface *lightEngine,
                                              Sequencer::Functionality * sequencer)
 {
@@ -423,11 +422,8 @@ void ApplicationFactory::wireScriptFunction( ScriptEngine *scriptEngine,
    connect( scriptEngine, & ScriptEngine::textChanged,
             m_mainWindow, & MainWindow::onShowChanged);
 
-   for (MediaAutomation * automation : mediaAutomationSet )
-   {
-      connect( scriptEngine, & ScriptEngine::activateMediaLineA,
-               automation, & MediaAutomation::activateMediaById);
-   }
+   connect( scriptEngine, & ScriptEngine::activateMedia,
+            &theMediaAutomationSet, & MediaAutomationSet::activateMediaById);
 }
 
 

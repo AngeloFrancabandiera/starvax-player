@@ -10,8 +10,8 @@ public:
    ScriptActionTrigger( QObject *parent = nullptr) : QObject(parent) {}
 
 signals:
-   void activateMediaLineA(const QString &, bool, bool dontStopFlag = false);
-   void activateMediaLineB(const QString &, bool, bool dontStopFlag = false);
+   void activateMedia( const QString & label, const QString & deck,
+                       bool playImmediately, bool dontStopFlag = false);
    void activateLight(const QString &, bool);
    void activateSequenceEntry(const QString &, bool);
 };

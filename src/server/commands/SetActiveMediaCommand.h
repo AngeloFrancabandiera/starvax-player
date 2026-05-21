@@ -5,7 +5,7 @@
 #include <QString>
 #include <array>
 
-class MediaAutomation;
+class MediaAutomationSet;
 class MediaListModel;
 class QAbstractListModel;
 
@@ -22,7 +22,7 @@ class CommandReply_IF;
 class SetActiveTrackCommand : public Command_IF
 {
 public:
-   SetActiveTrackCommand( std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & mediaAutomationSet,
+   SetActiveTrackCommand( MediaAutomationSet & mediaAutomationSet,
                           std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaListModelSet,
                           CommandReply_IF & replySink);
    ~SetActiveTrackCommand() override {}
@@ -42,7 +42,7 @@ public:
    bool execute(const QStringList & parameters) override;
 
 private:
-   std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & m_mediaAutomationSet;
+   MediaAutomationSet & m_mediaAutomationSet;
    std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & m_mediaListModelSet;
    CommandReply_IF & m_replySink;
 

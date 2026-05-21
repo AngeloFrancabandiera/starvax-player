@@ -39,8 +39,7 @@ public:
    }
 
 signals:
-   void activateMediaLineA(const QString &, bool, bool);
-   void activateMediaLineB(const QString &, bool, bool);
+   void activateMedia(const QString &, const QString &, bool, bool);
    void activateLight(const QString &, bool);
    void activateSequenceEntry(const QString &, bool);
 

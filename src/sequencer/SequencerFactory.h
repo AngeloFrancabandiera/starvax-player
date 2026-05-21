@@ -2,9 +2,9 @@
 #define SEQUENCERFACTORY_H
 
 #include <QList>
-#include <array>
-class QAction;
+#include "MediaAutomationSet.h"
 
+class QAction;
 class SequenceEditorGui;
 class QWidget;
 class QObject;
@@ -33,7 +33,7 @@ public:
                                         const ApplicationSettings &settings,
                                         QWidget *parent);
 
-   InstructionFactory * buildInstructionFactory( std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & mediaAutomationSet,
+   InstructionFactory * buildInstructionFactory( MediaAutomationSet & mediaAutomationSet,
                                                  IF_LightEngineInterface & lightEngine,
                                                  OpenWebNetEngine_IF & ownEngine,
                                                  const OwnModel &ownModel,

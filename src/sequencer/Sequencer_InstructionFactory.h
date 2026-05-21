@@ -1,11 +1,9 @@
 #ifndef SEQUENCER_INSTRUCTIONFACTORY_H
 #define SEQUENCER_INSTRUCTIONFACTORY_H
 
-#include <array>
-
 #include "Sequencer_InstructionFactory_IF.h"
+#include "MediaAutomationSet.h"
 
-class MediaAutomation;
 class IF_LightEngineInterface;
 class OpenWebNetEngine_IF;
 class SequenceEditorGui;
@@ -22,7 +20,7 @@ protected:
    ~InstructionFactory() override {}
 
 public:
-   InstructionFactory( std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & mediaAutomationSet,
+   InstructionFactory( MediaAutomationSet & mediaAutomationSet,
                        IF_LightEngineInterface & lightEngine,
                        OpenWebNetEngine_IF & ownEngine,
                        const OwnModel &ownModel,
@@ -42,7 +40,7 @@ private:
    Instruction *buildSeqEntryInstruction( const LineParamsEntry &params, int srcLine);
 
 private:
-   std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & m_audioVideoAutomationSet;
+   MediaAutomationSet & m_audioVideoAutomationSet;
    IF_LightEngineInterface & m_lightEngine;
    OpenWebNetEngine_IF & m_ownEngine;
    const OwnModel & m_ownModel;

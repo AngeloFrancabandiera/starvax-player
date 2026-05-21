@@ -65,11 +65,8 @@ ScriptEngine *ScriptFunctionFactory::build( QWidget *container,
    connect( actionTrigger, & ScriptActionTrigger::activateLight,
             engine, & ScriptEngine::activateLight);
 
-   connect( actionTrigger, & ScriptActionTrigger::activateMediaLineA,
-            engine, & ScriptEngine::activateMediaLineA );
-
-   connect( actionTrigger, & ScriptActionTrigger::activateMediaLineB,
-            engine, & ScriptEngine::activateMediaLineB );
+   connect( actionTrigger, & ScriptActionTrigger::activateMedia,
+            engine, & ScriptEngine::activateMedia );
 
    connect( actionTrigger, & ScriptActionTrigger::activateSequenceEntry,
             engine, & ScriptEngine::activateSequenceEntry);

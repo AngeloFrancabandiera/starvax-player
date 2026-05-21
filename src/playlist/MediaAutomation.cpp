@@ -81,7 +81,6 @@ void MediaAutomation::activateMediaById( const QString & stringId,
 
    if (target != QModelIndex())
    {
-
       m_controller->activateRequest( target.row(), startImmediately, dontStopFlag);
    }
    else

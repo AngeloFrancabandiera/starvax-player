@@ -1,14 +1,14 @@
 #include "SetActiveMediaCommand.h"
 #include <QStringList>
 
-#include "MediaAutomation.h"
+#include "MediaAutomationSet.h"
 #include "MediaListModel.h"
 #include "CommandReply_IF.h"
 #include "testableAssert.h"
 
 
 Server::SetActiveTrackCommand::
-SetActiveTrackCommand( std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & mediaAutomationSet,
+SetActiveTrackCommand( MediaAutomationSet & mediaAutomationSet,
                        std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & mediaListModelSet,
                        CommandReply_IF & replySink) :
    m_mediaAutomationSet( mediaAutomationSet),
@@ -65,7 +65,7 @@ bool Server::SetActiveTrackCommand::activateLabelForDeck( const QString & label,
    int deck_num = Playlist::toDeck(deck.at(0));
    T_ASSERT( deck_num < NUMBER_OF_MEDIA_DECKS);
 
-   automation = m_mediaAutomationSet[deck_num];
+   automation = m_mediaAutomationSet.get(deck_num);
    model = dynamic_cast<MediaListModel *>(m_mediaListModelSet[deck_num]);
    lineTag = deck;
 

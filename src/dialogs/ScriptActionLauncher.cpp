@@ -24,16 +24,9 @@ ScriptActionLauncher::ScriptActionLauncher( ScriptActionTrigger & actionTrigger,
 
    m_actionToIconMap[invalidAction] = new QPixmap();
    m_actionToIconMap[lightAction] = new QPixmap("light.png");
-   m_actionToIconMap[audVidAction_lineA] = new QPixmap("sound_A.png");
-   m_actionToIconMap[audVidAction_lineB] = new QPixmap("sound_B.png");
-   m_actionToIconMap[pictureAction_lineA] = new QPixmap("picture_A.png");
-   m_actionToIconMap[pictureAction_lineB] = new QPixmap("picture_A.png");
+   m_actionToIconMap[audioVidAction] = new QPixmap("sound_A.png");
+   m_actionToIconMap[pictureAction] = new QPixmap("picture_A.png");
    m_actionToIconMap[sequencerEntryAction] = new QPixmap("sequencer_play.png");
-
-   m_actionToLabelMap[audVidAction_lineA] =  "Line A";
-   m_actionToLabelMap[audVidAction_lineB] =  "Line B";
-   m_actionToLabelMap[pictureAction_lineA] = "Line A";
-   m_actionToLabelMap[pictureAction_lineB] = "Line B";
 }
 
 ScriptActionLauncher::~ScriptActionLauncher()
@@ -46,36 +39,25 @@ void ScriptActionLauncher::setActionName(const QString &name)
    ui->actionName->setText( name );
 }
 
-void ScriptActionLauncher::setActionType( ActionType type)
+void ScriptActionLauncher::setActionType( ActionType type, const QString & param)
 {
    m_type = type;
+   m_param = param;
 
-   ui->iconLabel->setPixmap( * m_actionToIconMap.value( type, m_actionToIconMap[invalidAction]));
-   ui->lineLabel->setText( m_actionToLabelMap.value( type, ""));
+//   ui->iconLabel->setPixmap( * m_actionToIconMap.value( type, m_actionToIconMap[invalidAction]));  _TODO
+   ui->lineLabel->setText( m_param);
 
-   if (type == audVidAction_lineA)
+   if (type == audioVidAction)
    {
       ui->activateButton->setEnabled(true);
       setPalette( m_mediaPaletteA);
       ui->actionName->setStyleSheet( "QLabel { color: yellow; background-color: red; }" );
    }
-   else if (type == audVidAction_lineB)
-   {
-     ui->activateButton->setEnabled(true);
-     setPalette( m_mediaPaletteB);
-     ui->actionName->setStyleSheet( "QLabel { color: yellow; background-color: blue; }" );
-   }
-   else if (type == pictureAction_lineA)
+   else if (type == pictureAction)
    {
       ui->activateButton->setEnabled(true);
       setPalette( m_mediaPaletteA);
       ui->actionName->setStyleSheet( "QLabel { color: yellow; background-color: red; }" );
-   }
-   else if (type == pictureAction_lineB)
-   {
-      ui->activateButton->setEnabled(true);
-      setPalette( m_mediaPaletteB);
-      ui->actionName->setStyleSheet( "QLabel { color: yellow; background-color: blue; }" );
    }
    else if (type == lightAction)
    {
@@ -117,11 +99,9 @@ void ScriptActionLauncher::tryToActivate(bool playImmediately)
 {
    static const QString labels[] = {"nullptr",      // invalidAction
                                     "light",        // lightAction
-                                    "media (A)",    // audVidAction_lineA
-                                    "media (B)",    // audVidAction_lineB
-                                    "picture (A)",  // pictureAction_lineA
-                                    "picture (B)",  // pictureAction_lineB
-                                    "seq. entry"    //sequencerEntryAction
+                                    "media",        // audioVidAction
+                                    "picture",      // pictureAction
+                                    "seq. entry"    // sequencerEntryAction
                                    };
    T_ASSERT( m_type <= sequencerEntryAction);
 
@@ -153,14 +133,9 @@ void ScriptActionLauncher::activateCurrentAction(bool playImmediately)
       emit m_actionTrigger.activateLight( ui->actionName->text(), playImmediately );
       break;
 
-   case pictureAction_lineA:
-   case audVidAction_lineA:
-      emit m_actionTrigger.activateMediaLineA( ui->actionName->text(), playImmediately );
-      break;
-
-   case pictureAction_lineB:
-   case audVidAction_lineB:
-      emit m_actionTrigger.activateMediaLineB( ui->actionName->text(), playImmediately );
+   case audioVidAction:
+   case pictureAction:
+      emit m_actionTrigger.activateMedia( ui->actionName->text(), m_param, playImmediately );
       break;
 
    case sequencerEntryAction:
@@ -168,3 +143,4 @@ void ScriptActionLauncher::activateCurrentAction(bool playImmediately)
       break;
    }
 }
+

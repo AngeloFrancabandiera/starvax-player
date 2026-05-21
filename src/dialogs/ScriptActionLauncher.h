@@ -18,10 +18,8 @@ public:
    {
       invalidAction,
       lightAction,
-      audVidAction_lineA,  // _TODO line dependency. Check backward compatibility
-      audVidAction_lineB,
-      pictureAction_lineA,
-      pictureAction_lineB,
+      audioVidAction,
+      pictureAction,
       sequencerEntryAction
    };
 
@@ -30,7 +28,7 @@ public:
    ~ScriptActionLauncher();
 
    void setActionName( const QString &name);
-   void setActionType( ActionType type);
+   void setActionType( ActionType type, const QString & param);
 
 private slots:
    void on_activateButton_clicked();
@@ -44,8 +42,8 @@ private:
    QPalette  m_mediaPaletteB;
    QPalette  m_sequencePalette;
    enum ActionType m_type;
+   QString m_param;
    QMap< ActionType, QPixmap *> m_actionToIconMap;
-   QMap< ActionType, QString> m_actionToLabelMap;
 
 private:
    void activateCurrentAction(bool playImmediately);

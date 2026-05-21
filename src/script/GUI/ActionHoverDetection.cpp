@@ -14,22 +14,12 @@ ActionHoverDetection::ActionHoverDetection( ScriptActionLauncher * actionLaunche
 {
    m_actionLauncher->setVisible( false);
    m_actionLauncher->installEventFilter( this);
-
-   m_actionTypeForLabel["EVENT_MEDIA"] = ScriptActionLauncher::audVidAction_lineA;  // legacy
-   m_actionTypeForLabel["EVENT_MEDIA_LINE_A"] = ScriptActionLauncher::audVidAction_lineA;
-   m_actionTypeForLabel["EVENT_MEDIA_LINE_B"] = ScriptActionLauncher::audVidAction_lineB;
-
-   m_actionTypeForLabel["EVENT_PICTURE"] = ScriptActionLauncher::pictureAction_lineA;  // legacy
-   m_actionTypeForLabel["EVENT_PICTURE_LINE_A"] = ScriptActionLauncher::pictureAction_lineA;
-   m_actionTypeForLabel["EVENT_PICTURE_LINE_B"] = ScriptActionLauncher::pictureAction_lineB;
-
-   m_actionTypeForLabel["EVENT_LIGHT"] = ScriptActionLauncher::lightAction;
-   m_actionTypeForLabel["EVENT_SEQUENCER_ENTRY"] = ScriptActionLauncher::sequencerEntryAction;
 }
 
 ActionHoverDetection::~ActionHoverDetection()
 {
 }
+
 
 /**
  * when mouse has been moved and it's stopped for a while, "Action Launch" dialog
@@ -48,18 +38,20 @@ void ActionHoverDetection::onMouseMoveFiltered(const QPoint &position)
    if (mouseIsStillInViewer && cursorIsOverEventIcon( cursor))
    {
       ScriptActionLauncher::ActionType type;
+      QString action_param;
       QStringList anchorData = cursor.charFormat().anchorHref().split("$$", Qt::SkipEmptyParts);
 
       if (anchorData.length() >= 2)
       {
          type = detectActionType(anchorData);
+         action_param = detectActionParam(anchorData.first());
 
-         m_actionLauncher->setActionType( type);
+         m_actionLauncher->setActionType( type, action_param);
          m_actionLauncher->setActionName( formatActionLabel( type, anchorData.at(1)));
       }
       else
       {
-         m_actionLauncher->setActionType( ScriptActionLauncher::invalidAction);
+         m_actionLauncher->setActionType( ScriptActionLauncher::invalidAction, "");
          m_actionLauncher->setActionName( tr("[Invalid action associated to icon]"));
       }
 
@@ -78,19 +70,63 @@ bool ActionHoverDetection::cursorIsOverEventIcon( const QTextCursor & cursor)
 
 ScriptActionLauncher::ActionType ActionHoverDetection::detectActionType(const QStringList & anchorData)
 {
-   ScriptActionLauncher::ActionType type = m_actionTypeForLabel.value(anchorData.at(0),
-                                                                      ScriptActionLauncher::invalidAction);
+   ScriptActionLauncher::ActionType type = ScriptActionLauncher::invalidAction;
+   const QString & tag0 = anchorData.at(0);
+
+   if (tag0.startsWith("EVENT_MEDIA"))  // legacy "EVENT_MEDIA" or "EVENT_MEDIA_LINE_x"
+   {
+      type = ScriptActionLauncher::audioVidAction;
+   }
+   else if (tag0.startsWith("EVENT_PICTURE"))
+   {
+      type = ScriptActionLauncher::pictureAction;
+   }
+   else if (tag0 == "EVENT_LIGHT")
+   {
+      type = ScriptActionLauncher::lightAction;
+   }
+   else if (tag0 == "EVENT_SEQUENCER_ENTRY")
+   {
+      type = ScriptActionLauncher::sequencerEntryAction;
+   }
+   else
+   {
+      type = ScriptActionLauncher::invalidAction;
+   }
+
    return type;
+}
+
+QString ActionHoverDetection::detectActionParam( const QString & ext_type)
+{
+   QString param;
+   // so far, the only parameter is in media event: it's the last letter of the tag
+   if (ext_type == "EVENT_MEDIA")
+   {
+      param = "A";  // legacy format
+   }
+   else if (ext_type == "EVENT_PICTURE")
+   {
+      param = "A";  // legacy format
+   }
+   if (ext_type.startsWith("EVENT_MEDIA_LINE_"))
+   {
+      param = ext_type.last(1);
+   }
+   else if (ext_type.startsWith("EVENT_PICTURE_LINE_"))
+   {
+      param = ext_type.last(1);
+   }
+
+   return param;
 }
 
 QString ActionHoverDetection::formatActionLabel( ScriptActionLauncher::ActionType type, const QString & fullData)
 {
    QString label;
 
-   if ((type == ScriptActionLauncher::audVidAction_lineA) ||
-       (type == ScriptActionLauncher::audVidAction_lineB) ||
-       (type == ScriptActionLauncher::pictureAction_lineA) ||
-       (type == ScriptActionLauncher::pictureAction_lineB))
+   if ((type == ScriptActionLauncher::audioVidAction) ||
+       (type == ScriptActionLauncher::pictureAction) )
    {
       /* don't show full path; only name with extention */
       label  = fullData.split('/').last();

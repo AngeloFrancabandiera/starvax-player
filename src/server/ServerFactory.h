@@ -5,6 +5,7 @@
 
 class ApplicationSettings;
 class MediaAutomation;
+class MediaAutomationSet;
 class MediaListModel;
 class LightPresetModel;
 class SequenceModel;
@@ -52,7 +53,7 @@ public:
                                                   ShowFileInfo & showInfo);
 
    QList<Server::Command_IF *> buildPlaylistCommands( Server::CommandReply_IF & cmdReply,
-                                                      std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & MediaAutomationSet,
+                                                      MediaAutomationSet & aMediaAutomationSet,
                                                       std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & MediaListModelSet,
                                                       std::array<IF_MediaEngineInterface *, NUMBER_OF_MEDIA_DECKS> & MediaEngineSet);
 

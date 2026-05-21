@@ -12,7 +12,7 @@
 
 namespace Sequencer {
 
-InstructionFactory::InstructionFactory( std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & mediaAutomationSet,
+InstructionFactory::InstructionFactory( MediaAutomationSet & mediaAutomationSet,
                                         IF_LightEngineInterface & lightEngine,
                                         OpenWebNetEngine_IF & ownEngine,
                                         const OwnModel & ownModel,
@@ -83,8 +83,8 @@ Instruction *InstructionFactory::buildPlaylistInstruction(const LineParamsPlayli
 {
    Instruction * inst =nullptr;
 
-   inst = new PlaylistInstruction( srcLine, *m_audioVideoAutomationSet[params.deck], params.subCommand,
-                                      params.label, params.numericParam);
+   inst = new PlaylistInstruction( srcLine, *(m_audioVideoAutomationSet.get(params.deck)),
+                                    params.subCommand, params.label, params.numericParam);
 
    return  inst;
 }

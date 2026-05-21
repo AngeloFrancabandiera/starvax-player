@@ -16,12 +16,12 @@
 
 /** html for audio/video event */
 #define  MEDIA_ACTION_HTML(label, deck)  \
-   QString("<br><h2><a href=\"$$EVENT_MEDIA_LINE_%1$$%2\"><span style=\"font-size: 15.0 pt; background: #1188ee;\">").arg(label) +\
+   QString("<br><h2><a href=\"$$EVENT_MEDIA_LINE_%1$$%2\"><span style=\"font-size: 15.0 pt; background: #1188ee;\">").arg(deck).arg(label) +\
    QString("<img src=\"file:sound_A.png\"/></a> MEDIA %1:  %2 </span></h2><br>").arg(deck).arg(label)
 
 /** html for picture event */
 #define  PICTURE_ACTION_HTML(label, deck)  \
-   QString("<br><h2><a href=\"$$EVENT_PICTURE_LINE_%1$$%2\"><span style=\" background: #1177ff; color: white\">").arg(label) +\
+   QString("<br><h2><a href=\"$$EVENT_PICTURE_LINE_%1$$%2\"><span style=\" background: #1177ff; color: white\">").arg(deck).arg(label) +\
    QString("<img src=\"file:picture_A.png\"/></a> PICTURE %1:  %2 </span></h2><br>").arg(deck).arg(label)
 
 /** html for sequencer entry event */
@@ -95,6 +95,7 @@ QString ScriptActionCreator::makeHtmlForSequenceAction(const QString& label)
 
    return makeHtmlForAction();
 }
+
 
 QString ScriptActionCreator::makeHtmlForAction()
 {

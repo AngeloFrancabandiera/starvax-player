@@ -22,11 +22,11 @@ public slots:
 private:
    QTextBrowser *m_viewer;
    ScriptActionLauncher *m_actionLauncher;
-   QMap<QString, ScriptActionLauncher::ActionType> m_actionTypeForLabel;
 
 private:
    bool cursorIsOverEventIcon( const QTextCursor & cursor);
    ScriptActionLauncher::ActionType detectActionType(const QStringList &anchorData);
+   QString detectActionParam( const QString & ext_type);
    QString formatActionLabel( ScriptActionLauncher::ActionType type, const QString & fullData);
 
    // QObject interface

@@ -121,13 +121,13 @@ QList<Command_IF *> Factory::buildShowCommands( CommandReply_IF & cmdReply,
 
 QList<Server::Command_IF *> Factory::buildPlaylistCommands(
       Server::CommandReply_IF & cmdReply,
-      std::array<MediaAutomation *, NUMBER_OF_MEDIA_DECKS> & MediaAutomationSet,
+      MediaAutomationSet & aMediaAutomationSet,
       std::array<QAbstractListModel *, NUMBER_OF_MEDIA_DECKS> & MediaListModelSet,
       std::array<IF_MediaEngineInterface *, NUMBER_OF_MEDIA_DECKS> & MediaEngineSet)
 {
    QList<Server::Command_IF *> commands;
 
-   commands << new Server::SetActiveTrackCommand( MediaAutomationSet,
+   commands << new Server::SetActiveTrackCommand( aMediaAutomationSet,
                                                   MediaListModelSet, cmdReply)
             << new Server::GetMediaListCommand( MediaListModelSet, cmdReply)
             << new Server::PlayMediaCommand( MediaEngineSet, cmdReply)
