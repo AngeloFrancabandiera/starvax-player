@@ -23,12 +23,12 @@ public:
 
     void set( Playlist::Deck deck, MediaAutomation* item)
     {
-        m_pointers[deck] = item;
+        m_pointers.at(deck) = item;
     }
 
     MediaAutomation* get( int deck)
     {
-        return m_pointers[deck];
+        return m_pointers.at(deck);
     }
 
 public slots:
