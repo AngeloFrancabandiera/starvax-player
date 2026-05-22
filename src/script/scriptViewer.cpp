@@ -68,7 +68,7 @@ void ScriptViewer::setMenuActionList(const QList<QAction *> &actionList)
 
 void ScriptViewer::addMediaEvent()
 {
-   m_textViewer.insertHtml( m_actionHtmlMaker.makeHtmlForMediaAction( 0) );  // _TODO deck
+   m_textViewer.insertHtml( m_actionHtmlMaker.makeHtmlForMediaAction() );
 }
 
 void ScriptViewer::addSeqEntryEvent()

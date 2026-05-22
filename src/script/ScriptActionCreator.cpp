@@ -57,10 +57,9 @@ QString ScriptActionCreator::makeHtmlForSequenceAction()
    return makeHtmlForAction();
 }
 
-QString ScriptActionCreator::makeHtmlForMediaAction( Playlist::Deck deck)
+QString ScriptActionCreator::makeHtmlForMediaAction()
 {
    m_actionSelector.selectEvent( IF_ActionSelectorInterface::MediaAction);
-   m_actionSelector.setParam( Playlist::toLetter(deck));
 
    return makeHtmlForAction();
 }

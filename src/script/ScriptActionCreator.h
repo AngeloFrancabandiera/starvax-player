@@ -16,7 +16,7 @@ public:
 public:
    QString makeHtmlForLightAction();
    QString makeHtmlForSequenceAction();
-   QString makeHtmlForMediaAction( Playlist::Deck deck);
+   QString makeHtmlForMediaAction();
    QString makeHtmlForLightAction( const QString & label);
    QString makeHtmlForMediaAction( AbstractMediaSource::MediaKind kind,
                                    const QString & label, QString deckTag);
