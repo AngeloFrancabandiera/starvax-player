@@ -3,10 +3,13 @@
 
 #include <array>
 #include <QDialog>
+#include <map>
 #include "IF_ActionSelectorInterface.h"
 
 class QAbstractListModel;
 class QStringListModel;
+class QModelIndex;
+
 
 namespace Ui {
 class ActionTargetSelectorDialog;
@@ -32,13 +35,14 @@ public:
 
 private:
    Ui::ActionTargetSelectorDialog *ui;
+   std::map<const QAbstractListModel *, int> m_modelTags;
 
 private slots:
    void selectMediaPage();
    void selectLightPage();
    void selectSequencerEntryPage();
    void selectPage(int page);
-   void addSelectedItem();
+   void addSelectedItem(const QModelIndex &index);
    void on_addButton_clicked();
    void on_cancelButton_clicked();
 

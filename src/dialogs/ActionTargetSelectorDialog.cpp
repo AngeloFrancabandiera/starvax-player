@@ -4,10 +4,12 @@
 #include <QAbstractListModel>
 #include <QFileInfo>
 #include <QStringListModel>
+#include <QVBoxLayout>
 
 #include "ApplicationIcon.h"
 #include "testableAssert.h"
 #include "supported_files.h"
+#include "PlaylistDecks.h"
 
 
 #include "modelViewRules.h"
@@ -33,13 +35,22 @@ ActionTargetSelectorDialog::ActionTargetSelectorDialog( std::array<QAbstractList
    ui->lightList->setModel( lightModel);
    ui->sequenceEntryList->setModel( & sequenceEntryModel);
 
+   QVBoxLayout *layout = new QVBoxLayout( ui->MediaListSetContainer);
+   ui->MediaListSetContainer->setLayout( layout);
+
    for (int deck=0; deck < NUMBER_OF_MEDIA_DECKS; deck++)
    {
-      ui->mediaList->setModel( mediaModelSet[deck]);  // _TODO stai prendendo l'ultimo!
+      QListView *playlistView = new QListView( ui->MediaListSetContainer);
+      layout->addWidget( playlistView);
+      playlistView->setModel( mediaModelSet.at(deck));
+
+      m_modelTags[mediaModelSet[deck]] = deck;
+
+      connect( playlistView, & QListView::doubleClicked,
+               this, & ActionTargetSelectorDialog::addSelectedItem);
    }
 
    connect( ui->lightList, & QListView::doubleClicked, this, & ActionTargetSelectorDialog::addSelectedItem);
-   connect( ui->mediaList, & QListView::doubleClicked, this, & ActionTargetSelectorDialog::addSelectedItem);
    connect( ui->sequenceEntryList, & QListView::doubleClicked, this, & ActionTargetSelectorDialog::addSelectedItem);
 }
 
@@ -116,10 +127,10 @@ void ActionTargetSelectorDialog::selectSequencerEntryPage()
 
 void ActionTargetSelectorDialog::on_addButton_clicked()
 {
-   addSelectedItem();
+// _TODO fix enter by button   addSelectedItem();
 }
 
-void ActionTargetSelectorDialog::addSelectedItem()
+void ActionTargetSelectorDialog::addSelectedItem(const QModelIndex &index)
 {
    QModelIndex selectedItem;
 
@@ -127,10 +138,14 @@ void ActionTargetSelectorDialog::addSelectedItem()
    {
       m_actionType = IF_ActionSelectorInterface::MediaAction;
 
-      selectedItem = ui->mediaList->currentIndex();
+      selectedItem = index;
       m_actionId = selectedItem.data( modelViewRules::StringId).toString();
 
-      /* picture is in same model as all other media
+      const QAbstractListModel *model = dynamic_cast<const QAbstractListModel *>(index.model());
+      T_ASSERT( model);
+      m_param = Playlist::toLetter( m_modelTags.at(model));
+
+      /* picture is in same model as all other media.
        * It can only be distinguished by file extention
        */
       QFileInfo actionInfo( m_actionId);
@@ -168,3 +183,4 @@ void ActionTargetSelectorDialog::on_cancelButton_clicked()
 
    done(QDialog::Rejected);
 }
+

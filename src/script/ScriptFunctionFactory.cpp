@@ -109,7 +109,7 @@ QList<QAction *> ScriptFunctionFactory::createEngineActions( ScriptEngine *engin
    Action * scriptAddMediaEvent = new Action( QIcon(IconPath("sound.png")), tr("add &media event"), this);
    scriptAddMediaEvent->setEnabled( false);
    scriptAddMediaEvent->setVisibleInModes( true, false);
-   connect( scriptAddMediaEvent, SIGNAL(triggered()), engine, SIGNAL(addMediaEventRequest()) );
+   connect( scriptAddMediaEvent, & Action::triggered, engine, & ScriptEngine::addMediaEventRequest );
 
    Action * scriptAddSequenceEntryEvent = new Action( QIcon(IconPath("sequencer_play.png")),
                                                       tr("add &sequence event"), this);
