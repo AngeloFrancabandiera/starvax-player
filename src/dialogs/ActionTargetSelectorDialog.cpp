@@ -4,7 +4,7 @@
 #include <QAbstractListModel>
 #include <QFileInfo>
 #include <QStringListModel>
-#include <QVBoxLayout>
+#include <QTabWidget>
 
 #include "ApplicationIcon.h"
 #include "testableAssert.h"
@@ -35,13 +35,10 @@ ActionTargetSelectorDialog::ActionTargetSelectorDialog( std::array<QAbstractList
    ui->lightList->setModel( lightModel);
    ui->sequenceEntryList->setModel( & sequenceEntryModel);
 
-   QVBoxLayout *layout = new QVBoxLayout( ui->MediaListSetContainer);
-   ui->MediaListSetContainer->setLayout( layout);
-
    for (int deck=0; deck < NUMBER_OF_MEDIA_DECKS; deck++)
    {
       QListView *playlistView = new QListView( ui->MediaListSetContainer);
-      layout->addWidget( playlistView);
+      ui->MediaListSetContainer->addTab( playlistView, tr("Deck %1").arg(Playlist::toLetter(deck)));
       playlistView->setModel( mediaModelSet.at(deck));
 
       m_modelTags[mediaModelSet[deck]] = deck;

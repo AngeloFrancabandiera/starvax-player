@@ -103,11 +103,11 @@ QString ActionHoverDetection::detectActionParam( const QString & ext_type)
    // so far, the only parameter is in media event: it's the last letter of the tag
    if (ext_type == "EVENT_MEDIA")
    {
-      param = "A";  // legacy format
+      param = 'A';  // legacy format
    }
    else if (ext_type == "EVENT_PICTURE")
    {
-      param = "A";  // legacy format
+      param = 'A';  // legacy format
    }
    if (ext_type.startsWith("EVENT_MEDIA_LINE_"))
    {

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>525</width>
-    <height>421</height>
+    <height>380</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -42,20 +42,10 @@
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QScrollArea" name="MediaListsScroll">
-         <property name="widgetResizable">
-          <bool>true</bool>
+        <widget class="QTabWidget" name="MediaListSetContainer">
+         <property name="currentIndex">
+          <number>1</number>
          </property>
-         <widget class="QWidget" name="MediaListSetContainer">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>397</width>
-            <height>350</height>
-           </rect>
-          </property>
-         </widget>
         </widget>
        </item>
       </layout>

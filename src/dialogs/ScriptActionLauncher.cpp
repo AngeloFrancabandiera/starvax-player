@@ -44,8 +44,17 @@ void ScriptActionLauncher::setActionType( ActionType type, const QString & param
    m_type = type;
    m_param = param;
 
-//   ui->iconLabel->setPixmap( * m_actionToIconMap.value( type, m_actionToIconMap[invalidAction]));  _TODO
-   ui->lineLabel->setText( m_param);
+   ui->iconLabel->setPixmap( * m_actionToIconMap.value( type, m_actionToIconMap[invalidAction]));
+
+   if (m_param != QString())
+   {
+      ui->lineLabel->setText(
+         tr("<p style=\"font-size:18px\">Deck <b><span style=\"font-size:25px;\">%1</span></b></p>").arg(m_param));
+   }
+   else
+   {
+      ui->lineLabel->setText(QString());
+   }
 
    if (type == audioVidAction)
    {
