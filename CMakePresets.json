@@ -1,0 +1,39 @@
+{
+  "version": 4,
+  "configurePresets": [
+    {
+      "name": "base-qt",
+      "hidden": true
+    },
+    {
+      "name": "ufficio-win",
+      "displayName": "PC Ufficio (Windows)",
+      "inherits": "base-qt",
+      "generator": "Visual Studio 17 2022",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "cacheVariables": {
+          "CMAKE_PREFIX_PATH": "C:/Users/necom007/Documents/tool/Qt/Qt6.11/6.11.0/msvc2022_64"
+      }
+    },
+    {
+      "name": "laptop-linux",
+      "displayName": "Portatile (Linux)",
+      "inherits": "base-qt",
+      "generator": "Ninja",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "cacheVariables": {
+          "QT_DIR":  "/media/angelo/Windows7_OS/ANGELO/bin/Qt_6.11/6.11.0/gcc_64/lib/cmake/Qt6",
+          "Qt6_DIR": "/media/angelo/Windows7_OS/ANGELO/bin/Qt_6.11/6.11.0/gcc_64/lib/cmake/Qt6",
+          "QT_BIN_DIR": "/media/angelo/Windows7_OS/ANGELO/bin/Qt_6.11/6.11.0/gcc_64/bin"
+      }
+    }
+  ]
+}

@@ -4,6 +4,10 @@ cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
 project(starvax_player VERSION 2.5.0 LANGUAGES C CXX)
 
+message(STATUS "CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
+if(NOT CMAKE_PREFIX_PATH)
+    message(WARNING "WARNING: CMAKE_PREFIX_PATH is empty!")
+endif()
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -16,6 +20,7 @@ set(CMAKE_AUTORCC ON)
 set( REL_VERSION_MAJOR 2)
 set( REL_VERSION_MINOR 5)
 set( REL_VERSION_BUILD 1)
+
 
 if (UNIX)
    set(CMAKE_PREFIX_PATH "/media/angelo/Windows7_OS/ANGELO/bin/Qt_6.11/6.11.0/gcc_64")
