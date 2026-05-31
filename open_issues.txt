@@ -1,5 +1,0 @@
--- tracks are not reloaded when show is saved.
-
--- When "select none" is applied to a deck where a track was active, 'play all' also plays that track. Even play command for that deck plays such track.
-
-

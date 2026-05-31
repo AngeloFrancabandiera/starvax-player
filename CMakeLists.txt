@@ -4,11 +4,6 @@ cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
 project(starvax_player VERSION 2.5.0 LANGUAGES C CXX)
 
-message(STATUS "CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
-if(NOT CMAKE_PREFIX_PATH)
-    message(WARNING "WARNING: CMAKE_PREFIX_PATH is empty!")
-endif()
-
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
@@ -21,10 +16,22 @@ set( REL_VERSION_MAJOR 2)
 set( REL_VERSION_MINOR 5)
 set( REL_VERSION_BUILD 1)
 
+set( BUILD_ENV "Linux Ubuntu 22.04")
 
-if (UNIX)
+
+if (${BUILD_ENV} STREQUAL "Linux Ubuntu 22.04")
+   message("Build enviromnet for Linux (1)")
    set(CMAKE_PREFIX_PATH "/media/angelo/Windows7_OS/ANGELO/bin/Qt_6.11/6.11.0/gcc_64")
+   set(QT_DIR  "/media/angelo/Windows7_OS/ANGELO/bin/Qt_6.11/6.11.0/gcc_64/lib/cmake/Qt6")
+   set(Qt6_DIR "/media/angelo/Windows7_OS/ANGELO/bin/Qt_6.11/6.11.0/gcc_64/lib/cmake/Qt6")
+   set(QT_BIN_DIR "/media/angelo/Windows7_OS/ANGELO/bin/Qt_6.11/6.11.0/gcc_64/bin")
 endif()
+
+if (${BUILD_ENV} STREQUAL "Windows 10 Lab")
+   message("Build enviromnet for Windows 10 (1)")
+   set(CMAKE_PREFIX_PATH "C:/Users/necom007/Documents/tool/Qt/Qt6.11/6.11.0/msvc2022_64")
+endif()
+
 
 add_compile_definitions(
 VERSION_MAJOR=${REL_VERSION_MAJOR}

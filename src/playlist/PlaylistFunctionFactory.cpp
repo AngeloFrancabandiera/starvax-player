@@ -46,6 +46,7 @@ QMap<PlaylistFunctionFactory::ActionModifier, const QMap<QString, const ActionDe
 PlaylistFunctionFactory::PlaylistFunctionFactory(QObject *parent) :
    QObject(parent)
 {
+   // _TODO remove all this stuff.
    ACTION_TABLE_LINE_A["play media"] = new ActionDescriptor( IconPath("track_play_A.png"), tr(" Line A"), (Qt::Key_P));
    ACTION_TABLE_LINE_A["pause media"] = new ActionDescriptor(  IconPath("track_pause_A.png"), tr(" Line A"), (Qt::ALT | Qt::Key_P));
    ACTION_TABLE_LINE_A["play/pause media"] = new ActionDescriptor(  "", tr(" Line A"), (Qt::Key_Space));

@@ -186,16 +186,12 @@ void MainWindow::setupPlaylistAreas()
 
    for (int deck = 0; deck < NUMBER_OF_MEDIA_DECKS; deck++)
    {
-      QString title = tr("Deck %1").arg(Playlist::toLetter(deck));
-
       m_dockSetForDecks[deck] = new QDockWidget(this);
       addDockWidget( Qt::RightDockWidgetArea, m_dockSetForDecks[deck]);
-      m_dockSetForDecks[deck]->setWindowTitle( title);
-      m_dockSetForDecks[deck]->setObjectName( title);
+      m_dockSetForDecks[deck]->setObjectName( QString("Deck %1").arg(Playlist::toLetter(deck)));
 
       /* add visibility menu for deck */
       QAction *deckVisibleAction = m_dockSetForDecks[deck]->toggleViewAction();
-      deckVisibleAction->setText( title);
       ui->menuView->insertAction( firstBuiltIn, deckVisibleAction);
    }
 }
@@ -387,6 +383,12 @@ void MainWindow::on_actionLocale_triggered(bool checked)
    }
 
    ui->retranslateUi( this );
+
+   for (int deck = 0; deck < NUMBER_OF_MEDIA_DECKS; deck++)
+   {
+      QString title = QCoreApplication::translate("MainWindow", QString("Deck %1").toLatin1()).arg(Playlist::toLetter(deck));
+      m_dockSetForDecks[deck]->setWindowTitle( title);
+   }
 }
 
 /**
