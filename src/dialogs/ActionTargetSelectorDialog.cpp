@@ -24,13 +24,18 @@ ActionTargetSelectorDialog::ActionTargetSelectorDialog( std::array<QAbstractList
                                                         QStringListModel & sequenceEntryModel,
                                                         QWidget *parent) :
    QDialog(parent),
-   ui(new Ui::ActionTargetSelectorDialog)
+   ui(new Ui::ActionTargetSelectorDialog),
+   m_currentlySelectedItem(QModelIndex())
 {
    ui->setupUi(this);
 
    connect( ui->eventTypeTab, & QTabWidget::currentChanged,
             this, & ActionTargetSelectorDialog::selectPage);
    selectMediaPage();
+
+   connect( ui->MediaListSetContainer, & QTabWidget::currentChanged,
+            this, & ActionTargetSelectorDialog::selectMediaSubPage);
+
 
    ui->lightList->setModel( lightModel);
    ui->sequenceEntryList->setModel( & sequenceEntryModel);
@@ -41,13 +46,20 @@ ActionTargetSelectorDialog::ActionTargetSelectorDialog( std::array<QAbstractList
       ui->MediaListSetContainer->addTab( playlistView, tr("Deck %1").arg(Playlist::toLetter(deck)));
       playlistView->setModel( mediaModelSet.at(deck));
 
+      m_playlistViewSet.push_back( playlistView);
+
       m_modelTags[mediaModelSet[deck]] = deck;
+
+      connect( playlistView, & QListView::clicked,
+         this, & ActionTargetSelectorDialog::selectItem);
 
       connect( playlistView, & QListView::doubleClicked,
                this, & ActionTargetSelectorDialog::addSelectedItem);
    }
 
+   connect( ui->lightList, & QListView::clicked, this, & ActionTargetSelectorDialog::selectItem);
    connect( ui->lightList, & QListView::doubleClicked, this, & ActionTargetSelectorDialog::addSelectedItem);
+   connect( ui->sequenceEntryList, & QListView::clicked, this, & ActionTargetSelectorDialog::selectItem);
    connect( ui->sequenceEntryList, & QListView::doubleClicked, this, & ActionTargetSelectorDialog::addSelectedItem);
 }
 
@@ -86,6 +98,8 @@ void ActionTargetSelectorDialog::selectPageForEvent(Type actionType)
 
 void ActionTargetSelectorDialog::selectPage(int page)
 {
+   deselect_all();
+
    switch (page)
    {
    case MEDIA_TAB_INDEX:
@@ -110,6 +124,11 @@ void ActionTargetSelectorDialog::selectMediaPage()
    ui->iconHolder->setPixmap( QPixmap(IconPath("sound_A.png")) );
 }
 
+void ActionTargetSelectorDialog::selectMediaSubPage( int deck_page)
+{
+   deselect_all();
+}
+
 void ActionTargetSelectorDialog::selectLightPage()
 {
    ui->eventTypeTab->setCurrentIndex( LIGHT_TAB_INDEX);
@@ -124,7 +143,15 @@ void ActionTargetSelectorDialog::selectSequencerEntryPage()
 
 void ActionTargetSelectorDialog::on_addButton_clicked()
 {
-// _TODO fix enter by button   addSelectedItem();
+   if (m_currentlySelectedItem != QModelIndex())
+   {
+      addSelectedItem( m_currentlySelectedItem);
+   }
+}
+
+void ActionTargetSelectorDialog::selectItem(const QModelIndex &index)
+{
+   m_currentlySelectedItem = index;
 }
 
 void ActionTargetSelectorDialog::addSelectedItem(const QModelIndex &index)
@@ -140,6 +167,7 @@ void ActionTargetSelectorDialog::addSelectedItem(const QModelIndex &index)
 
       const QAbstractListModel *model = dynamic_cast<const QAbstractListModel *>(index.model());
       T_ASSERT( model);
+      T_ASSERT( m_modelTags.count(model));
       m_param = Playlist::toLetter( m_modelTags.at(model));
 
       /* picture is in same model as all other media.
@@ -179,5 +207,18 @@ void ActionTargetSelectorDialog::on_cancelButton_clicked()
    m_actionType = IF_ActionSelectorInterface::NoAction;
 
    done(QDialog::Rejected);
+}
+
+void ActionTargetSelectorDialog::deselect_all()
+{
+   ui->lightList->selectionModel()->clear();
+   ui->sequenceEntryList->selectionModel()->clear();
+
+   for (QListView *playlist : m_playlistViewSet )
+   {
+      playlist->selectionModel()->clear();
+   }
+
+   m_currentlySelectedItem = QModelIndex();
 }
 

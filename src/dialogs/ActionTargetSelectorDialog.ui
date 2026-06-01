@@ -95,7 +95,7 @@
    <item row="1" column="1">
     <widget class="QLabel" name="lineLabel">
      <property name="text">
-      <string>TextLabel</string>
+      <string></string>
      </property>
     </widget>
    </item>
