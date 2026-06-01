@@ -233,7 +233,6 @@ ApplicationFactory::ApplicationFactory()
 
    for (QAbstractListModel * model : MediaListModelSet)
    {
-      // _TODO parameters mismatch! deck in importMediaTracksForDeck is lost!
       connect( fileInport, & FileInport::importMediaTracksForDeck,
                dynamic_cast<MediaListModel*>(model), & MediaListModel::addMediaFiles );
    }
@@ -380,10 +379,6 @@ void ApplicationFactory::build_playlist_function( StatusDisplay * statusDisplay,
                                           setEditModeAction,
                                           m_mainWindow->playlistAreaForDeck(deck));
 
-      // _TODO setDefaultVolume is per instance and has no 'deck' parameter
-//      connect( applicationSettings, & ApplicationSettings::defaultVolumeChanged,
-//               audioVideoAutomation, & MediaAutomation::setDefaultVolume );
-
       connect( m_mainWindow, SIGNAL(mainWindowAboutToClose()), audioVideoAutomation, SLOT(onClosing()) );
 
       connect( mediaActionController, & ActionListController::activeRowChanged,
@@ -392,14 +387,8 @@ void ApplicationFactory::build_playlist_function( StatusDisplay * statusDisplay,
       connect( mediaActionController, & ActionListController::activeRowChanged,
                playlistBar, & PlaylistBar::onActiveRowChanged);
 
-      /* build media Actions. Use SHIFT modifier for lINE B */
-      QList<QAction *> playlistActions =
-            playlistFactory->buildActionList( mediaEngine, audioVideoAutomation,
-                                             PlaylistFunctionFactory::BaseActions);
-
-      m_mainWindow->addMediaListActions( playlistActions);
-      actionMode->addActions( playlistActions);
-
+      connect( m_mainWindow->playlistAreaForDeck(deck), & QDockWidget::visibilityChanged,
+               mediaEngine, & IF_MediaEngineInterface::setGlobalEnable);
       connect( playAllAction, & QAction::triggered, mediaEngine, & IF_MediaEngineInterface::play );
       connect( pauseAllAction, SIGNAL(triggered()), mediaEngine, SLOT(pause()));
       connect( rewindAllAction, & QAction::triggered, mediaEngine, & IF_MediaEngineInterface::rewind);

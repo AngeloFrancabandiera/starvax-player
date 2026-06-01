@@ -131,63 +131,78 @@ void MediaEngineImp::setCurrentSource( const AbstractMediaSource *source, bool d
          emit currentMediaChanged( *source);
       }
    }
+   else
+   {
+      /* track deleted or de-activated */
+      m_player.setSource( QUrl());
+      m_currentMediaPath = QString();
+   }
 }
 
 
 void MediaEngineImp::play()
 {
-   m_requestedState = MediaObject::PlayingState;
+   if (m_globalEnable)
+   {
+      m_requestedState = MediaObject::PlayingState;
 
-   if (m_imageFileFlag)
-   {
-      emit pictureShowChanged(true);
-   }
-   else
-   {
-      if (m_fadeInFlag)
+      if (m_imageFileFlag)
       {
-         m_fader.fadeInTo( volume());
-         m_fadeInFlag = false;
+         emit pictureShowChanged(true);
+      }
+      else
+      {
+         if (m_fadeInFlag)
+         {
+            m_fader.fadeInTo( volume());
+            m_fadeInFlag = false;
+         }
+
+         m_player.play();
       }
 
-      m_player.play();
+      evaluateDisplayShow();
    }
-
-   evaluateDisplayShow();
 }
 
 void MediaEngineImp::pause()
 {
-   m_requestedState = MediaObject::PausedState;
-
-   if (m_imageFileFlag)
+   if (m_globalEnable)
    {
-      emit pictureShowChanged(false);
-   }
-   else
-   {
-      m_player.pause();
-   }
+      m_requestedState = MediaObject::PausedState;
 
-   evaluateDisplayShow();
+      if (m_imageFileFlag)
+      {
+         emit pictureShowChanged(false);
+      }
+      else
+      {
+         m_player.pause();
+      }
+
+      evaluateDisplayShow();
+   }
 }
 
 void MediaEngineImp::togglePlayPause()
 {
-   if (m_imageFileFlag)
+   if (m_globalEnable)
    {
-      bool nowVisible = m_displayWidget.togglePictureVisibility();
-      emit pictureShowChanged(nowVisible);
-   }
-   else
-   {
-      if (m_player.playbackState() == QMediaPlayer::PlayingState)
+      if (m_imageFileFlag)
       {
-         pause();
+         bool nowVisible = m_displayWidget.togglePictureVisibility();
+         emit pictureShowChanged(nowVisible);
       }
       else
       {
-         play();
+         if (m_player.playbackState() == QMediaPlayer::PlayingState)
+         {
+            pause();
+         }
+         else
+         {
+            play();
+         }
       }
    }
 }
@@ -195,14 +210,17 @@ void MediaEngineImp::togglePlayPause()
 
 void MediaEngineImp::stop()
 {
-   m_requestedState = MediaObject::StoppedState;
-   m_player.stop();
+   if (m_globalEnable)
+   {
+      m_requestedState = MediaObject::StoppedState;
+      m_player.stop();
 
-   evaluateDisplayShow();
+      evaluateDisplayShow();
 
-   /* used by UI controls, not by screen */
-   emit pictureShowChanged(false);
-   emit tick(0);
+      /* used by UI controls, not by screen */
+      emit pictureShowChanged(false);
+      emit tick(0);
+   }
 }
 
 
@@ -243,8 +261,11 @@ void MediaEngineImp::evaluateDisplayShow()
 /** bring track back at beginning */
 void MediaEngineImp::rewind()
 {
-   m_player.setPosition(0);
-   emit tick(0);
+   if (m_globalEnable)
+   {
+      m_player.setPosition(0);
+      emit tick(0);
+   }
 }
 
 void MediaEngineImp::setStepSizeMs(int stepMs)

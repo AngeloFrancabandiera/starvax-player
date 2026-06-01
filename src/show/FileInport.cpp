@@ -37,8 +37,7 @@ bool FileInport::openFile( QString filename )
    else if( MEDIA_TRACKS_SUPPORTED_FORMATS.contains( ext ) ||
             PICTURE_SUPPORTED_FORMATS.contains(ext))
    {
-      /* route to deck 'A': this only happens with application parameters */
-      emit importMediaTracksForDeck( QStringList(filename), 0);
+      emit importMediaTracksForDeck( QStringList(filename));
    }
    else if( SHOWS_SUPPORTED_FORMATS.contains( ext ) )
    {
@@ -107,7 +106,7 @@ void FileInport::openTracksDialogForDeck( int deck)
 
    if( files.count() > 0)
    {
-      emit importMediaTracksForDeck( files, deck );
+      emit importMediaTracksForDeck( files);
    }
 }
 

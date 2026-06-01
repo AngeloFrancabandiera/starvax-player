@@ -48,9 +48,6 @@ public:
    MediaAutomation * buildAutomation(MediaListModel *model, IF_MediaEngineInterface *engine,
                                           ActionListController *controller, Fader *fader,
                                           int defaultVolume, StatusDisplay & msgDisplay);
-   QList<QAction *> buildActionList(IF_MediaEngineInterface *mediaEngine,
-                                     MediaAutomation *automation,
-                                     ActionModifier modifier);
 };
 
 #endif // PLAYLISTFUNCTIONFACTORY_H

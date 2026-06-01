@@ -46,6 +46,8 @@ public:
    virtual ~IF_MediaEngineInterface() override {}
 
 public slots:
+   /** global enable status. When false, play/pause/stop/rewind commands have no effect*/
+   virtual void setGlobalEnable( bool enabled) = 0;
    /** select media to be played back */
    virtual void setCurrentSource( const AbstractMediaSource *source, bool dontStopFlag = false ) = 0;
    /** for audio/video: start playback; for images: show */

@@ -27,7 +27,7 @@ public slots:
 
 signals:
    void importScriptContent( QString filename );
-   void importMediaTracksForDeck( QStringList filenames, int deck);
+   void importMediaTracksForDeck( QStringList filenames);
    void importShowFile( QString filename );
    void loadStyle( QString filename );
 

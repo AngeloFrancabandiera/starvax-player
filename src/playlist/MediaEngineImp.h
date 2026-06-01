@@ -32,6 +32,9 @@ public:
    ~MediaEngineImp() override;
 
 public slots:
+   void setGlobalEnable( bool enabled) override {
+      m_globalEnable = enabled;
+   }
    void setCurrentSource( const AbstractMediaSource *source, bool dontStopFlag = false ) override;
    void play() override;
    void pause() override;
@@ -71,6 +74,7 @@ private:
    void deletePixmap();
 
 private:
+   bool m_globalEnable;
    Fader & m_fader;
    StatusDisplay & m_logger;
    FullScreenMediaWidget_IF & m_displayWidget;

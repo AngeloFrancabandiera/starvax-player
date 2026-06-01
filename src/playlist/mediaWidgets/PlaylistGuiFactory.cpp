@@ -175,7 +175,7 @@ void PlaylistGuiFactory::buildPlaylistControlArea( MediaAutomation *automation,
 
    T_ASSERT( m_deck < NUMBER_OF_MEDIA_DECKS);
 
-   //playlistView->setObjectName(QString("playlist_%1").arg(Playlist::toLetter(m_deck)));
+   /* used for style definition */
    playlistView->setObjectName(QString("playlist"));
 
    QWidget *toolbar = new QWidget( container->parentWidget());

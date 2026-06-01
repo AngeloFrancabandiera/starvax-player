@@ -29,25 +29,29 @@ LightEngine::LightEngine( LightPresetModel & model, IF_LightTransitionEngine & t
  */
 void LightEngine::activateByName( const QString &label, bool triggerNow)
 {
-   QModelIndex index = m_model.searchByName( label);
-
-   if (index != QModelIndex())
+   if (label != QString())
    {
-      const LightPresetData & preset =
-            m_model.data( index, modelViewRules::Binary).value<LightPresetData>();
+      QModelIndex index = m_model.searchByName( label);
 
-      m_viewController.activateRequest( index);
-
-      if (triggerNow == true)
+      if (index != QModelIndex())
       {
-         m_transitionEngine.startTransition( preset.levelList(), preset.fadeTime() );
+         const LightPresetData & preset =
+               m_model.data( index, modelViewRules::Binary).value<LightPresetData>();
+
+         m_viewController.activateRequest( index);
+
+         if (triggerNow == true)
+         {
+            m_transitionEngine.startTransition( preset.levelList(), preset.fadeTime() );
+         }
+      }
+      else
+      {
+         m_msgDisplay.showMessage( QString("No preset has label: <b>%1</b>").arg(label),
+                                 StatusDisplay::WARNING);
       }
    }
-   else
-   {
-      m_msgDisplay.showMessage( QString("No preset has label: <b>%1</b>").arg(label),
-                                StatusDisplay::WARNING);
-   }
+   // else: this may happen when 'play all' is fired but no preset is selected.
 }
 
 void LightEngine::triggerTransition(const QString &label)
