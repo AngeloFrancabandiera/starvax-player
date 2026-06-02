@@ -22,11 +22,7 @@ jobs:
         version: '6.11.0'
         host: 'linux'
         target: 'desktop'
-<<<<<<<<< Temporary merge branch 1
-        modules: 'qtmultimedia' 'qtmultimediawidgets' 'qtnetwork'
-=========
-        modules: 'qtmultimedia qtmultimediawidgets qtnetwork'
->>>>>>>>> Temporary merge branch 2
+        modules: 'qtmultimedia qttools'
 
     - name: Install system build dependencies
       run: |
