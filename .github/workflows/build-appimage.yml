@@ -22,9 +22,7 @@ jobs:
         version: '6.11.0' # Specify your exact required version here
         host: 'linux'
         target: 'desktop'
-        modules: 'qtmultimedia'
-        modules: 'qtmultimediawidgets'
-        modules: 'qtnetwork'
+        modules: 'qtmultimedia qtmultimediawidgets qtnetwork'
 
     - name: Install system build dependencies
       run: |
