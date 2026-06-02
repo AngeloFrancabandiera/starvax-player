@@ -1,0 +1,72 @@
+name: Build AppImage on Release
+
+on:
+  push:
+    branches: [ "main" ] # Change to "master" if your default branch uses the old naming
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch: # Allows you to trigger the build manually from the GitHub Actions tab
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v4
+
+    # Install Qt using the official GitHub Action instead of apt-get
+    - name: Install Qt 6.11
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: '6.11.0' # Specify your exact required version here
+        host: 'linux'
+        target: 'desktop'
+        modules: 'qtmultimedia'
+        modules: 'qtmultimediawidgets'
+        modules: 'qtnetwork'
+
+    - name: Install system build dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          build-essential \
+          cmake \
+          libgl1-mesa-dev \
+          libpulse-dev \
+          libasound2-dev \
+          libusb-1.0-0-dev \
+          wget
+
+    - name: Build and Install Application
+      run: |
+        mkdir build && cd build
+        # Run CMake, ensuring it uses the Qt version installed by the action
+        cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
+        make -j$(nproc)
+
+        # Install everything into the AppDir using the rules defined in CMakeLists.txt
+        make install DESTDIR=../AppDir
+
+    - name: Download linuxdeploy and Qt plugin
+      run: |
+        wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+        wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
+        chmod +x linuxdeploy-*.AppImage
+
+    - name: Generate AppImage
+      run: |
+        # Point the plugin to the correct qmake provided by the install-qt-action
+        export QMAKE=${{ env.QT_PLUGIN_PATH }}/../bin/qmake
+        export EXTRA_QT_PLUGINS=multimedia
+
+        # Create the AppImage package
+        ./linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt --output appimage --appimage-extract-and-run
+
+    # This step automatically attaches the generated AppImage to your GitHub Release
+    - name: Upload AppImage to Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: "*.AppImage"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
