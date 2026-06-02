@@ -27,14 +27,7 @@ jobs:
     - name: Install system build dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y \
-          build-essential \
-          cmake \
-          libgl1-mesa-dev \
-          libpulse-dev \
-          libasound2-dev \
-          libusb-1.0-0-dev \
-          wget
+        sudo apt-get install -y build-essential cmake wget libgl1-mesa-dev libpulse-dev libasound2-dev libusb-1.0-0-dev libxcb-cursor0 libxcb-xinerama0 libxcb-xinput0 libxcb-xfixes0 libxcb-shape0 libxcb-render0 libxcb-render-util0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxkbcommon-x11-0 libfontconfig1 libfreetype6
 
     - name: Build and Install Application
       run: |
@@ -54,12 +47,15 @@ jobs:
 
     - name: Generate AppImage
       run: |
-        # Point the plugin to the correct qmake provided by the install-qt-action
+        # Configure environment variables for linuxdeploy-plugin-qt
         export QMAKE=${{ env.QT_PLUGIN_PATH }}/../bin/qmake
         export EXTRA_QT_PLUGINS=multimedia
 
-        # Create the AppImage package
-        ./linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt --output appimage --appimage-extract-and-run
+        # Signal the AppImage runtime to extract itself instead of using FUSE mounts
+        export APPIMAGE_EXTRACT_AND_RUN=1
+
+        # Run linuxdeploy without the invalid flag
+        ./linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt --output appimage
 
     # This step automatically attaches the generated AppImage to your GitHub Release
     - name: Upload AppImage to Release
