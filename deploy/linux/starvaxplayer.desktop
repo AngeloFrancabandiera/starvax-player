@@ -5,6 +5,6 @@ GenericName=Starvax Me.Te.Or. player
 Exec=/home/angelo/app/starvaxplayer/starvaxplayer
 Comment=stage in your hands
 Path=/home
-Icon=/usr/share/icons/hicolor/128x128/apps/starvaxplayer.png
+Icon=share/icons/hicolor/256x256/apps/starvaxplayer.png
 Terminal=false
 Categories=AudioVideo;
