@@ -155,3 +155,26 @@ if (UNIX)
      COMMAND cp -r ${CMAKE_SOURCE_DIR}/res ${CMAKE_BINARY_DIR}
      )
 endif()
+
+# this is executed by GitHub Actions only
+if (UNIX)
+
+   install(TARGETS starvax_player
+   DESTINATION bin
+   )
+
+   # resource folder
+   install(DIRECTORY res/
+   DESTINATION bin
+   )
+
+   # desktop file
+   install(FILES deploy/linux/starvaxplayer.desktop
+   DESTINATION share/applications
+   )
+
+   # application icon
+   install(FILES resources/starvax.png
+   DESTINATION share/icons/hicolor/256x256/apps
+)
+endif()
