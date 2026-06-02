@@ -19,7 +19,7 @@ jobs:
     - name: Install Qt 6.11
       uses: jurplel/install-qt-action@v3
       with:
-        version: '6.11.0' # Specify your exact required version here
+        version: '6.11.0'
         host: 'linux'
         target: 'desktop'
         modules: 'qtmultimedia qtmultimediawidgets qtnetwork'
