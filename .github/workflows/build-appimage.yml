@@ -22,7 +22,7 @@ jobs:
         version: '6.11.0'
         host: 'linux'
         target: 'desktop'
-        modules: 'qtmultimedia qttools'
+        modules: 'qtmultimedia'
 
     - name: Install system build dependencies
       run: |
