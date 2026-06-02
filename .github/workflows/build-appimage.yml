@@ -1,11 +1,7 @@
 name: Build AppImage on Release
 
 on:
-  push:
-    branches: [ "main" ] # Change to "master" if your default branch uses the old naming
-  pull_request:
-    branches: [ "main" ]
-  workflow_dispatch: # Allows you to trigger the build manually from the GitHub Actions tab
+  workflow_dispatch: # manual execution
 
 jobs:
   build:
@@ -57,10 +53,11 @@ jobs:
         # Run linuxdeploy without the invalid flag
         ./linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt --output appimage
 
-    # This step automatically attaches the generated AppImage to your GitHub Release
-    - name: Upload AppImage to Release
-      uses: softprops/action-gh-release@v1
+      # Saves the AppImage to the build summary page
+    - name: Upload AppImage as Workflow Artifact
+      uses: actions/upload-artifact@v4
       with:
-        files: "*.AppImage"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        name: starvax-player-linux-appimage
+        path: "*.AppImage"
+        if-no-files-found: error
+

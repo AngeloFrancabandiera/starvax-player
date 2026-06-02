@@ -164,7 +164,7 @@ if (UNIX)
    )
 
    # resource folder
-   install(DIRECTORY res/
+   install(DIRECTORY res
    DESTINATION bin
    )
 
