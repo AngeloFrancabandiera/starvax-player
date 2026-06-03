@@ -86,9 +86,8 @@
         <translation>A&amp;nnulla</translation>
     </message>
     <message>
-        <location filename="src/dialogs/ActionTargetSelectorDialog.ui" line="98"/>
         <source>TextLabel</source>
-        <translation>vuoto</translation>
+        <translation type="vanished">vuoto</translation>
     </message>
     <message>
         <source>LINE A</source>
@@ -99,7 +98,7 @@
         <translation type="vanished">LINEA B</translation>
     </message>
     <message>
-        <location filename="src/dialogs/ActionTargetSelectorDialog.cpp" line="41"/>
+        <location filename="src/dialogs/ActionTargetSelectorDialog.cpp" line="46"/>
         <source>Deck %1</source>
         <translation>Linea %1</translation>
     </message>
@@ -316,7 +315,7 @@
         <translation type="vanished">Lista media canale B</translation>
     </message>
     <message>
-        <location filename="src/application/ApplicationFactory.cpp" line="315"/>
+        <location filename="src/application/ApplicationFactory.cpp" line="314"/>
         <source>pause all</source>
         <translation>in pausa entrambe</translation>
     </message>
@@ -326,17 +325,17 @@
         <translation>suona entrambe</translation>
     </message>
     <message>
-        <location filename="src/application/ApplicationFactory.cpp" line="319"/>
+        <location filename="src/application/ApplicationFactory.cpp" line="318"/>
         <source>rewind all</source>
         <translation>riavvolgi entrambe</translation>
     </message>
     <message>
-        <location filename="src/application/ApplicationFactory.cpp" line="323"/>
+        <location filename="src/application/ApplicationFactory.cpp" line="322"/>
         <source>stop all</source>
         <translation>spegni entrambe</translation>
     </message>
     <message>
-        <location filename="src/application/ApplicationFactory.cpp" line="368"/>
+        <location filename="src/application/ApplicationFactory.cpp" line="367"/>
         <source>Playlist Deck %1</source>
         <translation>Playlist linea %1</translation>
     </message>
@@ -614,22 +613,22 @@ Load (uncomplete) show anyway?</source>
 <context>
     <name>FileInport</name>
     <message>
-        <location filename="src/show/FileInport.cpp" line="56"/>
+        <location filename="src/show/FileInport.cpp" line="55"/>
         <source> Invalid operation </source>
         <translation> File non supportato </translation>
     </message>
     <message>
-        <location filename="src/show/FileInport.cpp" line="57"/>
+        <location filename="src/show/FileInport.cpp" line="56"/>
         <source>Unable to open file of type: %1</source>
         <translation>Non è possibile aprirel file di tipo: %1</translation>
     </message>
     <message>
-        <location filename="src/show/FileInport.cpp" line="92"/>
+        <location filename="src/show/FileInport.cpp" line="91"/>
         <source>Open script source</source>
         <translation>Apri un copione</translation>
     </message>
     <message>
-        <location filename="src/show/FileInport.cpp" line="126"/>
+        <location filename="src/show/FileInport.cpp" line="125"/>
         <source>Open media - deck %1</source>
         <translation>Apri file  -linea %1</translation>
     </message>
@@ -650,7 +649,7 @@ Load (uncomplete) show anyway?</source>
         <translation type="vanished">Apri le tracce audio</translation>
     </message>
     <message>
-        <location filename="src/show/FileInport.cpp" line="143"/>
+        <location filename="src/show/FileInport.cpp" line="142"/>
         <source>Open a style-sheet file</source>
         <translation>Apri un foglio di stile</translation>
     </message>
@@ -885,12 +884,12 @@ Load (uncomplete) show anyway?</source>
         <translation type="vanished">LE: Nessun preset ha l&apos;etichetta:</translation>
     </message>
     <message>
-        <location filename="src/lightScene/LightEngine.cpp" line="98"/>
+        <location filename="src/lightScene/LightEngine.cpp" line="102"/>
         <source>DMX device found but no access allowed. Check USB rules.</source>
         <translation>Trovato dispositivo DMX ma impossibile accederci. Controlla le &quot;USB rules&quot;.</translation>
     </message>
     <message>
-        <location filename="src/lightScene/LightEngine.cpp" line="103"/>
+        <location filename="src/lightScene/LightEngine.cpp" line="107"/>
         <source>Unable to load DMX device. Check HW or DLL status.</source>
         <translation>Impossibile aprire il dispositivo DMX. Controllare il dispositivo o le DLL.</translation>
     </message>
@@ -1097,10 +1096,10 @@ Load (uncomplete) show anyway?</source>
     </message>
     <message>
         <location filename="src/dialogs/mainwindow.ui" line="481"/>
-        <location filename="src/dialogs/mainwindow.cpp" line="516"/>
-        <location filename="src/dialogs/mainwindow.cpp" line="538"/>
-        <location filename="src/dialogs/mainwindow.cpp" line="516"/>
-        <location filename="src/dialogs/mainwindow.cpp" line="538"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="518"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="540"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="518"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="540"/>
         <source>save layout</source>
         <translation>salva disposizione finestre</translation>
     </message>
@@ -1425,7 +1424,7 @@ Load (uncomplete) show anyway?</source>
         <translation>Lo spettacolo è stato modificato. Salvare i cambiamenti?</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="563"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="565"/>
         <source>About Starvax Me.Te.Or. Player</source>
         <oldsource>About Starvax media Player</oldsource>
         <translation>Informazioni su Starvax Me.Te.Or. player</translation>
@@ -1445,12 +1444,12 @@ Powered by QT4.</oldsource>
         <translation type="vanished">Lettore Me.te.or. %1.%2.%3 - untitled[*]</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="568"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="570"/>
         <source>&lt;p&gt;Custom script, music and light animation for Me.Te.Or Shows.&lt;br/&gt;</source>
         <translation>&lt;p&gt;Gestione copione, musiche, luci per spettacoli teatrali&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="436"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="438"/>
         <source>WARNING: can&apos;t open %1</source>
         <translation>ATTENZIONE: impossibile aprire %1</translation>
     </message>
@@ -1465,46 +1464,45 @@ Powered by QT4.</oldsource>
         <translation>Open Web Net</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="189"/>
         <source>Deck %1</source>
-        <translation>Linea %1</translation>
+        <translation type="vanished">Linea %1</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="454"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="456"/>
         <source>&amp;%1 %2</source>
         <translation>&amp;%1 %2</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="487"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="489"/>
         <source>OPEN CURTAIN - Not yet implemented</source>
         <translation>APRI IL SIPARIO - Non ancora disponibile</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="488"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="490"/>
         <source>In order to open the curtain a motor is needed.
 This action is not yet possible</source>
         <translation>Per aprire il sipario è necessario un motore.
 Questa azione non è ancora disponibile</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="497"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="499"/>
         <source>CLOSE CURTAIN - Not yet implemented</source>
         <translation>CHIUDI IL SIPARIO - Non ancora disponibile</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="498"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="500"/>
         <source>In order to close the curtain a motor is needed.
 This action is not yet possible</source>
         <translation>Per chiudere il sipario è necessario un motore.
 Questa azione non è ancora disponibile</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="585"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="587"/>
         <source>About Me.Te.Or. Player Multimedia library</source>
         <translation>Informazioni sulla libreria multimediale</translation>
     </message>
     <message>
-        <location filename="src/dialogs/mainwindow.cpp" line="586"/>
+        <location filename="src/dialogs/mainwindow.cpp" line="588"/>
         <source>Starvax player used &lt;a href=&quot;https://www.ffmpeg.org&quot;&gt;FFMPEG&lt;/a&gt; plugin as multimedia library.</source>
         <translation>Starvax player utilizza &lt;a href=&quot;https://www.ffmpeg.org&quot;&gt;FFMPEG&lt;/a&gt; per le funzionalità multimediali.</translation>
     </message>
@@ -1579,7 +1577,7 @@ sulla libreria VLC versione: %1.%2.%3</translation>
 <context>
     <name>MediaEngineImp</name>
     <message>
-        <location filename="src/playlist/MediaEngineImp.cpp" line="359"/>
+        <location filename="src/playlist/MediaEngineImp.cpp" line="380"/>
         <source>Media Error: %1</source>
         <translation>Media Error: %1</translation>
     </message>
@@ -1756,108 +1754,60 @@ sulla libreria VLC versione: %1.%2.%3</translation>
 <context>
     <name>PlaylistFunctionFactory</name>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="50"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="51"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="52"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="53"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="54"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="55"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="56"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="57"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="58"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="59"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="51"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="52"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="53"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="54"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="55"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="56"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="57"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="58"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="59"/>
         <source> Line A</source>
-        <translation> Linea A</translation>
+        <translation type="vanished"> Linea A</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="61"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="62"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="63"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="64"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="65"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="66"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="67"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="68"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="69"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="70"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="62"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="63"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="64"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="65"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="66"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="67"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="68"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="69"/>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="70"/>
         <source> Line B</source>
-        <translation> Linea B</translation>
+        <translation type="vanished"> Linea B</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="122"/>
         <source>play media %1</source>
         <oldsource>play media</oldsource>
-        <translation>riproduci %1</translation>
+        <translation type="vanished">riproduci %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="129"/>
         <source>pause media %1</source>
         <oldsource>pause media</oldsource>
-        <translation>in pausa %1</translation>
+        <translation type="vanished">in pausa %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="136"/>
         <source>play/pause media %1</source>
         <oldsource>play/pause media</oldsource>
-        <translation>riproduci/pausa %1</translation>
+        <translation type="vanished">riproduci/pausa %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="142"/>
         <source>toggle Mute %1</source>
         <oldsource>toggle Mute</oldsource>
-        <translation>attiva/disattiva muto %1</translation>
+        <translation type="vanished">attiva/disattiva muto %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="151"/>
         <source>rewind %1</source>
         <oldsource>rewind</oldsource>
-        <translation>torna all&apos;inizio %1</translation>
+        <translation type="vanished">torna all&apos;inizio %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="158"/>
         <source>stop %1</source>
         <oldsource>stop</oldsource>
-        <translation>spegni %1</translation>
+        <translation type="vanished">spegni %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="165"/>
         <source>run/stop fading %1</source>
         <oldsource>run/stop fading</oldsource>
-        <translation>attiva/ferma dissolvenza audio %1</translation>
+        <translation type="vanished">attiva/ferma dissolvenza audio %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="171"/>
         <source>apply default volume %1</source>
         <oldsource>apply default volume</oldsource>
-        <translation>applica volume preferito %1</translation>
+        <translation type="vanished">applica volume preferito %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="177"/>
         <source>move forward a step %1</source>
-        <translation>avanti un passo %1</translation>
+        <translation type="vanished">avanti un passo %1</translation>
     </message>
     <message>
-        <location filename="src/playlist/PlaylistFunctionFactory.cpp" line="182"/>
         <source>move backward a step %1</source>
-        <translation>indietro un passo %1</translation>
+        <translation type="vanished">indietro un passo %1</translation>
     </message>
 </context>
 <context>

@@ -2,7 +2,7 @@
 
 cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
-project(starvax_player VERSION 2.5.0 LANGUAGES C CXX)
+project(starvax_player VERSION 2.5.2 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -14,9 +14,11 @@ set(CMAKE_AUTORCC ON)
 
 set( REL_VERSION_MAJOR 2)
 set( REL_VERSION_MINOR 5)
-set( REL_VERSION_BUILD 1)
+set( REL_VERSION_BUILD 2)
 
-set( BUILD_ENV "Linux Ubuntu 22.04")
+# this file is not under version control.
+# Must be created with correct value for BUILD_ENV
+include(platform.txt)
 
 
 if (${BUILD_ENV} STREQUAL "Linux Ubuntu 22.04")
