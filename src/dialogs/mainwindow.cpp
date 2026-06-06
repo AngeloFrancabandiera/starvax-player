@@ -370,7 +370,8 @@ void MainWindow::on_actionLocale_triggered(bool checked)
    {
       // retranslate to local language
       bool res = m_appTranslator.load( "player_it",
-                                       qApp->applicationDirPath() + "/res/translations" );
+                                       m_applicationSettings.applicationResourcePath() +
+                                       QDir::separator() + "translations" );
       T_ASSERT(res);
       m_applicationSettings.setLanguage( ApplicationSettings::LOCALE);
    }
@@ -516,8 +517,9 @@ void MainWindow::on_action_Options_triggered()
 void MainWindow::on_action_view_save_layout_triggered()
 {
    QString path = QFileDialog::getSaveFileName( this, tr("save layout"),
-                        qApp->applicationDirPath() + QDir::separator() + "res" +
-                        QDir::separator() + "layout", "*.metlayout");
+                        m_applicationSettings.applicationResourcePath() +
+                        QDir::separator() + "layout",
+                        "*.metlayout");
 
    if (path != QString())
    {
@@ -538,8 +540,9 @@ void MainWindow::on_action_view_save_layout_triggered()
 void MainWindow::on_action_view_restore_layout_triggered()
 {
    QString path = QFileDialog::getOpenFileName( this, tr("save layout"),
-                     qApp->applicationDirPath() + QDir::separator() + "res" +
-                     QDir::separator() + "layout", "*.metlayout");
+                     m_applicationSettings.applicationResourcePath() +
+                     QDir::separator() + "layout",
+                     "*.metlayout");
 
    if (path != QString())
    {

@@ -6,19 +6,19 @@
   * pre-defined folder
   */
 
-#include "qapplication.h"
-#include "qicon.h"
+#include <QIcon>
+#include "ApplicationSettings.h"
 
 /** folder where icons are stored */
-#define RES_IMAGES_SUBFOLDER    QString(qApp->applicationDirPath() + "/res/images/")
-#define FONT_IMAGES_SUBFOLDER   QString(qApp->applicationDirPath() + "/res/fonts/")
-#define STYLE_SUBFOLDER         QString(qApp->applicationDirPath() + "/res/styles/")
+#define RES_IMAGES_SUBFOLDER    (ApplicationSettings::applicationResourcePath() + "/images/")
+#define FONT_IMAGES_SUBFOLDER   (ApplicationSettings::applicationResourcePath() + "/fonts/")
+#define STYLE_SUBFOLDER         (ApplicationSettings::applicationResourcePath() + "/styles/")
 
 /** utility to build complete path from icon file name */
 #define ApplicationIcon(file)    QIcon( RES_IMAGES_SUBFOLDER + file)
 
 /** to be used only for QPixmap */
-#define IconPath(file)        QString( RES_IMAGES_SUBFOLDER + file )
-#define FontPath(file)        QString( FONT_IMAGES_SUBFOLDER + file )
+#define IconPath(file)        (RES_IMAGES_SUBFOLDER + file)
+#define FontPath(file)        (FONT_IMAGES_SUBFOLDER + file)
 
 #endif /* _APPLICATION_ICON */

@@ -4,8 +4,8 @@
 #include <QTextStream>
 #include <qstandardpaths.h>
 #include <qmessagebox.h>
-#include <qfiledialog.h>
-#include <qapplication.h>
+#include <QFileDialog>
+#include <QApplication>
 
 #include "supported_files.h"
 #include "ApplicationSettings.h"
@@ -140,8 +140,8 @@ QString FileInport::open_style_dialog()
 {
    QString filename;
    filename = QFileDialog::getOpenFileName( nullptr, tr("Open a style-sheet file"),
-                                            qApp->applicationDirPath() + "/res/styles",
-                                            STYLES_DLG_FILTER );
+                              ApplicationSettings::applicationResourcePath() + "styles",
+                              STYLES_DLG_FILTER );
    return filename;
 }
 

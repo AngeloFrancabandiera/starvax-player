@@ -49,6 +49,12 @@ signals:
    void activateNextAfterPLaybackChanged( bool activateNext) const;
 
 public:
+   /** return base path where resource folder is located.
+    * The returned value is always writable. If needed, this function
+    * may perform a copy of 'res' folder into a writable location.
+    */
+   static QString applicationResourcePath();
+
    /** @{ full path of last opened show*/
    void addRecentShowFile(const QString &filePath);
    void removeRecentShowFile(const QString &filePath);

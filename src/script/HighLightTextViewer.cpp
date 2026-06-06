@@ -8,6 +8,7 @@
 #include <QMenu>
 #include <QRegularExpression>
 #include <QStringList>
+#include <QDir>
 
 #include "supported_files.h"
 #include "StatusDisplay.h"
@@ -44,7 +45,8 @@ HighLightTextViewer::HighLightTextViewer( StatusDisplay & msgDisplay,
    /* this avoids a scrollbar flickering problem */
    setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 
-   setSearchPaths( QStringList(qApp->applicationDirPath() + "/res/images/") );
+   setSearchPaths( QStringList( ApplicationSettings::applicationResourcePath() +
+                                QDir::separator() + "images") );
 
    connect( & m_filteredMoveTimer, SIGNAL(timeout()),
             this, SLOT(onFilteredMoveTimerExpired()) );

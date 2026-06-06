@@ -2,9 +2,12 @@
 #include <QSettings>
 #include <QApplication>
 #include <QDir>
+#include <QStandardPaths>
+#include <filesystem>
 
 #include "WindowLayout.h"
 #include "PlaylistDecks.h"
+#include "testableAssert.h"
 
 
 /** @class ApplicationSettings
@@ -12,13 +15,62 @@
  * @brief This class holds all settings to be reloaded on next program launch.
  */
 
-const QString COMPANY_TAG = QString("Me.Te.Or.");
+const QString COMPANY_TAG = QString("starvax_player");
 const QString PRODUCT_TAG = QString("Starvax Player");
 const int NUMBER_OF_RECENT_SHOW_FILES = 5;
 const int  DEFAULT_NUM_OF_DMX_CHANNELS = 12;
 const int  DEFAULT_FONT_SIZE = 11;
 const int  DEFAULT_ICON_SIZE = 24;
 
+namespace {
+   namespace fs = std::filesystem;
+
+   void copy_folder( const std::string & dest, const std::string & source)
+   {
+      try {
+
+         fs::create_directories( dest);
+         fs::copy( fs::path(source), fs::path(dest),
+                   fs::copy_options::recursive | fs::copy_options::overwrite_existing);
+     } catch (const fs::filesystem_error &e) {
+         T_ASSERT_REP( false, QString("Failed to copy '%1' into '%2' because: %3").
+                                 arg(source).arg(dest).arg(e.what()));
+     }
+   }
+}
+
+
+QString ApplicationSettings::applicationResourcePath()
+{
+   QString configLocation = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+   QString resourceLocation = configLocation + QDir::separator() + "res";
+   QDir resourceDir = QDir( resourceLocation);
+
+   if (resourceDir.exists() == false)
+   {
+      /* try to copy 'res' from binary folder */
+      QString binaryPath = QCoreApplication::applicationDirPath() + QDir::separator() + "res";
+      if (QDir(binaryPath).exists())
+      {
+         copy_folder( resourceLocation.toStdString(), binaryPath.toStdString());
+      }
+      else
+      {
+         /* this happens un unix systems starting from AppImage */
+         if (QDir("/usr/share/starvaxplayer/res").exists())
+         {
+            copy_folder( resourceLocation.toStdString(), "/usr/share/starvaxplayer/res");
+         }
+         else
+         {
+            T_ASSERT_REP( false, "Unable to find resource folder");
+         }
+      }
+   }
+   /* else: folder has already been copied */
+
+   return resourceLocation;
+}
 
 void ApplicationSettings::addRecentShowFile(const QString &filePath)
 {
@@ -110,8 +162,8 @@ QByteArray ApplicationSettings::getPreviousWindowSetting() const
    if (windowSetting.isEmpty())
    {
       WindowLayout wlayout;
-      QString defaultPath = qApp->applicationDirPath() + QDir::separator() + "res" +
-                  QDir::separator() + "layout" + QDir::separator() + "basic.metlayout";
+      QString defaultPath = applicationResourcePath() + QDir::separator() +
+                              "layout" + QDir::separator() + "basic.metlayout";
       QFile defaultFile( defaultPath);
       bool ok = defaultFile.open( QIODeviceBase::ReadOnly);
 
@@ -142,8 +194,8 @@ QByteArray ApplicationSettings::getPreviousWindowGeometry() const
    if (windowGeometry.isEmpty())
    {
       WindowLayout wlayout;
-      QString defaultPath = qApp->applicationDirPath() + QDir::separator() + "res" +
-                  QDir::separator() + "layout" + QDir::separator() + "basic.metlayout";
+      QString defaultPath = applicationResourcePath() + QDir::separator() + "layout" +
+                              QDir::separator() + "basic.metlayout";
       QFile defaultFile( defaultPath);
       bool ok = defaultFile.open( QIODeviceBase::ReadOnly);
 
@@ -239,7 +291,7 @@ ApplicationSettings::OpenWebNetSettings
 ApplicationSettings::getOpenWebNetSettings() const
 {
    static const QString defaultLightFilePath =
-         QString("%1/res/OWN_plants/default.light").arg( qApp->applicationDirPath());
+         QString("%1/OWN_plants/default.light").arg( applicationResourcePath());
 
    QSettings setting( QSettings::IniFormat, QSettings::UserScope, COMPANY_TAG, PRODUCT_TAG);
    ApplicationSettings::OpenWebNetSettings own;

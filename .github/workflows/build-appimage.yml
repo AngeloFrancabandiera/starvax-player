@@ -44,7 +44,7 @@ jobs:
     - name: Generate AppImage
       run: |
         # Configure environment variables for linuxdeploy-plugin-qt
-        export QMAKE=${{ env.QT_PLUGIN_PATH }}/../bin/qmake
+        export QMAKE=$QT_PLUGIN_PATH/../bin/qmake
         export EXTRA_QT_PLUGINS=multimedia
 
         # Signal the AppImage runtime to extract itself instead of using FUSE mounts

@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
 project(starvax_player VERSION 2.5.2 LANGUAGES C CXX)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 
@@ -167,7 +167,7 @@ if (UNIX)
 
    # resource folder
    install(DIRECTORY res
-   DESTINATION bin
+   DESTINATION share/starvaxplayer
    )
 
    # desktop file
