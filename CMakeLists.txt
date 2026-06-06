@@ -18,8 +18,11 @@ set( REL_VERSION_BUILD 2)
 
 # this file is not under version control.
 # Must be created with correct value for BUILD_ENV
-include(platform.txt)
+include(platform.txt OPTIONAL)
 
+if (NOT BUILD_ENV)
+   set(BUILD_ENV "None")
+endif()
 
 if (${BUILD_ENV} STREQUAL "Linux Ubuntu 22.04")
    message("Build enviromnet for Linux (1)")
