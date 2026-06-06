@@ -57,9 +57,12 @@ QString ApplicationSettings::applicationResourcePath()
       else
       {
          /* this happens un unix systems starting from AppImage */
-         if (QDir("/usr/share/starvaxplayer/res").exists())
+
+         QString usr_share_path = QCoreApplication::applicationDirPath() + "/../share/starvaxplayer/res";
+
+         if (QDir(usr_share_path).exists())
          {
-            copy_folder( resourceLocation.toStdString(), "/usr/share/starvaxplayer/res");
+            copy_folder( resourceLocation.toStdString(), usr_share_path.toStdString());
          }
          else
          {
