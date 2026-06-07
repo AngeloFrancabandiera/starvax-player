@@ -3,6 +3,9 @@
 cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
 project(starvax_player VERSION 2.5.2 LANGUAGES C CXX)
+set( REL_VERSION_MAJOR 2)
+set( REL_VERSION_MINOR 5)
+set( REL_VERSION_BUILD 2)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -12,9 +15,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-set( REL_VERSION_MAJOR 2)
-set( REL_VERSION_MINOR 5)
-set( REL_VERSION_BUILD 2)
 
 # this file is not under version control.
 # Must be created with correct value for BUILD_ENV
@@ -86,7 +86,7 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
 
 find_package(usb REQUIRED)
 
-qt_standard_project_setup(REQUIRES 6.11)
+qt_standard_project_setup(REQUIRES 6.10)
 
 
 set(STARVAX_SOURCES
@@ -135,6 +135,7 @@ qt_add_translations(starvax_player
     SOURCES  ${STARVAX_SOURCES}
 )
 
+
 if(WIN32)
    file(TO_NATIVE_PATH "${CMAKE_SOURCE_DIR}" NATIVE_SOURCE_DIR)
    file(TO_NATIVE_PATH "${CMAKE_BINARY_DIR}" NATIVE_BINARY_DIR)
@@ -148,7 +149,7 @@ if(WIN32)
      COMMAND xcopy /Y ${NATIVE_BINARY_DIR}\\Release\\starvax_player.exe  ${RELEASE_PATH}
      COMMAND xcopy /R /Y /E ${NATIVE_SOURCE_DIR}\\res  ${RELEASE_PATH}\\res\\
      COMMAND xcopy /R /Y /E ${NATIVE_SOURCE_DIR}\\modules\\windows\\usb\\lib\\dll\\libusb-1.0.dll  ${RELEASE_PATH}
-     COMMAND ${QT_DIR}\\..\\..\\..\\bin\\windeployqt.exe --multimedia ${RELEASE_PATH}\\starvax_player.exe
+     COMMAND windeployqt.exe --multimedia ${RELEASE_PATH}\\starvax_player.exe
 
      COMMAND del /F /Q ${RELEASE_PATH}\\vc_redist.x64.exe
      COMMAND rmdir /S /Q  ${RELEASE_PATH}\\translations

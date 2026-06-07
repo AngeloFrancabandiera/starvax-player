@@ -1,0 +1,60 @@
+name: Build Windows portable
+
+on:
+  workflow_dispatch: # manual execution
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v6
+
+    - name: Install Qt 6.10
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: '6.10.3'
+        host: 'windows'
+        target: 'desktop'
+        dir: '${{ github.workspace }}/Qt/'
+        modules: 'qtmultimedia'
+
+    - name: Build binary
+      run: |
+        cmake -S . -B build
+        cmake --build build --config Release
+
+    - name: Copy dependencies
+      run: |
+        # add Qt folder to PATH
+        $env:PATH = "${{ env.QT_PLUGIN_PATH }}\..\bin;" + $env:PATH
+        cmake --build build --target copy_deps
+
+    - name: Read application version
+      id: get_version
+      shell: powershell
+      run: |
+        # get application version from CMakeLists.txt project tag
+        $cmakeFile = Get-Content CMakeLists.txt -Raw
+        if ($cmakeFile -match 'project\(.*VERSION\s+([0-9.]+)') {
+            $version = $Matches[1]
+            echo "VERSION=$version" >> $env:GITHUB_ENV
+            echo "Application Version: $version"
+        } else {
+            Write-Error "Error: CMakeLists.txt does not hold project "
+            exit 1
+        }
+
+    - name: Zip files
+      shell: powershell
+      run: |
+        Compress-Archive -Path "..\Starvax_${{ env.VERSION }}" -DestinationPath ".\Starvax_${{ env.VERSION }}.zip" -Force
+
+      # Saves the zip to the build summary page
+    - name: Upload zip as Workflow Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: starvax-player-windows-zip
+        path: "*.zip"
+        if-no-files-found: error
