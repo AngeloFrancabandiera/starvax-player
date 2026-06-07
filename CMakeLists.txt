@@ -86,7 +86,7 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
 
 find_package(usb REQUIRED)
 
-qt_standard_project_setup(REQUIRES 6.11)
+qt_standard_project_setup(REQUIRES 6.10)
 
 
 set(STARVAX_SOURCES
@@ -148,7 +148,7 @@ if(WIN32)
      COMMAND xcopy /Y ${NATIVE_BINARY_DIR}\\Release\\starvax_player.exe  ${RELEASE_PATH}
      COMMAND xcopy /R /Y /E ${NATIVE_SOURCE_DIR}\\res  ${RELEASE_PATH}\\res\\
      COMMAND xcopy /R /Y /E ${NATIVE_SOURCE_DIR}\\modules\\windows\\usb\\lib\\dll\\libusb-1.0.dll  ${RELEASE_PATH}
-     COMMAND ${QT_DIR}\\..\\..\\..\\bin\\windeployqt.exe --multimedia ${RELEASE_PATH}\\starvax_player.exe
+     COMMAND windeployqt.exe --multimedia ${RELEASE_PATH}\\starvax_player.exe
 
      COMMAND del /F /Q ${RELEASE_PATH}\\vc_redist.x64.exe
      COMMAND rmdir /S /Q  ${RELEASE_PATH}\\translations
