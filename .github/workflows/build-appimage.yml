@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Checkout source code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     # Install Qt using the official GitHub Action instead of apt-get
     - name: Install Qt 6.11

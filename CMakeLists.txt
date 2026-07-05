@@ -3,6 +3,9 @@
 cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
 project(starvax_player VERSION 2.5.2 LANGUAGES C CXX)
+set( REL_VERSION_MAJOR 2)
+set( REL_VERSION_MINOR 5)
+set( REL_VERSION_BUILD 2)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -12,9 +15,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-set( REL_VERSION_MAJOR 2)
-set( REL_VERSION_MINOR 5)
-set( REL_VERSION_BUILD 2)
 
 # this file is not under version control.
 # Must be created with correct value for BUILD_ENV
@@ -134,6 +134,7 @@ qt_add_translations(starvax_player
     TS_FILES ${TRANSLATIONS}
     SOURCES  ${STARVAX_SOURCES}
 )
+
 
 if(WIN32)
    file(TO_NATIVE_PATH "${CMAKE_SOURCE_DIR}" NATIVE_SOURCE_DIR)
